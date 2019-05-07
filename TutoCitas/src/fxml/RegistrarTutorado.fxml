@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="360.0" prefWidth="375.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.RegistrarTutoradoController">
+   <children>
+      <TextField layoutX="150.0" layoutY="25.0" prefWidth="200.0" />
+      <TextField layoutX="150.0" layoutY="65.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField layoutX="150.0" layoutY="105.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField layoutX="150.0" layoutY="145.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField layoutX="150.0" layoutY="185.0" prefHeight="25.0" prefWidth="200.0" />
+      <PasswordField layoutX="150.0" layoutY="225.0" prefHeight="25.0" prefWidth="200.0" />
+      <ComboBox layoutX="150.0" layoutY="265.0" prefHeight="25.0" prefWidth="200.0" />
+      <Label layoutX="25.0" layoutY="29.0" text="Nombre:" />
+      <Label layoutX="25.0" layoutY="69.0" text="Apellido paterno:" />
+      <Label layoutX="25.0" layoutY="109.0" text="Apellido materno:" />
+      <Label layoutX="25.0" layoutY="149.0" text="Correo:" />
+      <Label layoutX="25.0" layoutY="189.0" text="Carrera:" />
+      <Label layoutX="25.0" layoutY="229.0" text="Contraseña:" />
+      <Label layoutX="25.0" layoutY="269.0" text="Tutor:" />
+      <Button layoutX="150.0" layoutY="310.0" mnemonicParsing="false" text="Registrar tutorado" />
+      <Button layoutX="288.0" layoutY="310.0" mnemonicParsing="false" text="Cancelar" />
+   </children>
+</AnchorPane>

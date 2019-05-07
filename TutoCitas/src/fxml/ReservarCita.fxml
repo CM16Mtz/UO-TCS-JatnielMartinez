@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="390.0" prefWidth="425.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.ReservarCitaController">
+   <children>
+      <Label layoutX="99.0" layoutY="25.0" text="Éstos son los horarios que dispone su tutor" />
+      <TableView layoutX="25.0" layoutY="55.0" prefHeight="200.0" prefWidth="375.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Lunes" />
+          <TableColumn prefWidth="75.0" text="Martes" />
+            <TableColumn prefWidth="75.0" text="Miércoles" />
+            <TableColumn prefWidth="75.0" text="Jueves" />
+            <TableColumn prefWidth="75.0" text="Viernes" />
+        </columns>
+      </TableView>
+      <Label layoutX="83.0" layoutY="270.0" text="¿En qué fecha y hora le gustaría tomar la tutoría?" />
+      <Label layoutX="25.0" layoutY="300.0" text="Día:" />
+      <DatePicker layoutX="60.0" layoutY="296.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="272.0" layoutY="300.0" text="Hora:" />
+      <TextField layoutX="325.0" layoutY="296.0" prefHeight="25.0" prefWidth="75.0" />
+      <Button layoutX="127.0" layoutY="340.0" mnemonicParsing="false" text="Reservar cita" />
+      <Button layoutX="241.0" layoutY="340.0" mnemonicParsing="false" text="Cancelar" />
+   </children>
+</AnchorPane>

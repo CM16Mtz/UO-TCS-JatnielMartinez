@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.AgendarCitaController">
+   <children>
+      <Label layoutX="110.0" layoutY="15.0" text="Su tutorado [tutorado] solicitó una tutoría para el día [fecha] a las [hora]" />
+      <Label layoutX="65.0" layoutY="50.0" text="¿Desea confirmar la cita para ese día o desea moverla para una fecha y/u hora posterior?" />
+      <Button layoutX="159.0" layoutY="90.0" mnemonicParsing="false" text="Sí, confirmar la cita para la fecha y hora solicitadas" />
+      <Button layoutX="167.0" layoutY="130.0" mnemonicParsing="false" text="No, mover la cita para un día y/u hora posterior" />
+   </children>
+</AnchorPane>

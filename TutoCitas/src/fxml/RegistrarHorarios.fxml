@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="765.0" prefWidth="510.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.RegistrarHorariosController">
+   <children>
+      <Label layoutX="112.0" layoutY="25.0" text="¿Qué días y horarios tiene disponible para atender citas?" />
+      <Label layoutX="121.0" layoutY="50.0" text="Marque los días y los horarios correspondientes a los" />
+      <CheckBox layoutX="25.0" layoutY="100.0" mnemonicParsing="false" text="Lunes" />
+      <CheckBox layoutX="125.0" layoutY="100.0" mnemonicParsing="false" text="Martes" />
+      <CheckBox layoutX="225.0" layoutY="100.0" mnemonicParsing="false" text="Miércoles" />
+      <CheckBox layoutX="325.0" layoutY="100.0" mnemonicParsing="false" text="Jueves" />
+      <CheckBox layoutX="425.0" layoutY="100.0" mnemonicParsing="false" text="Viernes" />
+      <Label layoutX="135.0" layoutY="67.0" text="días seleccionados para atender a sus tutorados" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" text="07:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="160.0" mnemonicParsing="false" text="07:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="180.0" mnemonicParsing="false" text="08:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="200.0" mnemonicParsing="false" text="08:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="220.0" mnemonicParsing="false" text="09:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="240.0" mnemonicParsing="false" text="09:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="260.0" mnemonicParsing="false" text="10:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="280.0" mnemonicParsing="false" text="10:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="300.0" mnemonicParsing="false" text="11:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="320.0" mnemonicParsing="false" text="11:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="340.0" mnemonicParsing="false" text="12:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="360.0" mnemonicParsing="false" text="12:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="380.0" mnemonicParsing="false" text="13:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="400.0" mnemonicParsing="false" text="13:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="420.0" mnemonicParsing="false" text="14:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="440.0" mnemonicParsing="false" text="14:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="460.0" mnemonicParsing="false" text="15:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="480.0" mnemonicParsing="false" text="15:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="500.0" mnemonicParsing="false" text="16:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="520.0" mnemonicParsing="false" text="16:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="540.0" mnemonicParsing="false" text="17:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="560.0" mnemonicParsing="false" text="17:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="580.0" mnemonicParsing="false" text="18:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="600.0" mnemonicParsing="false" text="18:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="620.0" mnemonicParsing="false" text="19:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="640.0" mnemonicParsing="false" text="19:30" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="660.0" mnemonicParsing="false" text="20:00" />
+      <CheckBox disable="true" layoutX="25.0" layoutY="680.0" mnemonicParsing="false" text="20:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="680.0" mnemonicParsing="false" text="20:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="660.0" mnemonicParsing="false" text="20:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="640.0" mnemonicParsing="false" text="19:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="620.0" mnemonicParsing="false" text="19:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="600.0" mnemonicParsing="false" text="18:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="580.0" mnemonicParsing="false" text="18:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="560.0" mnemonicParsing="false" text="17:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="540.0" mnemonicParsing="false" text="17:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="520.0" mnemonicParsing="false" text="16:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="500.0" mnemonicParsing="false" text="16:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="480.0" mnemonicParsing="false" text="15:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="460.0" mnemonicParsing="false" text="15:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="440.0" mnemonicParsing="false" text="14:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="420.0" mnemonicParsing="false" text="14:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="400.0" mnemonicParsing="false" text="13:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="380.0" mnemonicParsing="false" text="13:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="360.0" mnemonicParsing="false" text="12:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="340.0" mnemonicParsing="false" text="12:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="320.0" mnemonicParsing="false" text="11:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="300.0" mnemonicParsing="false" text="11:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="280.0" mnemonicParsing="false" text="10:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="260.0" mnemonicParsing="false" text="10:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="240.0" mnemonicParsing="false" text="09:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="220.0" mnemonicParsing="false" text="09:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="200.0" mnemonicParsing="false" text="08:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="180.0" mnemonicParsing="false" text="08:00" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="160.0" mnemonicParsing="false" text="07:30" />
+      <CheckBox disable="true" layoutX="125.0" layoutY="140.0" mnemonicParsing="false" text="07:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="680.0" mnemonicParsing="false" text="20:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="660.0" mnemonicParsing="false" text="20:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="640.0" mnemonicParsing="false" text="19:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="620.0" mnemonicParsing="false" text="19:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="600.0" mnemonicParsing="false" text="18:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="580.0" mnemonicParsing="false" text="18:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="560.0" mnemonicParsing="false" text="17:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="540.0" mnemonicParsing="false" text="17:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="520.0" mnemonicParsing="false" text="16:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="500.0" mnemonicParsing="false" text="16:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="480.0" mnemonicParsing="false" text="15:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="460.0" mnemonicParsing="false" text="15:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="440.0" mnemonicParsing="false" text="14:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="420.0" mnemonicParsing="false" text="14:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="400.0" mnemonicParsing="false" text="13:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="380.0" mnemonicParsing="false" text="13:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="360.0" mnemonicParsing="false" text="12:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="340.0" mnemonicParsing="false" text="12:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="320.0" mnemonicParsing="false" text="11:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="300.0" mnemonicParsing="false" text="11:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="280.0" mnemonicParsing="false" text="10:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="260.0" mnemonicParsing="false" text="10:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="240.0" mnemonicParsing="false" text="09:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="220.0" mnemonicParsing="false" text="09:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="200.0" mnemonicParsing="false" text="08:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="180.0" mnemonicParsing="false" text="08:00" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="160.0" mnemonicParsing="false" text="07:30" />
+      <CheckBox disable="true" layoutX="225.0" layoutY="140.0" mnemonicParsing="false" text="07:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="140.0" mnemonicParsing="false" text="07:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="140.0" mnemonicParsing="false" text="07:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="160.0" mnemonicParsing="false" text="07:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="180.0" mnemonicParsing="false" text="08:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="200.0" mnemonicParsing="false" text="08:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="220.0" mnemonicParsing="false" text="09:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="240.0" mnemonicParsing="false" text="09:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="260.0" mnemonicParsing="false" text="10:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="280.0" mnemonicParsing="false" text="10:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="300.0" mnemonicParsing="false" text="11:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="320.0" mnemonicParsing="false" text="11:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="340.0" mnemonicParsing="false" text="12:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="360.0" mnemonicParsing="false" text="12:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="380.0" mnemonicParsing="false" text="13:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="400.0" mnemonicParsing="false" text="13:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="420.0" mnemonicParsing="false" text="14:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="440.0" mnemonicParsing="false" text="14:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="460.0" mnemonicParsing="false" text="15:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="480.0" mnemonicParsing="false" text="15:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="500.0" mnemonicParsing="false" text="16:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="520.0" mnemonicParsing="false" text="16:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="540.0" mnemonicParsing="false" text="17:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="560.0" mnemonicParsing="false" text="17:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="580.0" mnemonicParsing="false" text="18:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="600.0" mnemonicParsing="false" text="18:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="620.0" mnemonicParsing="false" text="19:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="640.0" mnemonicParsing="false" text="19:30" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="660.0" mnemonicParsing="false" text="20:00" />
+      <CheckBox disable="true" layoutX="325.0" layoutY="680.0" mnemonicParsing="false" text="20:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="300.0" mnemonicParsing="false" text="11:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="280.0" mnemonicParsing="false" text="10:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="260.0" mnemonicParsing="false" text="10:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="240.0" mnemonicParsing="false" text="09:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="220.0" mnemonicParsing="false" text="09:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="200.0" mnemonicParsing="false" text="08:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="180.0" mnemonicParsing="false" text="08:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="160.0" mnemonicParsing="false" text="07:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="680.0" mnemonicParsing="false" text="20:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="660.0" mnemonicParsing="false" text="20:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="640.0" mnemonicParsing="false" text="19:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="620.0" mnemonicParsing="false" text="19:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="600.0" mnemonicParsing="false" text="18:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="580.0" mnemonicParsing="false" text="18:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="560.0" mnemonicParsing="false" text="17:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="540.0" mnemonicParsing="false" text="17:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="520.0" mnemonicParsing="false" text="16:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="500.0" mnemonicParsing="false" text="16:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="480.0" mnemonicParsing="false" text="15:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="460.0" mnemonicParsing="false" text="15:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="440.0" mnemonicParsing="false" text="14:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="420.0" mnemonicParsing="false" text="14:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="400.0" mnemonicParsing="false" text="13:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="380.0" mnemonicParsing="false" text="13:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="360.0" mnemonicParsing="false" text="12:30" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="340.0" mnemonicParsing="false" text="12:00" />
+      <CheckBox disable="true" layoutX="425.0" layoutY="320.0" mnemonicParsing="false" text="11:30" />
+      <Button layoutX="207.0" layoutY="715.0" mnemonicParsing="false" text="Registrar horarios" />
+   </children>
+</AnchorPane>
