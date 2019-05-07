@@ -1,14 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package comunicacion.interfaces;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
- * @author HP
+ * @author JatnielMartínez
  */
-public interface InterfazCliente {
+public interface InterfazCliente extends Remote {
+  
+  public void registrarTutorado() throws RemoteException;
+  public void iniciarSesion() throws RemoteException;
+  public void reservarCita() throws RemoteException;
+  public void notificarCita() throws RemoteException;
+  public void iniciarCronometroCita() throws RemoteException;
+  public void notificarCancelacionCita() throws RemoteException;
+  public void cancelarCita() throws RemoteException;
+  public void cerrarSesion() throws RemoteException;
   
 }
