@@ -17,5 +17,6 @@ public interface InterfazCliente extends Remote {
   public void notificarCancelacionCita() throws RemoteException;
   public void cancelarCita() throws RemoteException;
   public void cerrarSesion() throws RemoteException;
+  public void notificar(String mensaje) throws RemoteException;
   
 }

@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="225.0" prefWidth="275.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.ReprogramarCitaController">
+<AnchorPane id="AnchorPane" prefHeight="225.0" prefWidth="275.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConfirmarCitaController">
    <children>
       <Label layoutX="25.0" layoutY="25.0" text="Cita con:" />
       <Label layoutX="100.0" layoutY="25.0" prefHeight="17.0" prefWidth="174.0" text="[Tutorado]" />

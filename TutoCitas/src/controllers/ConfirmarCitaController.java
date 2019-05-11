@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author HP
  */
-public class ReprogramarCitaController implements Initializable {
+public class ConfirmarCitaController implements Initializable {
 
   /**
    * Initializes the controller class.

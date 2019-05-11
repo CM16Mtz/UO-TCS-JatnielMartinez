@@ -15,5 +15,7 @@ public interface InterfazServidor extends Remote {
   public void reportarProximasTutorias() throws RemoteException;
   public void cancelarCita() throws RemoteException;
   public void generarReporte() throws RemoteException;
+  public void registrarCallback(InterfazCliente cliente) throws RemoteException;
+  public void cerrarCallback(InterfazCliente cliente) throws RemoteException;
   
 }
