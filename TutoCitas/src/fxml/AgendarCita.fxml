@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.AgendarCitaController">
+<AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AgendarCitaController">
    <children>
       <Label layoutX="110.0" layoutY="15.0" text="Su tutorado [tutorado] solicitó una tutoría para el día [fecha] a las [hora]" />
       <Label layoutX="65.0" layoutY="50.0" text="¿Desea confirmar la cita para ese día o desea moverla para una fecha y/u hora posterior?" />
