@@ -6,11 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="180.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AgendarCitaController">
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.AgendarCitaController">
    <children>
-      <Label layoutX="110.0" layoutY="15.0" text="Su tutorado [tutorado] solicitó una tutoría para el día [fecha] a las [hora]" />
-      <Label layoutX="65.0" layoutY="50.0" text="¿Desea confirmar la cita para ese día o desea moverla para una fecha y/u hora posterior?" />
-      <Button layoutX="159.0" layoutY="90.0" mnemonicParsing="false" text="Sí, confirmar la cita para la fecha y hora solicitadas" />
-      <Button layoutX="167.0" layoutY="130.0" mnemonicParsing="false" text="No, mover la cita para un día y/u hora posterior" />
+      <Label fx:id="lblEncabezado" layoutX="160.0" layoutY="14.0" text="Citas solicitadas por sus tutorados" />
+      <TableView fx:id="tblCitas" layoutX="51.0" layoutY="40.0" prefHeight="200.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="colTutorado" prefWidth="200.0" text="Tutorado" />
+          <TableColumn fx:id="colDia" prefWidth="100.0" text="Cita para el día" />
+            <TableColumn fx:id="colHora" prefWidth="100.0" text="Cita para la hora" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnConfirmar" layoutX="115.0" layoutY="260.0" mnemonicParsing="false" text="Confirmar cita" />
+      <Button fx:id="btnRegresar" layoutX="310.0" layoutY="260.0" mnemonicParsing="false" text="Regresar" />
    </children>
 </AnchorPane>

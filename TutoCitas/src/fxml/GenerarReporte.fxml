@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="360.0" prefWidth="420.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.GenerarReporteController">
+   <children>
+      <Label fx:id="lbl1" layoutX="25.0" layoutY="25.0" text="Tutor:" />
+      <Label fx:id="lblTutor" layoutX="200.0" layoutY="25.0" text="Tutor" />
+      <ComboBox fx:id="cmbTutorados" layoutX="200.0" layoutY="55.0" prefHeight="25.0" prefWidth="200.0" />
+      <Label fx:id="lbl2" layoutX="25.0" layoutY="59.0" text="Tutorado:" />
+      <TextField fx:id="txfNumero" layoutX="200.0" layoutY="100.0" prefHeight="25.0" prefWidth="52.0" />
+      <Label fx:id="lbl3" layoutX="25.0" layoutY="104.0" text="Núm. de tutoría:" />
+      <DatePicker fx:id="dtpFecha" layoutX="200.0" layoutY="145.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label fx:id="lbl4" layoutX="25.0" layoutY="149.0" text="Fecha de tutoría:" />
+      <TextField fx:id="txfHora" layoutX="200.0" layoutY="190.0" prefHeight="25.0" prefWidth="84.0" />
+      <Label fx:id="lbl5" layoutX="25.0" layoutY="192.0" text="Hora de tutoría:" />
+      <CheckBox fx:id="chkSi" layoutX="200.0" layoutY="235.0" mnemonicParsing="false" text="Sí" />
+      <CheckBox fx:id="chkNo" layoutX="265.0" layoutY="235.0" mnemonicParsing="false" text="No" />
+      <Label fx:id="lbl6" layoutX="25.0" layoutY="235.0" text="¿Fue atendida?" />
+      <TextField fx:id="txfDuracion" layoutX="201.0" layoutY="270.0" prefHeight="25.0" prefWidth="52.0" />
+      <Label fx:id="lblMinutos" layoutX="265.0" layoutY="274.0" text="minutos" />
+      <Label fx:id="lbl7" layoutX="25.0" layoutY="274.0" text="Duración de la tutoría:" />
+      <Button fx:id="btnGenerar" layoutX="200.0" layoutY="315.0" mnemonicParsing="false" text="Generar reporte" />
+      <Button fx:id="btnCancelar" layoutX="324.0" layoutY="315.0" mnemonicParsing="false" text="Cancelar" />
+   </children>
+</AnchorPane>

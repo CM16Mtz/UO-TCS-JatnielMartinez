@@ -6,20 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="375.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.RegistrarTutorController">
+<AnchorPane id="AnchorPane" prefHeight="310.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.RegistrarTutorController">
    <children>
-      <TextField layoutX="150.0" layoutY="25.0" prefHeight="25.0" prefWidth="200.0" />
-      <Label layoutX="25.0" layoutY="29.0" text="Nombre:" />
-      <TextField layoutX="150.0" layoutY="65.0" prefHeight="25.0" prefWidth="200.0" />
-      <TextField layoutX="150.0" layoutY="105.0" prefHeight="25.0" prefWidth="200.0" />
-      <TextField layoutX="150.0" layoutY="145.0" prefHeight="25.0" prefWidth="200.0" />
-      <PasswordField layoutX="150.0" layoutY="185.0" prefHeight="25.0" prefWidth="200.0" />
-      <Label layoutX="25.0" layoutY="69.0" text="Apellido paterno:" />
-      <Label layoutX="25.0" layoutY="109.0" text="Apellido materno:" />
-      <Label layoutX="25.0" layoutY="149.0" text="Correo:" />
-      <Label layoutX="25.0" layoutY="189.0" text="Contraseña:" />
-      <Button layoutX="150.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Registrar tutor" />
-      <Button layoutX="285.0" layoutY="230.0" mnemonicParsing="false" prefWidth="65.0" text="Cancelar" />
+      <Label fx:id="lblNombre" layoutX="15.0" layoutY="29.0" text="Nombre:" />
+      <Label fx:id="lblApPaterno" layoutX="15.0" layoutY="69.0" text="Apellido paterno:" />
+      <Label fx:id="lblApMaterno" layoutX="15.0" layoutY="109.0" text="Apellido materno:" />
+      <TextField fx:id="txfNombre" layoutX="150.0" layoutY="25.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="txfApPaterno" layoutX="150.0" layoutY="65.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="txfApMaterno" layoutX="150.0" layoutY="105.0" prefHeight="25.0" prefWidth="200.0" />
+      <TextField fx:id="txfCorreo" layoutX="150.0" layoutY="145.0" prefHeight="25.0" prefWidth="200.0" />
+      <Label fx:id="lblCorreo" layoutX="15.0" layoutY="149.0" text="Correo:" />
+      <PasswordField fx:id="pwfContrasena" layoutX="150.0" layoutY="225.0" prefHeight="25.0" prefWidth="200.0" />
+      <Label fx:id="lblContrasena" layoutX="15.0" layoutY="229.0" text="Contraseña:" />
+      <Button fx:id="btnRegistrar" layoutX="150.0" layoutY="265.0" mnemonicParsing="false" text="Registrar tutor" />
+      <Button fx:id="btnCancelar" layoutX="271.0" layoutY="265.0" mnemonicParsing="false" text="Cancelar" />
+      <Label fx:id="lblNoPersonal" layoutX="15.0" layoutY="189.0" text="No. Personal:" />
+      <TextField fx:id="txfNoPersonal" layoutX="150.0" layoutY="185.0" prefHeight="25.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

@@ -1,20 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controllers;
+package fxml;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
  *
- * @author HP
+ * @author JatnielMartínez
  */
 public class CancelarCitaTutoradoController implements Initializable {
+  
+  @FXML private Button btnNo;
+  @FXML private Button btnSi;
+  @FXML private Label lblEncabezado;
+  @FXML private Label lblPregunta;
 
   /**
    * Initializes the controller class.

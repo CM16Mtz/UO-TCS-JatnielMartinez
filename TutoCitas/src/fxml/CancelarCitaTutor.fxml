@@ -7,17 +7,17 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="320.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controllers.CancelarCitaTutorController">
+<AnchorPane id="AnchorPane" prefHeight="314.0" prefWidth="460.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.CancelarCitaTutorController">
    <children>
-      <Label layoutX="203.0" layoutY="20.0" text="Seleccione la cita que desee cancelar" />
-      <TableView layoutX="61.0" layoutY="50.0" prefHeight="200.0" prefWidth="480.0">
+      <Label fx:id="lblEncabezado" layoutX="133.0" layoutY="14.0" text="Seleccione la cita que desee cancelar" />
+      <TableView fx:id="tblCitas" layoutX="50.0" layoutY="40.0" prefHeight="200.0" prefWidth="360.0">
         <columns>
-          <TableColumn prefWidth="95.0" text="Fecha de cita" />
-          <TableColumn prefWidth="96.0" text="Hora de cita" />
-            <TableColumn prefWidth="288.0" text="Tutorado" />
+          <TableColumn fx:id="colDia" text="Fecha de cita" />
+          <TableColumn fx:id="colHora" text="Hora de cita" />
+            <TableColumn fx:id="colTutorado" prefWidth="200.0" text="Tutorado" />
         </columns>
       </TableView>
-      <Button layoutX="161.0" layoutY="276.0" mnemonicParsing="false" text="Cancelar cita" />
-      <Button layoutX="367.0" layoutY="276.0" mnemonicParsing="false" text="Regresar" />
+      <Button fx:id="btnCancelar" layoutX="133.0" layoutY="260.0" mnemonicParsing="false" text="Cancelar cita" />
+      <Button fx:id="btnRegresar" layoutX="265.0" layoutY="260.0" mnemonicParsing="false" text="Regresar" />
    </children>
 </AnchorPane>
