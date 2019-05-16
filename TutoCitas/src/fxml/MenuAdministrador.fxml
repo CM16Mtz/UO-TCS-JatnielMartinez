@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="185.0" prefWidth="163.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.MenuAdministradorController">
+   <children>
+      <Label fx:id="lblBienvenido" layoutX="49.0" layoutY="25.0" text="¡Bienvenido!" />
+      <Button fx:id="btnRegistrarTutor" layoutX="25.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Registrar tutor" />
+      <Button fx:id="btnRegistrarTutorado" layoutX="25.0" layoutY="95.0" mnemonicParsing="false" text="Registrar tutorado" />
+      <Button fx:id="btnCerrar" layoutX="25.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Cerrar sesión" />
+   </children>
+</AnchorPane>

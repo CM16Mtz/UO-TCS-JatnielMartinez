@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="265.0" prefWidth="206.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.MenuTutorController">
+   <children>
+      <Label fx:id="lblBienvenido" alignment="CENTER" layoutX="70.0" layoutY="25.0" text="¡Bienvenido!" />
+      <Button fx:id="btnAgendar" layoutX="25.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Agendar cita" />
+      <Button fx:id="btnConsultar" layoutX="25.0" layoutY="95.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Consultar próximas citas" />
+      <Button fx:id="btnCancelar" layoutX="25.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Cancelar cita" />
+      <Button fx:id="btnGenerar" layoutX="25.0" layoutY="175.0" mnemonicParsing="false" text="Generar reporte de tutoría" />
+      <Button fx:id="btnCerrar" layoutX="25.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Cerrar sesión" />
+   </children>
+</AnchorPane>
