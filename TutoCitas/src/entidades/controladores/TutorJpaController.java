@@ -269,6 +269,14 @@ public class TutorJpaController implements Serializable {
       em.close();
     }
   }
+  
+  public Tutor findTutor(Usuario usuario) {
+    EntityManager em = getEntityManager();
+    Tutor tutor = (Tutor) em.createQuery("SELECT c FROM Tutor c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
+        .setParameter("idUsuario", usuario.getIdUsuario())
+        .getSingleResult();
+    return tutor;
+  }
 
   public int getTutorCount() {
     EntityManager em = getEntityManager();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades.controladores;
 
 import java.io.Serializable;
@@ -23,7 +18,7 @@ import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author HP
+ * @author JatnielMartínez
  */
 public class UsuarioJpaController implements Serializable {
 
@@ -295,6 +290,22 @@ public class UsuarioJpaController implements Serializable {
     }
   }
 
+  /**
+   * Encuentra un usuario de acuerdo a un username y contraseña dados.
+   * @param username Nombre de usuario ingresado por el cliente
+   * @param contrasena Contraseña del usuario
+   * @return El usuario con todos los datos
+   */
+  public Usuario findUsuario(String username, String contrasena) {
+    EntityManager em = getEntityManager();
+    Usuario usuario = (Usuario) em.createQuery(
+        "SELECT c FROM Usuario c WHERE c.username = :username AND c.contrasena = :contrasena")
+        .setParameter("username", username)
+        .setParameter("contrasena", contrasena)
+        .getSingleResult();
+    return usuario;
+  }
+  
   public int getUsuarioCount() {
     EntityManager em = getEntityManager();
     try {

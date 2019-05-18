@@ -52,6 +52,9 @@ public class Usuario implements Serializable {
   @Column(name = "contrasena")
   private String contrasena;
   @Basic(optional = false)
+  @Column(name = "tipoUsuario")
+  private String tipoUsuario;
+  @Basic(optional = false)
   @Column(name = "nombre")
   private String nombre;
   @Basic(optional = false)
@@ -76,10 +79,11 @@ public class Usuario implements Serializable {
     this.idUsuario = idUsuario;
   }
 
-  public Usuario(Integer idUsuario, String username, String contrasena, String nombre, String apPaterno, String correo) {
+  public Usuario(Integer idUsuario, String username, String contrasena, String tipoUsuario, String nombre, String apPaterno, String correo) {
     this.idUsuario = idUsuario;
     this.username = username;
     this.contrasena = contrasena;
+    this.tipoUsuario = tipoUsuario;
     this.nombre = nombre;
     this.apPaterno = apPaterno;
     this.correo = correo;
@@ -107,6 +111,14 @@ public class Usuario implements Serializable {
 
   public void setContrasena(String contrasena) {
     this.contrasena = contrasena;
+  }
+  
+  public String getTipoUsuario() {
+    return tipoUsuario;
+  }
+
+  public void setTipoUsuario(String tipoUsuario) {
+    this.tipoUsuario = tipoUsuario;
   }
 
   public String getNombre() {

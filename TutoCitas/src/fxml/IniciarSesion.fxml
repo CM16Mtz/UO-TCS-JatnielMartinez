@@ -6,13 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.IniciarSesionController">
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.IniciarSesionController">
    <children>
       <Label fx:id="lblUsuario" layoutX="25.0" layoutY="29.0" text="Usuario:" />
       <Label fx:id="lblContrasena" layoutX="25.0" layoutY="69.0" text="Contraseña:" />
       <TextField fx:id="txfUsuario" layoutX="115.0" layoutY="25.0" prefHeight="25.0" prefWidth="160.0" />
       <PasswordField fx:id="pwfContrasena" layoutX="115.0" layoutY="65.0" prefHeight="25.0" prefWidth="160.0" />
-      <Button fx:id="btnIngresar" layoutX="121.0" layoutY="105.0" mnemonicParsing="false" text="Ingresar" />
+      <Button fx:id="btnIngresar" layoutX="121.0" layoutY="105.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Ingresar" />
    </children>
 </AnchorPane>

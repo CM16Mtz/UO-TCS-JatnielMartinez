@@ -151,6 +151,14 @@ public class AdministradorJpaController implements Serializable {
       em.close();
     }
   }
+  
+  public Administrador findAdministrador(Usuario usuario) {
+    EntityManager em = getEntityManager();
+    Administrador administrador = (Administrador) em.createQuery("SELECT c FROM Administrador c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
+        .setParameter("idUsuario", usuario.getIdUsuario())
+        .getSingleResult();
+    return administrador;
+  }
 
   public int getAdministradorCount() {
     EntityManager em = getEntityManager();

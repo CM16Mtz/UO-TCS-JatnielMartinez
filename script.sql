@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `tutocitas`.`Usuario` (
   `idUsuario` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(40) NOT NULL,
   `contrasena` VARCHAR(15) NOT NULL,
+  `tipoUsuario` VARCHAR(13) NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apPaterno` VARCHAR(20) NOT NULL,
   `apMaterno` VARCHAR(20) NULL DEFAULT NULL,

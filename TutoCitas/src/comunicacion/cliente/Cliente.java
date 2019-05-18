@@ -2,6 +2,8 @@ package comunicacion.cliente;
 
 import comunicacion.interfaces.InterfazCliente;
 import comunicacion.interfaces.InterfazServidor;
+import entidades.Usuario;
+import entidades.controladores.UsuarioJpaController;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -9,6 +11,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -38,14 +41,17 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
       error.showAndWait();
     }
   }
-
+  
+  @Override
+  public Usuario iniciarSesion(String username, String contrasena) throws RemoteException {
+    Usuario aux = null;
+    UsuarioJpaController controlador = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+    aux = controlador.findUsuario(username, contrasena);
+    return aux;
+  }
+  
   @Override
   public void registrarTutorado() throws RemoteException {
-    
-  }
-
-  @Override
-  public void iniciarSesion() throws RemoteException {
     
   }
 

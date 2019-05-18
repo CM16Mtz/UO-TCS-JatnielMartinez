@@ -1,5 +1,6 @@
 package comunicacion.interfaces;
 
+import entidades.Usuario;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -9,8 +10,8 @@ import java.rmi.RemoteException;
  */
 public interface InterfazCliente extends Remote {
   
+  public Usuario iniciarSesion(String username, String contrasena) throws RemoteException;
   public void registrarTutorado() throws RemoteException;
-  public void iniciarSesion() throws RemoteException;
   public void reservarCita() throws RemoteException;
   public void notificarCita() throws RemoteException;
   public void iniciarCronometroCita() throws RemoteException;
