@@ -39,6 +39,7 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `tutocitas`.`Tutor` (
   `idTutor` INT(11) NOT NULL AUTO_INCREMENT,
+  `noPersonal` VARCHAR(5) NOT NULL,
   `Usuario_idUsuario` INT(11) NOT NULL,
   PRIMARY KEY (`idTutor`),
   INDEX `fk_tutor_Usuario1_idx` (`Usuario_idUsuario` ASC),
@@ -53,6 +54,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `tutocitas`.`Tutorado` (
   `idTutorado` INT(11) NOT NULL AUTO_INCREMENT,
   `carrera` VARCHAR(40) NOT NULL,
+  `matricula` VARCHAR(9) NOT NULL,
   `Usuario_idUsuario` INT(11) NOT NULL,
   `tutor_idTutor` INT(11) NOT NULL,
   PRIMARY KEY (`idTutorado`),

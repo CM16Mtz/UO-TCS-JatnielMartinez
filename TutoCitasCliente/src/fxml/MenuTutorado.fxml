@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="225.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.MenuTutoradoController">
+   <children>
+      <Label fx:id="lblBienvenido" layoutX="96.0" layoutY="25.0" text="¡Bienvenido!" />
+      <Button fx:id="btnReservar" layoutX="25.0" layoutY="55.0" mnemonicParsing="false" onAction="#irAReservarCita" prefHeight="25.0" prefWidth="207.0" text="Reservar cita" />
+      <Button fx:id="btnConsultar" layoutX="25.0" layoutY="95.0" mnemonicParsing="false" onAction="#irAConsultarCitas" text="Consultar próximas citas de su tutor" />
+      <Button fx:id="btnCancelar" layoutX="25.0" layoutY="135.0" mnemonicParsing="false" onAction="#irACancelarCita" prefHeight="25.0" prefWidth="207.0" text="Cancelar cita" />
+      <Button fx:id="btnCerrar" layoutX="25.0" layoutY="175.0" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="25.0" prefWidth="207.0" text="Cerrar sesión" />
+   </children>
+</AnchorPane>
