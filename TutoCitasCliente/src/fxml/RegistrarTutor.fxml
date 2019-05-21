@@ -18,8 +18,8 @@
       <Label fx:id="lblCorreo" layoutX="15.0" layoutY="149.0" text="Correo:" />
       <PasswordField fx:id="pwfContrasena" layoutX="150.0" layoutY="225.0" prefHeight="25.0" prefWidth="200.0" />
       <Label fx:id="lblContrasena" layoutX="15.0" layoutY="229.0" text="Contraseña:" />
-      <Button fx:id="btnRegistrar" layoutX="150.0" layoutY="265.0" mnemonicParsing="false" text="Registrar tutor" />
-      <Button fx:id="btnCancelar" layoutX="271.0" layoutY="265.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="btnRegistrar" layoutX="150.0" layoutY="265.0" mnemonicParsing="false" onAction="#registrarTutor" text="Registrar tutor" />
+      <Button fx:id="btnCancelar" layoutX="271.0" layoutY="265.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
       <Label fx:id="lblNoPersonal" layoutX="15.0" layoutY="189.0" text="No. Personal:" />
       <TextField fx:id="txfNoPersonal" layoutX="150.0" layoutY="185.0" prefHeight="25.0" prefWidth="200.0" />
    </children>

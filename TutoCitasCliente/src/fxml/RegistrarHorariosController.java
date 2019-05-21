@@ -1,7 +1,15 @@
 package fxml;
 
+import cliente.Cliente;
+import contexto.Contexto;
+import entidades.Periodo;
+import entidades.Tutor;
+import entidades.TutorHasBloque;
+import interfaces.InterfazServidor;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -163,12 +171,28 @@ public class RegistrarHorariosController implements Initializable {
   @FXML private Label lblJueves;
   @FXML private Label lblViernes;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
+  private Tutor tutor;
+  
+  @FXML
+  void registrarHorarios(ActionEvent evt) throws RemoteException {
+    if (chk0700Lun.isSelected()) {
+     servidor.registrarHorarios(new TutorHasBloque());
+    }
+    if (chk0730Lun.isSelected()) {
+      
+    }
+  }
+  
   /**
    * Initializes the controller class.
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
+    tutor = Contexto.getInstancia().getTutor();
   }  
   
 }

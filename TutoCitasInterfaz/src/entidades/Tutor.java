@@ -32,11 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
   @NamedQuery(name = "Tutor.findAll", query = "SELECT t FROM Tutor t")
-  , @NamedQuery(name = "Tutor.findByIdTutor", query = "SELECT t FROM Tutor t WHERE t.idTutor = :idTutor")})
+  , @NamedQuery(name = "Tutor.findByIdTutor", query = "SELECT t FROM Tutor t WHERE t.idTutor = :idTutor")
+  , @NamedQuery(name = "Tutor.findByNoPersonal", query = "SELECT t FROM Tutor t WHERE t.noPersonal = :noPersonal")})
 public class Tutor implements Serializable {
 
-  @Column(name = "noPersonal")
-  private String noPersonal;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "tutoridTutor")
+  private List<TutorHasBloque> tutorHasBloqueList;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -44,6 +45,8 @@ public class Tutor implements Serializable {
   @Basic(optional = false)
   @Column(name = "idTutor")
   private Integer idTutor;
+  @Column(name = "noPersonal")
+  private String noPersonal;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "tutoridTutor")
   private List<Tutorado> tutoradoList;
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "tutoridTutor")
@@ -53,6 +56,12 @@ public class Tutor implements Serializable {
   private Usuario usuarioidUsuario;
 
   public Tutor() {
+    
+  }
+  
+  public Tutor(String noPersonal, Usuario usuario) {
+    this.noPersonal = noPersonal;
+    this.usuarioidUsuario = usuario;
   }
 
   public Tutor(Integer idTutor) {
@@ -66,7 +75,7 @@ public class Tutor implements Serializable {
   public void setIdTutor(Integer idTutor) {
     this.idTutor = idTutor;
   }
-  
+
   public String getNoPersonal() {
     return noPersonal;
   }
@@ -124,6 +133,15 @@ public class Tutor implements Serializable {
   @Override
   public String toString() {
     return "entidades.Tutor[ idTutor=" + idTutor + " ]";
+  }
+
+  @XmlTransient
+  public List<TutorHasBloque> getTutorHasBloqueList() {
+    return tutorHasBloqueList;
+  }
+
+  public void setTutorHasBloqueList(List<TutorHasBloque> tutorHasBloqueList) {
+    this.tutorHasBloqueList = tutorHasBloqueList;
   }
   
 }

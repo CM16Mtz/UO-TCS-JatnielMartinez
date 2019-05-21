@@ -1,7 +1,12 @@
-package comunicacion.servidor;
+package servidor;
 
-import comunicacion.interfaces.InterfazCliente;
-import comunicacion.interfaces.InterfazServidor;
+import entidades.Tutor;
+import entidades.TutorHasBloque;
+import entidades.Usuario;
+import entidades.controladores.TutorJpaController;
+import entidades.controladores.UsuarioJpaController;
+import interfaces.InterfazCliente;
+import interfaces.InterfazServidor;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.AlreadyBoundException;
@@ -13,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -63,12 +69,16 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public void registrarTutor() throws RemoteException {
-    
+  public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException {
+    UsuarioJpaController controladorUsuario = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    controladorUsuario.create(usuario);
+    tutor.setUsuarioidUsuario(usuario);
+    TutorJpaController controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    controladorTutor.create(tutor);
   }
 
   @Override
-  public void registrarHorarios() throws RemoteException {
+  public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
     
   }
 
@@ -93,15 +103,20 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public void registrarCallback(InterfazCliente cliente) throws RemoteException {
+  public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException {
+    Usuario aux = null;
+    UsuarioJpaController controlador = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    aux = controlador.findUsuario(username, contrasena);
     if (!clientes.contains(cliente)) {
       clientes.add(cliente);
-      hacerCallback();
+      return aux;
+      //hacerCallback();
     }
+    return null;
   }
 
   @Override
-  public void cerrarCallback(InterfazCliente cliente) throws RemoteException {
+  public void cerrarSesion(InterfazCliente cliente) throws RemoteException {
     clientes.remove(cliente);
   }
   

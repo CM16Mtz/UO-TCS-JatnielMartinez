@@ -33,11 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
   @NamedQuery(name = "Tutorado.findAll", query = "SELECT t FROM Tutorado t")
   , @NamedQuery(name = "Tutorado.findByIdTutorado", query = "SELECT t FROM Tutorado t WHERE t.idTutorado = :idTutorado")
-  , @NamedQuery(name = "Tutorado.findByCarrera", query = "SELECT t FROM Tutorado t WHERE t.carrera = :carrera")})
+  , @NamedQuery(name = "Tutorado.findByCarrera", query = "SELECT t FROM Tutorado t WHERE t.carrera = :carrera")
+  , @NamedQuery(name = "Tutorado.findByMatricula", query = "SELECT t FROM Tutorado t WHERE t.matricula = :matricula")})
 public class Tutorado implements Serializable {
-
-  @Column(name = "matricula")
-  private String matricula;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -48,6 +46,8 @@ public class Tutorado implements Serializable {
   @Basic(optional = false)
   @Column(name = "carrera")
   private String carrera;
+  @Column(name = "matricula")
+  private String matricula;
   @JoinColumn(name = "Usuario_idUsuario", referencedColumnName = "idUsuario")
   @ManyToOne(optional = false)
   private Usuario usuarioidUsuario;
@@ -83,6 +83,14 @@ public class Tutorado implements Serializable {
 
   public void setCarrera(String carrera) {
     this.carrera = carrera;
+  }
+
+  public String getMatricula() {
+    return matricula;
+  }
+
+  public void setMatricula(String matricula) {
+    this.matricula = matricula;
   }
 
   public Usuario getUsuarioidUsuario() {
@@ -133,14 +141,6 @@ public class Tutorado implements Serializable {
   @Override
   public String toString() {
     return "entidades.Tutorado[ idTutorado=" + idTutorado + " ]";
-  }
-
-  public String getMatricula() {
-    return matricula;
-  }
-
-  public void setMatricula(String matricula) {
-    this.matricula = matricula;
   }
   
 }

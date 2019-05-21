@@ -1,5 +1,10 @@
 package fxml;
 
+import cliente.Cliente;
+import contexto.Contexto;
+import entidades.Tutor;
+import entidades.Usuario;
+import interfaces.InterfazServidor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,6 +44,9 @@ public class RegistrarTutorController implements Initializable {
   @FXML private TextField txfNombre;
   @FXML private TextField txfNoPersonal;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
+  
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
     //Se cierra la ventana
@@ -56,16 +64,41 @@ public class RegistrarTutorController implements Initializable {
   }
   
   @FXML
-  void registrarTutor(ActionEvent evt) {
+  void registrarTutor(ActionEvent evt) throws IOException {
     String nombre = txfNombre.getText();
     String apPaterno = txfApPaterno.getText();
     String apMaterno = txfApMaterno.getText();
     String correo = txfCorreo.getText();
     String noPersonal = txfNoPersonal.getText();
     String contrasena = pwfContrasena.getText();
-    if (!nombre.isEmpty() && !apPaterno.isEmpty() && !apMaterno.isEmpty() && !correo.isEmpty()
-        && !noPersonal.isEmpty() && !contrasena.isEmpty()) {
-      
+    if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !noPersonal.isEmpty() && !contrasena.isEmpty()) {
+      //Se crea el usuario
+      Usuario usuario = new Usuario(noPersonal, contrasena, "Tutor", nombre, apPaterno, correo);
+      if (!apMaterno.isEmpty()) {
+        usuario.setApMaterno(apMaterno);
+      }
+      //Se crea el tutor
+      Tutor tutor = new Tutor();
+      tutor.setNoPersonal(noPersonal);
+      //Se llama al método para registrar el tutor
+      servidor.registrarTutor(usuario, tutor);
+      //Se guarda el tutor para utilizarlo en la asignación de sus horarios
+      Contexto.getInstancia().setTutor(tutor);
+      //Asimismo se conservan las instancias del cliente y el servidor
+      Contexto.getInstancia().setCliente(cliente);
+      Contexto.getInstancia().setServidor(servidor);
+      //Se cierra la ventana
+      Stage stageRegistrarTutor;
+      stageRegistrarTutor = (Stage) btnRegistrar.getScene().getWindow();
+      stageRegistrarTutor.close();
+      //Se redirige a RegistrarHorarios.fxml
+      Stage stageRegistrarHorarios = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("/fxml/RegistrarHorarios.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      stageRegistrarHorarios.setScene(scene);
+      stageRegistrarHorarios.show();
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Datos inválidos");
@@ -80,7 +113,8 @@ public class RegistrarTutorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
   }  
   
 }

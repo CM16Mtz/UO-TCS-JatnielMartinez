@@ -6,7 +6,9 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
   , @NamedQuery(name = "Periodo.findByIdPeriodo", query = "SELECT p FROM Periodo p WHERE p.idPeriodo = :idPeriodo")
   , @NamedQuery(name = "Periodo.findByNombre", query = "SELECT p FROM Periodo p WHERE p.nombre = :nombre")})
 public class Periodo implements Serializable {
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodoidPeriodo")
+  private List<TutorHasBloque> tutorHasBloqueList;
 
   private static final long serialVersionUID = 1L;
   @Id
@@ -91,6 +98,15 @@ public class Periodo implements Serializable {
   @Override
   public String toString() {
     return "entidades.Periodo[ idPeriodo=" + idPeriodo + " ]";
+  }
+
+  @XmlTransient
+  public List<TutorHasBloque> getTutorHasBloqueList() {
+    return tutorHasBloqueList;
+  }
+
+  public void setTutorHasBloqueList(List<TutorHasBloque> tutorHasBloqueList) {
+    this.tutorHasBloqueList = tutorHasBloqueList;
   }
   
 }

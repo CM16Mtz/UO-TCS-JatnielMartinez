@@ -16,6 +16,7 @@ import entidades.Tutorado;
 import java.util.ArrayList;
 import java.util.List;
 import entidades.Tutoria;
+import entidades.TutorHasBloque;
 import entidades.controladores.exceptions.IllegalOrphanException;
 import entidades.controladores.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
@@ -43,6 +44,9 @@ public class TutorJpaController implements Serializable {
     if (tutor.getTutoriaList() == null) {
       tutor.setTutoriaList(new ArrayList<Tutoria>());
     }
+    if (tutor.getTutorHasBloqueList() == null) {
+      tutor.setTutorHasBloqueList(new ArrayList<TutorHasBloque>());
+    }
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -64,6 +68,12 @@ public class TutorJpaController implements Serializable {
         attachedTutoriaList.add(tutoriaListTutoriaToAttach);
       }
       tutor.setTutoriaList(attachedTutoriaList);
+      List<TutorHasBloque> attachedTutorHasBloqueList = new ArrayList<TutorHasBloque>();
+      for (TutorHasBloque tutorHasBloqueListTutorHasBloqueToAttach : tutor.getTutorHasBloqueList()) {
+        tutorHasBloqueListTutorHasBloqueToAttach = em.getReference(tutorHasBloqueListTutorHasBloqueToAttach.getClass(), tutorHasBloqueListTutorHasBloqueToAttach.getId());
+        attachedTutorHasBloqueList.add(tutorHasBloqueListTutorHasBloqueToAttach);
+      }
+      tutor.setTutorHasBloqueList(attachedTutorHasBloqueList);
       em.persist(tutor);
       if (usuarioidUsuario != null) {
         usuarioidUsuario.getTutorList().add(tutor);
@@ -87,6 +97,15 @@ public class TutorJpaController implements Serializable {
           oldTutoridTutorOfTutoriaListTutoria = em.merge(oldTutoridTutorOfTutoriaListTutoria);
         }
       }
+      for (TutorHasBloque tutorHasBloqueListTutorHasBloque : tutor.getTutorHasBloqueList()) {
+        Tutor oldTutoridTutorOfTutorHasBloqueListTutorHasBloque = tutorHasBloqueListTutorHasBloque.getTutoridTutor();
+        tutorHasBloqueListTutorHasBloque.setTutoridTutor(tutor);
+        tutorHasBloqueListTutorHasBloque = em.merge(tutorHasBloqueListTutorHasBloque);
+        if (oldTutoridTutorOfTutorHasBloqueListTutorHasBloque != null) {
+          oldTutoridTutorOfTutorHasBloqueListTutorHasBloque.getTutorHasBloqueList().remove(tutorHasBloqueListTutorHasBloque);
+          oldTutoridTutorOfTutorHasBloqueListTutorHasBloque = em.merge(oldTutoridTutorOfTutorHasBloqueListTutorHasBloque);
+        }
+      }
       em.getTransaction().commit();
     } finally {
       if (em != null) {
@@ -107,6 +126,8 @@ public class TutorJpaController implements Serializable {
       List<Tutorado> tutoradoListNew = tutor.getTutoradoList();
       List<Tutoria> tutoriaListOld = persistentTutor.getTutoriaList();
       List<Tutoria> tutoriaListNew = tutor.getTutoriaList();
+      List<TutorHasBloque> tutorHasBloqueListOld = persistentTutor.getTutorHasBloqueList();
+      List<TutorHasBloque> tutorHasBloqueListNew = tutor.getTutorHasBloqueList();
       List<String> illegalOrphanMessages = null;
       for (Tutorado tutoradoListOldTutorado : tutoradoListOld) {
         if (!tutoradoListNew.contains(tutoradoListOldTutorado)) {
@@ -122,6 +143,14 @@ public class TutorJpaController implements Serializable {
             illegalOrphanMessages = new ArrayList<String>();
           }
           illegalOrphanMessages.add("You must retain Tutoria " + tutoriaListOldTutoria + " since its tutoridTutor field is not nullable.");
+        }
+      }
+      for (TutorHasBloque tutorHasBloqueListOldTutorHasBloque : tutorHasBloqueListOld) {
+        if (!tutorHasBloqueListNew.contains(tutorHasBloqueListOldTutorHasBloque)) {
+          if (illegalOrphanMessages == null) {
+            illegalOrphanMessages = new ArrayList<String>();
+          }
+          illegalOrphanMessages.add("You must retain TutorHasBloque " + tutorHasBloqueListOldTutorHasBloque + " since its tutoridTutor field is not nullable.");
         }
       }
       if (illegalOrphanMessages != null) {
@@ -145,6 +174,13 @@ public class TutorJpaController implements Serializable {
       }
       tutoriaListNew = attachedTutoriaListNew;
       tutor.setTutoriaList(tutoriaListNew);
+      List<TutorHasBloque> attachedTutorHasBloqueListNew = new ArrayList<TutorHasBloque>();
+      for (TutorHasBloque tutorHasBloqueListNewTutorHasBloqueToAttach : tutorHasBloqueListNew) {
+        tutorHasBloqueListNewTutorHasBloqueToAttach = em.getReference(tutorHasBloqueListNewTutorHasBloqueToAttach.getClass(), tutorHasBloqueListNewTutorHasBloqueToAttach.getId());
+        attachedTutorHasBloqueListNew.add(tutorHasBloqueListNewTutorHasBloqueToAttach);
+      }
+      tutorHasBloqueListNew = attachedTutorHasBloqueListNew;
+      tutor.setTutorHasBloqueList(tutorHasBloqueListNew);
       tutor = em.merge(tutor);
       if (usuarioidUsuarioOld != null && !usuarioidUsuarioOld.equals(usuarioidUsuarioNew)) {
         usuarioidUsuarioOld.getTutorList().remove(tutor);
@@ -173,6 +209,17 @@ public class TutorJpaController implements Serializable {
           if (oldTutoridTutorOfTutoriaListNewTutoria != null && !oldTutoridTutorOfTutoriaListNewTutoria.equals(tutor)) {
             oldTutoridTutorOfTutoriaListNewTutoria.getTutoriaList().remove(tutoriaListNewTutoria);
             oldTutoridTutorOfTutoriaListNewTutoria = em.merge(oldTutoridTutorOfTutoriaListNewTutoria);
+          }
+        }
+      }
+      for (TutorHasBloque tutorHasBloqueListNewTutorHasBloque : tutorHasBloqueListNew) {
+        if (!tutorHasBloqueListOld.contains(tutorHasBloqueListNewTutorHasBloque)) {
+          Tutor oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque = tutorHasBloqueListNewTutorHasBloque.getTutoridTutor();
+          tutorHasBloqueListNewTutorHasBloque.setTutoridTutor(tutor);
+          tutorHasBloqueListNewTutorHasBloque = em.merge(tutorHasBloqueListNewTutorHasBloque);
+          if (oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque != null && !oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque.equals(tutor)) {
+            oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque.getTutorHasBloqueList().remove(tutorHasBloqueListNewTutorHasBloque);
+            oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque = em.merge(oldTutoridTutorOfTutorHasBloqueListNewTutorHasBloque);
           }
         }
       }
@@ -219,6 +266,13 @@ public class TutorJpaController implements Serializable {
           illegalOrphanMessages = new ArrayList<String>();
         }
         illegalOrphanMessages.add("This Tutor (" + tutor + ") cannot be destroyed since the Tutoria " + tutoriaListOrphanCheckTutoria + " in its tutoriaList field has a non-nullable tutoridTutor field.");
+      }
+      List<TutorHasBloque> tutorHasBloqueListOrphanCheck = tutor.getTutorHasBloqueList();
+      for (TutorHasBloque tutorHasBloqueListOrphanCheckTutorHasBloque : tutorHasBloqueListOrphanCheck) {
+        if (illegalOrphanMessages == null) {
+          illegalOrphanMessages = new ArrayList<String>();
+        }
+        illegalOrphanMessages.add("This Tutor (" + tutor + ") cannot be destroyed since the TutorHasBloque " + tutorHasBloqueListOrphanCheckTutorHasBloque + " in its tutorHasBloqueList field has a non-nullable tutoridTutor field.");
       }
       if (illegalOrphanMessages != null) {
         throw new IllegalOrphanException(illegalOrphanMessages);
@@ -275,6 +329,7 @@ public class TutorJpaController implements Serializable {
     Tutor tutor = (Tutor) em.createQuery("SELECT c FROM Tutor c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
         .setParameter("idUsuario", usuario.getIdUsuario())
         .getSingleResult();
+    em.close();
     return tutor;
   }
 

@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
   , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
   , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
   , @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena")
+  , @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario")
   , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
   , @NamedQuery(name = "Usuario.findByApPaterno", query = "SELECT u FROM Usuario u WHERE u.apPaterno = :apPaterno")
   , @NamedQuery(name = "Usuario.findByApMaterno", query = "SELECT u FROM Usuario u WHERE u.apMaterno = :apMaterno")
@@ -88,6 +89,15 @@ public class Usuario implements Serializable {
     this.apPaterno = apPaterno;
     this.correo = correo;
   }
+  
+  public Usuario(String username, String contrasena, String tipoUsuario, String nombre, String apPaterno, String correo) {
+    this.username = username;
+    this.contrasena = contrasena;
+    this.tipoUsuario = tipoUsuario;
+    this.nombre = nombre;
+    this.apPaterno = apPaterno;
+    this.correo = correo;
+  }
 
   public Integer getIdUsuario() {
     return idUsuario;
@@ -112,7 +122,7 @@ public class Usuario implements Serializable {
   public void setContrasena(String contrasena) {
     this.contrasena = contrasena;
   }
-  
+
   public String getTipoUsuario() {
     return tipoUsuario;
   }

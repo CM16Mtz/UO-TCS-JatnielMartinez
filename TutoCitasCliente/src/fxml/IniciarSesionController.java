@@ -1,6 +1,6 @@
 package fxml;
 
-import comunicacion.cliente.Cliente;
+import cliente.Cliente;
 import entidades.Administrador;
 import entidades.Tutor;
 import entidades.Tutorado;
@@ -28,7 +28,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.persistence.Persistence;
 import jdk.nashorn.internal.runtime.Context;
-import tutocitas.Contexto;
+import contexto.Contexto;
+import interfaces.InterfazCliente;
+import interfaces.InterfazServidor;
 
 /**
  * FXML Controller class
@@ -50,7 +52,10 @@ public class IniciarSesionController implements Initializable {
     try {
       Usuario usuario;    //Usuario que toma el valor retornado por el cliente, con un tipo asignado
       Cliente c = new Cliente();    //Se inicializa un cliente para recuperar el usuario que quiere ingresar
-      usuario = c.iniciarSesion(username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+      InterfazServidor s = c.getServidor();
+      usuario = s.iniciarSesion((InterfazCliente) c, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+      Contexto.getInstancia().setCliente(c);
+      Contexto.getInstancia().setServidor(s);
       if (usuario != null) {
         switch (usuario.getTipoUsuario()) {
           case "Administrador":

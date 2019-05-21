@@ -1,5 +1,6 @@
 package fxml;
 
+import cliente.Cliente;
 import entidades.Administrador;
 import java.io.IOException;
 import java.net.URL;
@@ -13,7 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import tutocitas.Contexto;
+import contexto.Contexto;
+import interfaces.InterfazCliente;
+import interfaces.InterfazServidor;
 
 /**
  * FXML Controller class
@@ -28,9 +31,12 @@ public class MenuAdministradorController implements Initializable {
   @FXML private Label lblBienvenido;
   
   private Administrador administrador;
+  private Cliente cliente;
+  private InterfazServidor servidor;
   
   @FXML
   void cerrarSesion(ActionEvent evt) throws IOException {
+    servidor.cerrarSesion((InterfazCliente) cliente);
     //Se cierra la ventana y, por ende, la sesión actuales
     Stage stageMenuAdministrador;
     stageMenuAdministrador = (Stage) btnCerrar.getScene().getWindow();
@@ -47,6 +53,8 @@ public class MenuAdministradorController implements Initializable {
   
   @FXML
   void irARegistrarTutor(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
     //Se cierra la ventana
     Stage stageMenuAdministrador;
     stageMenuAdministrador = (Stage) btnRegistrarTutor.getScene().getWindow();
@@ -85,6 +93,8 @@ public class MenuAdministradorController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     administrador = Contexto.getInstancia().getAdministrador();
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
   }
   
 }
