@@ -3,6 +3,7 @@ package servidor;
 import entidades.Tutor;
 import entidades.TutorHasBloque;
 import entidades.Usuario;
+import entidades.controladores.TutorHasBloqueJpaController;
 import entidades.controladores.TutorJpaController;
 import entidades.controladores.UsuarioJpaController;
 import interfaces.InterfazCliente;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
@@ -70,16 +72,18 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
 
   @Override
   public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException {
-    UsuarioJpaController controladorUsuario = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
+    UsuarioJpaController controladorUsuario = new UsuarioJpaController(emf);
     controladorUsuario.create(usuario);
     tutor.setUsuarioidUsuario(usuario);
-    TutorJpaController controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutorJpaController controladorTutor = new TutorJpaController(emf);
     controladorTutor.create(tutor);
   }
 
   @Override
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
-    
+    TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    controlador.create(horarios);
   }
 
   @Override
