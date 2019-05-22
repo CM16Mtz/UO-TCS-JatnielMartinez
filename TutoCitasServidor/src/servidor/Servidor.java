@@ -3,10 +3,12 @@ package servidor;
 import entidades.Tutor;
 import entidades.TutorHasBloque;
 import entidades.Tutorado;
+import entidades.Tutoria;
 import entidades.Usuario;
 import entidades.controladores.TutorHasBloqueJpaController;
 import entidades.controladores.TutorJpaController;
 import entidades.controladores.TutoradoJpaController;
+import entidades.controladores.TutoriaJpaController;
 import entidades.controladores.UsuarioJpaController;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
@@ -80,6 +82,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutorado.setUsuarioidUsuario(usuario);
     TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
     controladorTutorado.create(tutorado);
+    emf.close();
   }
 
   @Override
@@ -90,6 +93,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutor.setUsuarioidUsuario(usuario);
     TutorJpaController controladorTutor = new TutorJpaController(emf);
     controladorTutor.create(tutor);
+    emf.close();
   }
 
   @Override
@@ -142,9 +146,16 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     List<Tutor> tutores = controlador.findTutorEntities();
     return tutores;
   }
+
+  @Override
+  public List<Tutoria> consultarTutorias(Tutor tutor) throws RemoteException {
+    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutor(tutor);
+    return tutorias;
+  }
   
   private synchronized void hacerCallback() throws RemoteException {
     
   }
-  
+
 }

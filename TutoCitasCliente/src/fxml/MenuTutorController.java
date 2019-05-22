@@ -1,5 +1,6 @@
 package fxml;
 
+import cliente.Cliente;
 import entidades.Tutor;
 import java.io.IOException;
 import java.net.URL;
@@ -14,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import contexto.Contexto;
+import interfaces.InterfazCliente;
+import interfaces.InterfazServidor;
 
 /**
  * FXML Controller class
@@ -29,10 +32,15 @@ public class MenuTutorController implements Initializable {
   @FXML private Button btnGenerar;
   @FXML private Label lblBienvenido;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
   private Tutor tutor;
   
   @FXML
   void irAAgendarCita(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutor(tutor);
     //Se cierra la ventana
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnAgendar.getScene().getWindow();
@@ -51,6 +59,9 @@ public class MenuTutorController implements Initializable {
   
   @FXML
   void irACancelarCita(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutor(tutor);
     //Se cierra la ventana
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnCancelar.getScene().getWindow();
@@ -69,6 +80,7 @@ public class MenuTutorController implements Initializable {
   
   @FXML
   void cerrarSesion(ActionEvent evt) throws IOException {
+    servidor.cerrarSesion((InterfazCliente) cliente);
     //Se cierra la ventana y, por ende, la sesión actuales
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnCerrar.getScene().getWindow();
@@ -85,6 +97,9 @@ public class MenuTutorController implements Initializable {
   
   @FXML
   void irAConsultarCitas(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutor(tutor);
     //Se cierra la ventana
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnConsultar.getScene().getWindow();
@@ -103,6 +118,9 @@ public class MenuTutorController implements Initializable {
   
   @FXML
   void irAGenerarReporte(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutor(tutor);
     //Se cierra la ventana
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnGenerar.getScene().getWindow();
@@ -126,6 +144,8 @@ public class MenuTutorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
     tutor = Contexto.getInstancia().getTutor();
   }  
   

@@ -140,7 +140,8 @@ public class Tutorado implements Serializable {
 
   @Override
   public String toString() {
-    return "entidades.Tutorado[ idTutorado=" + idTutorado + " ]";
+    //return "entidades.Tutorado[ idTutorado=" + idTutorado + " ]";
+    return usuarioidUsuario.getNombre() + " " + usuarioidUsuario.getApPaterno() + " " + usuarioidUsuario.getApMaterno();
   }
   
 }

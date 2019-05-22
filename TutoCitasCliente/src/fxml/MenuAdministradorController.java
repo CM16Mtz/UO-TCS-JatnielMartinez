@@ -71,6 +71,8 @@ public class MenuAdministradorController implements Initializable {
   
   @FXML
   void irARegistrarTutorado(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
     //Se cierra la ventana
     Stage stageMenuAdministrador;
     stageMenuAdministrador = (Stage) btnRegistrarTutorado.getScene().getWindow();
