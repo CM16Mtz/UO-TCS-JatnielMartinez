@@ -238,7 +238,7 @@ public class TutoriaJpaController implements Serializable {
   
   public List<Tutoria> findTutoriaEntitiesByTutor(Tutor tutor) {
     EntityManager em = getEntityManager();
-    List<Tutoria> tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoridTutor = :tutoridTutor")
+    List<Tutoria> tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
         .setParameter("tutoridTutor", tutor.getIdTutor())
         .getSingleResult();
     em.close();

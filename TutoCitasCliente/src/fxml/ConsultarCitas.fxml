@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="410.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.ConsultarCitasController">
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.ConsultarCitasController">
    <children>
       <Label fx:id="lblEncabezado" layoutX="168.0" layoutY="14.0" text="Próximas citas" />
       <TableView fx:id="tblCitas" layoutX="25.0" layoutY="38.0" prefHeight="200.0" prefWidth="360.0">
@@ -17,6 +16,6 @@
             <TableColumn fx:id="colTutorado" prefWidth="200.0" text="Tutorado" />
         </columns>
       </TableView>
-      <Button fx:id="btnRegresar" layoutX="174.0" layoutY="255.0" mnemonicParsing="false" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="174.0" layoutY="255.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
    </children>
 </AnchorPane>

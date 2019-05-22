@@ -171,7 +171,10 @@ public class Tutoria implements Serializable {
 
   @Override
   public String toString() {
-    return "entidades.Tutoria[ idTutoria=" + idTutoria + " ]";
+    return fecha.toString() + " con "
+        + tutoradoidTutorado.getUsuarioidUsuario().getNombre() + " "
+        + tutoradoidTutorado.getUsuarioidUsuario().getApPaterno() + " "
+        + tutoradoidTutorado.getUsuarioidUsuario().getApMaterno();
   }
   
 }

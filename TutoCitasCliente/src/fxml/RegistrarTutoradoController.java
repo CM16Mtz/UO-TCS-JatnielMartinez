@@ -85,7 +85,7 @@ public class RegistrarTutoradoController implements Initializable {
     String contrasena = pwfContrasena.getText();
     Tutor tutor = (Tutor) cmbTutor.getValue();
     if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !carrera.isEmpty()
-        && !matricula.isEmpty() && !contrasena.isEmpty()) {
+        && !matricula.isEmpty() && !contrasena.isEmpty() && tutor != null) {
       //Se crea el usuario
       Usuario usuario = new Usuario(matricula, contrasena, "Tutorado", nombre, apPaterno, correo);
       if (!apMaterno.isEmpty()) {
@@ -114,7 +114,7 @@ public class RegistrarTutoradoController implements Initializable {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Datos inválidos");
       advertencia.setHeaderText("No se puede registrar a un tutorado con campos vacíos");
-      advertencia.setContentText("Por favor, llene todos los datos");
+      advertencia.setContentText("Por favor, llene todos los datos (con excepción del apellido materno)");
       advertencia.showAndWait();
     }
   }

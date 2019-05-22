@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="220.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.ConfirmarCitaController">
+<AnchorPane id="AnchorPane" prefHeight="220.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.ConfirmarCitaController">
    <children>
       <Label fx:id="lblCita" layoutX="25.0" layoutY="25.0" text="Cita con:" />
       <Label fx:id="lblTutorado" layoutX="100.0" layoutY="25.0" text="Tutorado" />
@@ -15,7 +14,7 @@
       <TextField fx:id="txfHora" layoutX="100.0" layoutY="90.0" prefHeight="25.0" prefWidth="175.0" />
       <Label fx:id="lblDia" layoutX="25.0" layoutY="54.0" text="Día:" />
       <Label fx:id="lblHora" layoutX="25.0" layoutY="94.0" text="Hora:" />
-      <Button fx:id="btnConfirmar" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" text="Confirmar cita" />
-      <Button fx:id="btnCancelar" layoutX="105.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Cancelar" />
+      <Button fx:id="btnConfirmar" layoutX="105.0" layoutY="140.0" mnemonicParsing="false" onAction="#confirmar" text="Confirmar cita" />
+      <Button fx:id="btnCancelar" layoutX="105.0" layoutY="175.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="91.0" text="Cancelar" />
    </children>
 </AnchorPane>

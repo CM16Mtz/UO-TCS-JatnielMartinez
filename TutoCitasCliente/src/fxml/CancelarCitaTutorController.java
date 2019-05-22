@@ -1,5 +1,6 @@
 package fxml;
 
+import cliente.Cliente;
 import entidades.Tutor;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import contexto.Contexto;
+import entidades.Tutoria;
+import interfaces.InterfazServidor;
+import java.rmi.RemoteException;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -32,11 +43,35 @@ public class CancelarCitaTutorController implements Initializable {
   @FXML private TableColumn colTutorado;
   @FXML private TableView tblCitas;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
   private Tutor tutor;
   
   @FXML
   void cancelarCita(ActionEvent evt) {
-    
+    Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
+    if (tutoria != null) {
+      Alert confirmacion = new Alert(
+          AlertType.CONFIRMATION,
+          "¿Está seguro que desea cancelar la cita seleccionada?",
+          ButtonType.YES,
+          ButtonType.NO);
+      confirmacion.showAndWait();
+      if (confirmacion.getResult() == ButtonType.YES) {
+        try {
+          tutoria.setCancelada(true);
+          tutoria.setCausa("Cita cancelada por el tutor");
+          servidor.cancelarCita(tutoria);
+          llenarTabla();
+        } catch (RemoteException ex) {
+          Alert error = new Alert(AlertType.ERROR);
+          error.setTitle("Error al cancelar");
+          error.setHeaderText("No se pudo contactar con el servidor para cancelar la cita");
+          error.setContentText("Por favor, realice la cancelación más tarde");
+          error.showAndWait();
+        }
+      }
+    }
   }
   
   @FXML
@@ -60,7 +95,36 @@ public class CancelarCitaTutorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
     tutor = Contexto.getInstancia().getTutor();
-  }  
+    llenarTabla();
+  }
+  
+  void llenarTabla() {
+    colDia.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+    colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
+    colTutorado.setCellValueFactory(new PropertyValueFactory<>("Tutorado_idTutorado"));
+    try {
+      List<Tutoria> tutorias = servidor.consultarTutorias(tutor);
+      ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
+      if (lista.size() > 0) {
+        tblCitas.setItems(lista);
+      } else {
+        tblCitas.setItems(null);
+        Alert advertencia = new Alert(AlertType.WARNING);
+        advertencia.setTitle("No hay citas");
+        advertencia.setHeaderText(null);
+        advertencia.setContentText("Usted no tiene citas programadas");
+        advertencia.showAndWait();
+      }
+    } catch (RemoteException ex) {
+      Alert error = new Alert(AlertType.ERROR);
+      error.setTitle("Error de conexión");
+      error.setHeaderText("No se pudieron recuperar las tutorías de la base de datos");
+      error.setContentText("Por favor, consulte sus citas más tarde");
+      error.showAndWait();
+    }
+  }
   
 }

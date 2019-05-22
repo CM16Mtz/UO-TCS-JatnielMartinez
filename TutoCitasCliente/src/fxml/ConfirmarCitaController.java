@@ -1,5 +1,6 @@
 package fxml;
 
+import cliente.Cliente;
 import entidades.Tutoria;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import contexto.Contexto;
+import entidades.Tutor;
+import interfaces.InterfazServidor;
 
 /**
  * FXML Controller class
@@ -33,6 +36,9 @@ public class ConfirmarCitaController implements Initializable {
   @FXML private Label lblTutorado;
   @FXML private TextField txfHora;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
+  private Tutor tutor;
   private Tutoria tutoria;
   
   @FXML
@@ -42,13 +48,13 @@ public class ConfirmarCitaController implements Initializable {
     stageConfirmarCita = (Stage) btnCancelar.getScene().getWindow();
     stageConfirmarCita.close();
     //Se regresa a CancelarCitaTutor.fxml
-    Stage stageCancelarCita = new Stage();
+    Stage stageAgendarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/fxml/CancelarCitaTutor.fxml"));
+    loader.setLocation(getClass().getResource("/fxml/AgendarCita.fxml"));
     Parent root = loader.load();
     Scene scene = new Scene(root);
-    stageCancelarCita.setScene(scene);
-    stageCancelarCita.show();
+    stageAgendarCita.setScene(scene);
+    stageAgendarCita.show();
   }
   
   @FXML
@@ -61,7 +67,15 @@ public class ConfirmarCitaController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
+    tutor = Contexto.getInstancia().getTutor();
     tutoria = Contexto.getInstancia().getTutoria();
+    String nombreTutorado = tutoria.getTutoradoidTutorado().getUsuarioidUsuario().getNombre();
+    String apPaternoTutorado = tutoria.getTutoradoidTutorado().getUsuarioidUsuario().getApPaterno();
+    String apMaternoTutorado = tutoria.getTutoradoidTutorado().getUsuarioidUsuario().getApMaterno();
+    String nombreCompletoTutorado = nombreTutorado + " " + apPaternoTutorado + " " + apMaternoTutorado;
+    lblTutorado.setText(nombreCompletoTutorado);
   }  
   
 }

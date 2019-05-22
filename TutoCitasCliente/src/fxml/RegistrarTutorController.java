@@ -103,7 +103,7 @@ public class RegistrarTutorController implements Initializable {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Datos inválidos");
       advertencia.setHeaderText("No se puede registrar a un tutor con campos vacíos");
-      advertencia.setContentText("Por favor, llene todos los datos");
+      advertencia.setContentText("Por favor, llene todos los datos (con excepción del apellido materno)");
       advertencia.showAndWait();
     }
   }

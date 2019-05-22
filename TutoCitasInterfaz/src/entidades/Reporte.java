@@ -69,6 +69,13 @@ public class Reporte implements Serializable {
     this.duracion = duracion;
     this.atendida = atendida;
   }
+  
+  public Reporte(int numTutoria, int duracion, boolean atendida, Tutoria tutoria) {
+    this.numTutoria = numTutoria;
+    this.duracion = duracion;
+    this.atendida = atendida;
+    this.tutoriaidTutoria = tutoria;
+  }
 
   public Integer getIdReporte() {
     return idReporte;

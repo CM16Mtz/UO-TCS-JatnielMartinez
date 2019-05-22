@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="270.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.GenerarReporteController">
+<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.GenerarReporteController">
    <children>
       <Label fx:id="lbl1" layoutX="25.0" layoutY="25.0" text="Tutor:" />
       <Label fx:id="lblTutor" layoutX="200.0" layoutY="25.0" text="Tutor" />
@@ -17,10 +17,12 @@
       <CheckBox fx:id="chkSi" layoutX="200.0" layoutY="135.0" mnemonicParsing="false" text="Sí" />
       <CheckBox fx:id="chkNo" layoutX="265.0" layoutY="135.0" mnemonicParsing="false" text="No" />
       <Label fx:id="lbl4" layoutX="25.0" layoutY="135.0" text="¿Fue atendida?" />
-      <TextField fx:id="txfDuracion" layoutX="200.0" layoutY="175.0" prefHeight="25.0" prefWidth="52.0" />
-      <Label fx:id="lblMinutos" layoutX="265.0" layoutY="179.0" text="minutos" />
-      <Label fx:id="lbl5" layoutX="25.0" layoutY="179.0" text="Duración de la tutoría:" />
-      <Button fx:id="btnGenerar" layoutX="200.0" layoutY="220.0" mnemonicParsing="false" text="Generar reporte" />
-      <Button fx:id="btnCancelar" layoutX="325.0" layoutY="220.0" mnemonicParsing="false" text="Cancelar" />
+      <TextField fx:id="txfDuracion" layoutX="200.0" layoutY="275.0" prefHeight="25.0" prefWidth="52.0" />
+      <Label fx:id="lblMinutos" layoutX="265.0" layoutY="279.0" text="minutos" />
+      <Label fx:id="lbl6" layoutX="25.0" layoutY="279.0" text="Duración de la tutoría:" />
+      <Button fx:id="btnGenerar" layoutX="200.0" layoutY="320.0" mnemonicParsing="false" onAction="#generar" text="Generar reporte" />
+      <Button fx:id="btnCancelar" layoutX="325.0" layoutY="320.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+      <TextArea fx:id="txaCausa" disable="true" layoutX="200.0" layoutY="175.0" prefHeight="80.0" prefWidth="200.0" />
+      <Label fx:id="lbl5" layoutX="25.0" layoutY="175.0" text="Causa:" />
    </children>
 </AnchorPane>

@@ -1,15 +1,19 @@
 package servidor;
 
+import entidades.Reporte;
 import entidades.Tutor;
 import entidades.TutorHasBloque;
 import entidades.Tutorado;
 import entidades.Tutoria;
 import entidades.Usuario;
+import entidades.controladores.ReporteJpaController;
 import entidades.controladores.TutorHasBloqueJpaController;
 import entidades.controladores.TutorJpaController;
 import entidades.controladores.TutoradoJpaController;
 import entidades.controladores.TutoriaJpaController;
 import entidades.controladores.UsuarioJpaController;
+import entidades.controladores.exceptions.IllegalOrphanException;
+import entidades.controladores.exceptions.NonexistentEntityException;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
 import java.net.InetAddress;
@@ -113,13 +117,23 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public void cancelarCita() throws RemoteException {
-    
+  public void cancelarCita(Tutoria tutoria) throws RemoteException {
+    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    try {
+      controlador.edit(tutoria);
+    } catch (Exception ex) {
+      Alert error = new Alert(AlertType.ERROR);
+      error.setTitle("Error de cancelación");
+      error.setHeaderText(null);
+      error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
+      error.showAndWait();
+    }
   }
 
   @Override
-  public void generarReporte() throws RemoteException {
-    
+  public void generarReporte(Reporte reporte) throws RemoteException {
+    ReporteJpaController controlador = new ReporteJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    controlador.create(reporte);
   }
 
   @Override
