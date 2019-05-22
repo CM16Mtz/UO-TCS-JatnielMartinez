@@ -132,7 +132,9 @@ public class Tutor implements Serializable {
 
   @Override
   public String toString() {
-    return "entidades.Tutor[ idTutor=" + idTutor + " ]";
+    //return "entidades.Tutor[ idTutor=" + idTutor + " ]";
+    return noPersonal + " - " + usuarioidUsuario.getNombre() + " " + usuarioidUsuario.getApPaterno()
+        + " " + usuarioidUsuario.getApMaterno();
   }
 
   @XmlTransient

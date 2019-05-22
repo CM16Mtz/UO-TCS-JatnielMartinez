@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="375.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.RegistrarTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.RegistrarTutoradoController">
    <children>
       <Label fx:id="lblNombre" layoutX="25.0" layoutY="29.0" text="Nombre:" />
       <TextField fx:id="txfNombre" layoutX="150.0" layoutY="25.0" prefHeight="25.0" prefWidth="200.0" />
@@ -25,7 +24,7 @@
       <Label fx:id="lblMatricula" layoutX="25.0" layoutY="229.0" text="Matrícula:" />
       <Label fx:id="lblContrasena" layoutX="25.0" layoutY="269.0" text="Contraseña:" />
       <Label fx:id="lblTutor" layoutX="25.0" layoutY="309.0" text="Tutor:" />
-      <Button fx:id="btnRegistrar" layoutX="150.0" layoutY="345.0" mnemonicParsing="false" text="Registrar tutorado" />
-      <Button fx:id="btnCancelar" layoutX="288.0" layoutY="345.0" mnemonicParsing="false" text="Cancelar" />
+      <Button fx:id="btnRegistrar" layoutX="150.0" layoutY="345.0" mnemonicParsing="false" onAction="#registrar" text="Registrar tutorado" />
+      <Button fx:id="btnCancelar" layoutX="288.0" layoutY="345.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
    </children>
 </AnchorPane>

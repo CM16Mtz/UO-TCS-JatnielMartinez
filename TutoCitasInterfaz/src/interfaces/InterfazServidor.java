@@ -2,9 +2,11 @@ package interfaces;
 
 import entidades.Tutor;
 import entidades.TutorHasBloque;
+import entidades.Tutorado;
 import entidades.Usuario;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
@@ -12,6 +14,7 @@ import java.rmi.RemoteException;
  */
 public interface InterfazServidor extends Remote {
   
+  public void registrarTutorado(Usuario usuario, Tutorado tutorado) throws RemoteException;
   public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException ;
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException;
   public void setAtendida() throws RemoteException;
@@ -20,5 +23,6 @@ public interface InterfazServidor extends Remote {
   public void generarReporte() throws RemoteException;
   public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException;
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException;
+  public List<Tutor> consultarTutores() throws RemoteException;
   
 }

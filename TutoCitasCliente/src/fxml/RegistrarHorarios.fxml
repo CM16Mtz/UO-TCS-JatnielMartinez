@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.RegistrarHorariosController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.RegistrarHorariosController">
    <children>
       <Label fx:id="lblEncabezado" layoutX="25.0" layoutY="25.0" text="Marque los días y horas que tendrá disponible para atender a sus tutorados" />
       <CheckBox fx:id="chk0700Lun" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" text="07:00" />
@@ -155,6 +154,6 @@
       <Label fx:id="lblJueves" layoutX="299.0" layoutY="55.0" text="Jueves" />
       <Label fx:id="lblViernes" layoutX="381.0" layoutY="55.0" text="Viernes" />
       <CheckBox fx:id="chk1430Vie" layoutX="375.0" layoutY="380.0" mnemonicParsing="false" text="14:30" />
-      <Button fx:id="btnRegistrar" layoutX="170.0" layoutY="650.0" mnemonicParsing="false" text="Registrar horarios" />
+      <Button fx:id="btnRegistrar" layoutX="170.0" layoutY="650.0" mnemonicParsing="false" onAction="#registrarHorarios" text="Registrar horarios" />
    </children>
 </AnchorPane>

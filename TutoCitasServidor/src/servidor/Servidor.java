@@ -2,9 +2,11 @@ package servidor;
 
 import entidades.Tutor;
 import entidades.TutorHasBloque;
+import entidades.Tutorado;
 import entidades.Usuario;
 import entidades.controladores.TutorHasBloqueJpaController;
 import entidades.controladores.TutorJpaController;
+import entidades.controladores.TutoradoJpaController;
 import entidades.controladores.UsuarioJpaController;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
@@ -69,6 +71,16 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.showAndWait();
     }
   }
+  
+  @Override
+  public void registrarTutorado(Usuario usuario, Tutorado tutorado) throws RemoteException {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
+    UsuarioJpaController controladorUsuario = new UsuarioJpaController(emf);
+    controladorUsuario.create(usuario);
+    tutorado.setUsuarioidUsuario(usuario);
+    TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
+    controladorTutorado.create(tutorado);
+  }
 
   @Override
   public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException {
@@ -122,6 +134,13 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   @Override
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException {
     clientes.remove(cliente);
+  }
+  
+  @Override
+  public List<Tutor> consultarTutores() throws RemoteException {
+    TutorJpaController controlador = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    List<Tutor> tutores = controlador.findTutorEntities();
+    return tutores;
   }
   
   private synchronized void hacerCallback() throws RemoteException {
