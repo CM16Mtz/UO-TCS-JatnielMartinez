@@ -27,7 +27,7 @@ public class Cliente extends UnicastRemoteObject {
   public Cliente() throws RemoteException {
     super();
     nombre = "TutoCitas";
-    nombreServidor = "192.168.8.5";
+    nombreServidor = "localhost";
     puertoServidor = 5678;
   }
   

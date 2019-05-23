@@ -1,5 +1,6 @@
 package fxml;
 
+import cliente.Cliente;
 import entidades.Tutorado;
 import java.io.IOException;
 import java.net.URL;
@@ -14,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import contexto.Contexto;
+import interfaces.InterfazCliente;
+import interfaces.InterfazServidor;
 
 /**
  * FXML Controller class
@@ -28,10 +31,15 @@ public class MenuTutoradoController implements Initializable {
   @FXML private Button btnReservar;
   @FXML private Label lblBienvenido;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
   private Tutorado tutorado;
   
   @FXML
   void irACancelarCita(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutorado(tutorado);
     //Se cierra la ventana
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnCancelar.getScene().getWindow();
@@ -50,6 +58,7 @@ public class MenuTutoradoController implements Initializable {
   
   @FXML
   void cerrarSesion(ActionEvent evt) throws IOException {
+    servidor.cerrarSesion((InterfazCliente) cliente);
     //Se cierra la ventana y, por ende, la sesión actuales
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnCerrar.getScene().getWindow();
@@ -66,6 +75,9 @@ public class MenuTutoradoController implements Initializable {
   
   @FXML
   void irAConsultarCitas(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutorado(tutorado);
     //Se cierra la ventana
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnConsultar.getScene().getWindow();
@@ -84,6 +96,9 @@ public class MenuTutoradoController implements Initializable {
   
   @FXML
   void irAReservarCita(ActionEvent evt) throws IOException {
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
+    Contexto.getInstancia().setTutorado(tutorado);
     //Se cierra la ventana
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnReservar.getScene().getWindow();
@@ -105,6 +120,8 @@ public class MenuTutoradoController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
     tutorado = Contexto.getInstancia().getTutorado();
   }  
   

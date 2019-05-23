@@ -27,3 +27,11 @@ hs_err_pid*
 /TutoCitasCliente/nbproject/private/
 /TutoCitasInterfaz/nbproject/private/
 /TutoCitasServidor/nbproject/private/
+/TutoCitasCliente/build/
+/TutoCitasInterfaz/build/
+/TutoCitasInterfaz/dist/
+/TutoCitasCliente/dist/
+/TutoCitasServidor/build/
+/Servidor/nbproject/private/
+/Servidor/build/
+/EjemploFactory_JatnielMartinez/nbproject/private/

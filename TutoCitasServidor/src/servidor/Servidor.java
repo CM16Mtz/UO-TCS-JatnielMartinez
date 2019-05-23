@@ -1,5 +1,7 @@
 package servidor;
 
+
+
 import entidades.Reporte;
 import entidades.Tutor;
 import entidades.TutorHasBloque;
@@ -44,7 +46,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     clientes = new ArrayList<>();
   }
   
-  public static void main() throws RemoteException {
+  public static void main(String[] args) throws RemoteException {
     (new Servidor()).iniciarServidor();
   }
   
