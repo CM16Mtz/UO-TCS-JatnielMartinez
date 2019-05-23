@@ -170,6 +170,13 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     return tutorias;
   }
   
+  @Override
+  public List<Tutoria> consultarTutorias(Tutorado tutorado) throws RemoteException {
+    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutorado(tutorado);
+    return tutorias;
+  }
+  
   private synchronized void hacerCallback() throws RemoteException {
     
   }

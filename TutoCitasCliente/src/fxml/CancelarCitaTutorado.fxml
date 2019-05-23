@@ -6,12 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="125.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fxml.CancelarCitaTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="318.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.CancelarCitaTutoradoController">
    <children>
-      <Label fx:id="lblEncabezado" layoutX="179.0" layoutY="25.0" text="Usted tiene cita con tutor el día dia a las hora." />
-      <Label fx:id="lblPregunta" layoutX="201.0" layoutY="42.0" text="¿Seguro que desea cancelar esta cita?" />
-      <Button fx:id="btnSi" layoutX="250.0" layoutY="74.0" mnemonicParsing="false" text="Sí" />
-      <Button fx:id="btnNo" layoutX="325.0" layoutY="74.0" mnemonicParsing="false" text="No" />
+      <Label fx:id="lblEncabezado" layoutX="53.0" layoutY="25.0" text="Seleccione la cita que desee cancelar" />
+      <TableView fx:id="tblCitas" layoutX="25.0" layoutY="52.0" prefHeight="200.0" prefWidth="250.0">
+        <columns>
+          <TableColumn fx:id="colFecha" prefWidth="125.0" text="Fecha" />
+          <TableColumn fx:id="colHora" prefWidth="125.0" text="Hora" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnCancelar" layoutX="53.0" layoutY="272.0" mnemonicParsing="false" onAction="#clicCancelar" text="Cancelar cita" />
+      <Button fx:id="btnRegresar" layoutX="185.0" layoutY="272.0" mnemonicParsing="false" onAction="#clicRegresar" text="Regresar" />
    </children>
 </AnchorPane>

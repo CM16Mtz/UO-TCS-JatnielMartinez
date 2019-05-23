@@ -27,5 +27,6 @@ public interface InterfazServidor extends Remote {
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException;
   public List<Tutor> consultarTutores() throws RemoteException;
   public List<Tutoria> consultarTutorias(Tutor tutor) throws RemoteException;
+  public List<Tutoria> consultarTutorias(Tutorado tutorado) throws RemoteException;
   
 }
