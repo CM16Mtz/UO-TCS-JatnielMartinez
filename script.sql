@@ -80,7 +80,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `tutocitas`.`Tutoria` (
   `idTutoria` INT(11) NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
-  `hora` DATETIME NOT NULL,
+  `hora` VARCHAR(5) NOT NULL,
   `cancelada` TINYINT(1) NOT NULL,
   `causa` VARCHAR(100) NULL DEFAULT NULL,
   `Tutorado_idTutorado` INT(11) NOT NULL,
