@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 import contexto.Contexto;
 import entidades.Tutor;
 import interfaces.InterfazServidor;
+import java.rmi.RemoteException;
+import java.sql.Date;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * FXML Controller class
@@ -59,7 +63,27 @@ public class ConfirmarCitaController implements Initializable {
   
   @FXML
   void confirmar(ActionEvent evt) {
-    
+    Date fecha = Date.valueOf(dtpDia.getValue());
+    String hora = txfHora.getText();
+    tutoria.setFecha(fecha);
+    tutoria.setHora(hora);
+    if (fecha != null && !hora.isEmpty()) {
+      try {
+        servidor.confirmarCita(tutoria);
+      } catch (RemoteException ex) {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("Error al guardar la cita");
+        error.setHeaderText("No se pudo contactar con el servidor para guardar la cita");
+        error.setContentText("Por favor, realice la confirmación más tarde");
+        error.showAndWait();
+      }
+    } else {
+      Alert advertencia = new Alert(AlertType.WARNING);
+      advertencia.setTitle("Datos inválidos");
+      advertencia.setHeaderText(null);
+      advertencia.setContentText("Por favor, ingrese una fecha y una hora en formato HH:MM");
+      advertencia.showAndWait();
+    }
   }
 
   /**

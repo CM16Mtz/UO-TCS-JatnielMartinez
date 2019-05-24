@@ -113,6 +113,20 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
     controlador.create(tutoria);
   }
+  
+  @Override
+  public void confirmarCita(Tutoria tutoria) throws RemoteException {
+    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    try {
+      controlador.edit(tutoria);
+    } catch (Exception ex) {
+      Alert error = new Alert(AlertType.ERROR);
+      error.setTitle("Error de cancelación");
+      error.setHeaderText(null);
+      error.setContentText("Se produjo un error al confirmar la cita");
+      error.showAndWait();
+    }
+  }
 
   @Override
   public void reportarProximasTutorias() throws RemoteException {

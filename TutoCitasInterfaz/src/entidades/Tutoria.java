@@ -42,6 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
   , @NamedQuery(name = "Tutoria.findByCausa", query = "SELECT t FROM Tutoria t WHERE t.causa = :causa")})
 public class Tutoria implements Serializable {
 
+  @Basic(optional = false)
+  @Column(name = "hora")
+  private String hora;
+
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,10 +56,6 @@ public class Tutoria implements Serializable {
   @Column(name = "fecha")
   @Temporal(TemporalType.DATE)
   private Date fecha;
-  @Basic(optional = false)
-  @Column(name = "hora")
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date hora;
   @Basic(optional = false)
   @Column(name = "cancelada")
   private boolean cancelada;
@@ -77,11 +77,19 @@ public class Tutoria implements Serializable {
     this.idTutoria = idTutoria;
   }
 
-  public Tutoria(Integer idTutoria, Date fecha, Date hora, boolean cancelada) {
+  public Tutoria(Integer idTutoria, Date fecha, String hora, boolean cancelada) {
     this.idTutoria = idTutoria;
     this.fecha = fecha;
     this.hora = hora;
     this.cancelada = cancelada;
+  }
+  
+  public Tutoria(Date fecha, String hora, boolean cancelada, Tutorado tutorado, Tutor tutor) {
+    this.fecha = fecha;
+    this.hora = hora;
+    this.cancelada = cancelada;
+    this.tutoradoidTutorado = tutorado;
+    this.tutoridTutor = tutor;
   }
 
   public Integer getIdTutoria() {
@@ -100,14 +108,14 @@ public class Tutoria implements Serializable {
     this.fecha = fecha;
   }
 
-  public Date getHora() {
+  public String getHora() {
     return hora;
   }
 
-  public void setHora(Date hora) {
+  public void setHora(String hora) {
     this.hora = hora;
   }
-
+  
   public boolean getCancelada() {
     return cancelada;
   }
@@ -176,5 +184,5 @@ public class Tutoria implements Serializable {
         + tutoradoidTutorado.getUsuarioidUsuario().getApPaterno() + " "
         + tutoradoidTutorado.getUsuarioidUsuario().getApMaterno();
   }
-  
+
 }
