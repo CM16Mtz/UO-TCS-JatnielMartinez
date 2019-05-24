@@ -44,8 +44,6 @@ public class MenuTutoradoController implements Initializable {
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnCancelar.getScene().getWindow();
     stageMenuTutorado.hide();
-    //Se establece el contexto del tutorado
-    Contexto.getInstancia().setTutorado(tutorado);
     //Se redirige a la ventana CancelarCitaTutorado.fxml
     Stage stageCancelarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();
@@ -82,8 +80,6 @@ public class MenuTutoradoController implements Initializable {
     Stage stageMenuTutorado;
     stageMenuTutorado = (Stage) btnConsultar.getScene().getWindow();
     stageMenuTutorado.hide();
-    //Se establece el contexto del tutor del tutorado
-    Contexto.getInstancia().setTutor(tutorado.getTutoridTutor());
     //Se redirige a la ventana ConsultarCitas.fxml
     Stage stageConsultarCitas = new Stage();
     FXMLLoader loader = new FXMLLoader();
@@ -104,7 +100,6 @@ public class MenuTutoradoController implements Initializable {
     stageMenuTutorado = (Stage) btnReservar.getScene().getWindow();
     stageMenuTutorado.hide();
     //Se establece el contexto del tutor
-    Contexto.getInstancia().setTutorado(tutorado);
     //Se redirige a la ventana ReservarCita.fxml
     Stage stageReservarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();

@@ -52,14 +52,19 @@ public class ConsultarCitasController implements Initializable {
     Stage stageConsultarCitas;
     stageConsultarCitas = (Stage) btnRegresar.getScene().getWindow();
     stageConsultarCitas.close();
-    //Se regresa al menú de tutor
-    Stage stageMenuTutor = new Stage();
+    //Se regresa al menú de tutor o tutorado
+    Stage stageMenu = new Stage();
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+    //El sistema se regresa al menú correspondiente al contexto
+    if (tutor != null && tutorado == null) {
+      loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+    } else if (tutor == null && tutorado != null) {
+      loader.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
+    }
     Parent root = loader.load();
     Scene scene = new Scene(root);
-    stageMenuTutor.setScene(scene);
-    stageMenuTutor.show();
+    stageMenu.setScene(scene);
+    stageMenu.show();
   }
 
   /**

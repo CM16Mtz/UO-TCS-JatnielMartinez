@@ -109,8 +109,9 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public void setAtendida() throws RemoteException {
-    
+  public void reservarCita(Tutoria tutoria) throws RemoteException {
+    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    controlador.create(tutoria);
   }
 
   @Override

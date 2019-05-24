@@ -45,8 +45,6 @@ public class MenuTutorController implements Initializable {
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnAgendar.getScene().getWindow();
     stageMenuTutor.hide();
-    //Se establece el contexto del tutor
-    Contexto.getInstancia().setTutor(tutor);
     //Se redirige a la ventana AgendarCita.fxml
     Stage stageAgendarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();
@@ -66,8 +64,6 @@ public class MenuTutorController implements Initializable {
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnCancelar.getScene().getWindow();
     stageMenuTutor.hide();
-    //Se establece el contexto del tutor
-    Contexto.getInstancia().setTutor(tutor);
     //Se redirige a la ventana CancelarCitaTutor.fxml
     Stage stageCancelarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();
@@ -104,8 +100,6 @@ public class MenuTutorController implements Initializable {
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnConsultar.getScene().getWindow();
     stageMenuTutor.hide();
-    //Se establece el contexto del tutor
-    Contexto.getInstancia().setTutor(tutor);
     //Se redirige a la ventana ConsultarCitas.fxml
     Stage stageConsultarCitas = new Stage();
     FXMLLoader loader = new FXMLLoader();
@@ -125,8 +119,6 @@ public class MenuTutorController implements Initializable {
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnGenerar.getScene().getWindow();
     stageMenuTutor.hide();
-    //Se establece el contexto del tutor
-    Contexto.getInstancia().setTutor(tutor);
     //Se redirige a la ventana GenerarReporte.fxml
     Stage stageGenerarReporte = new Stage();
     FXMLLoader loader = new FXMLLoader();

@@ -10,12 +10,7 @@ import java.rmi.RemoteException;
  */
 public interface InterfazCliente extends Remote {
   
-  public void registrarTutorado() throws RemoteException;
-  public void reservarCita() throws RemoteException;
-  public void notificarCita() throws RemoteException;
-  public void iniciarCronometroCita() throws RemoteException;
   public void notificarCancelacionCita() throws RemoteException;
-  public void cancelarCita() throws RemoteException;
   public void notificar(String mensaje) throws RemoteException;
   
 }

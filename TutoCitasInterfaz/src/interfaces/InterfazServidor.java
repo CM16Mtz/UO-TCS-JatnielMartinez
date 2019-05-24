@@ -19,7 +19,7 @@ public interface InterfazServidor extends Remote {
   public void registrarTutorado(Usuario usuario, Tutorado tutorado) throws RemoteException;
   public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException ;
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException;
-  public void setAtendida() throws RemoteException;
+  public void reservarCita(Tutoria tutoria) throws RemoteException;
   public void reportarProximasTutorias() throws RemoteException;
   public void cancelarCita(Tutoria tutoria) throws RemoteException;
   public void generarReporte(Reporte reporte) throws RemoteException;
