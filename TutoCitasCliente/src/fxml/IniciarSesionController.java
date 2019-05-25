@@ -27,7 +27,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.persistence.Persistence;
-import jdk.nashorn.internal.runtime.Context;
 import contexto.Contexto;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
@@ -45,17 +44,18 @@ public class IniciarSesionController implements Initializable {
   @FXML private PasswordField pwfContrasena;
   @FXML private TextField txfUsuario;
   
+  private Cliente cliente;
+  private InterfazServidor servidor;
+  
   @FXML
   void iniciarSesion(ActionEvent evt) throws IOException {
     String username = txfUsuario.getText();
     String contrasena = pwfContrasena.getText();
     try {
       Usuario usuario;    //Usuario que toma el valor retornado por el cliente, con un tipo asignado
-      Cliente c = new Cliente();    //Se inicializa un cliente para recuperar el usuario que quiere ingresar
-      InterfazServidor s = c.getServidor();
-      usuario = s.iniciarSesion((InterfazCliente) c, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
-      Contexto.getInstancia().setCliente(c);
-      Contexto.getInstancia().setServidor(s);
+      usuario = servidor.iniciarSesion((InterfazCliente) cliente, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+      Contexto.getInstancia().setCliente(cliente);
+      Contexto.getInstancia().setServidor(servidor);
       if (usuario != null) {
         switch (usuario.getTipoUsuario()) {
           case "Administrador":
@@ -136,7 +136,8 @@ public class IniciarSesionController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    cliente = Contexto.getInstancia().getCliente();
+    servidor = Contexto.getInstancia().getServidor();
   }
   
 }

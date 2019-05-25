@@ -14,8 +14,6 @@ import entidades.controladores.TutorJpaController;
 import entidades.controladores.TutoradoJpaController;
 import entidades.controladores.TutoriaJpaController;
 import entidades.controladores.UsuarioJpaController;
-import entidades.controladores.exceptions.IllegalOrphanException;
-import entidades.controladores.exceptions.NonexistentEntityException;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
 import java.net.InetAddress;
@@ -39,6 +37,7 @@ import javax.persistence.Persistence;
 public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   
   private static final int PUERTO = 5678;
+  private static final long SERIAL_VERSION_UID = 1L;
   private final List<InterfazCliente> clientes;
   
   public Servidor() throws RemoteException {
@@ -53,30 +52,16 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void iniciarServidor() {
     try {
       String direccion = (InetAddress.getLocalHost()).toString();
-      Alert iniciando = new Alert(AlertType.INFORMATION);
-      iniciando.setTitle("Servidor");
-      iniciando.setHeaderText(null);
-      iniciando.setContentText("Iniciando servidor en " + direccion + ":" + PUERTO);
-      iniciando.showAndWait();
+      System.out.println("Iniciando servidor en " + direccion + ":" + PUERTO);
       Registry registro = LocateRegistry.createRegistry(PUERTO);
       registro.bind("TutoCitas", (InterfazServidor) this);
-      Alert iniciado = new Alert(AlertType.INFORMATION);
-      iniciado.setTitle("Servidor");
-      iniciado.setHeaderText(null);
-      iniciado.setContentText("Servidor iniciado");
-      iniciado.showAndWait();
+      System.out.println("Servidor iniciado");
     } catch (UnknownHostException ex) {
-      Alert error = new Alert(AlertType.ERROR);
-      error.setTitle("Error de servidor");
-      error.setHeaderText(null);
-      error.setContentText("Se produjo un error al iniciar el servidor");
-      error.showAndWait();
+      System.err.println("Se produjo un error al iniciar el servidor");
+      System.err.println("UnknownHostException: " + ex.getMessage());
     } catch (RemoteException | AlreadyBoundException ex) {
-      Alert error = new Alert(AlertType.ERROR);
-      error.setTitle("Error de servidor");
-      error.setHeaderText(null);
-      error.setContentText("Se produjo un error en el servidor");
-      error.showAndWait();
+      System.err.println("Se produjo un error al iniciar el servidor");
+      System.err.println("RemoteException | AlreadyBoundException: " + ex.getMessage());
     }
   }
   
