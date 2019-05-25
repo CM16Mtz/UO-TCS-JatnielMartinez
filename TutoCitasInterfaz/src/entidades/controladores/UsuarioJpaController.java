@@ -302,7 +302,7 @@ public class UsuarioJpaController implements Serializable {
         .setParameter("username", username)
         .setParameter("contrasena", contrasena)
         .getSingleResult();
-    em.close();
+    //em.close();
     return usuario;
   }
 

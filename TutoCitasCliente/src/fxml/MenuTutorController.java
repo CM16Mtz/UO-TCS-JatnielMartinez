@@ -76,7 +76,7 @@ public class MenuTutorController implements Initializable {
   
   @FXML
   void cerrarSesion(ActionEvent evt) throws IOException {
-    servidor.cerrarSesion((InterfazCliente) cliente);
+    servidor.cerrarSesion(cliente);
     //Se cierra la ventana y, por ende, la sesión actuales
     Stage stageMenuTutor;
     stageMenuTutor = (Stage) btnCerrar.getScene().getWindow();

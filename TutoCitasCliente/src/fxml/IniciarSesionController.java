@@ -51,83 +51,90 @@ public class IniciarSesionController implements Initializable {
   void iniciarSesion(ActionEvent evt) throws IOException {
     String username = txfUsuario.getText();
     String contrasena = pwfContrasena.getText();
-    try {
-      Usuario usuario;    //Usuario que toma el valor retornado por el cliente, con un tipo asignado
-      usuario = servidor.iniciarSesion((InterfazCliente) cliente, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
-      Contexto.getInstancia().setCliente(cliente);
-      Contexto.getInstancia().setServidor(servidor);
-      if (usuario != null) {
-        switch (usuario.getTipoUsuario()) {
-          case "Administrador":
-            AdministradorJpaController controladorAdministrador;
-            controladorAdministrador = new AdministradorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
-            Administrador administrador;
-            administrador = controladorAdministrador.findAdministrador(usuario);
-            Contexto.getInstancia().setAdministrador(administrador);
-            Contexto.getInstancia().setNumActor(1);
-            //Se carga el menú de administrador
-            FXMLLoader loaderAdministrador = new FXMLLoader();
-            loaderAdministrador.setLocation(getClass().getResource("/fxml/MenuAdministrador.fxml"));
-            Parent rootAdministrador = loaderAdministrador.load();
-            Scene sceneAdministrador = new Scene(rootAdministrador);
-            Stage menuAdministrador = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            menuAdministrador.setScene(sceneAdministrador);
-            menuAdministrador.show();
-            break;
-          case "Tutor":
-            TutorJpaController controladorTutor;
-            controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
-            Tutor tutor;
-            tutor = controladorTutor.findTutor(usuario);
-            Contexto.getInstancia().setTutor(tutor);
-            Contexto.getInstancia().setNumActor(2);
-            //Se carga el menú de tutor
-            FXMLLoader loaderTutor = new FXMLLoader();
-            loaderTutor.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
-            Parent rootTutor = loaderTutor.load();
-            Scene sceneTutor = new Scene(rootTutor);
-            Stage menuTutor = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            menuTutor.setScene(sceneTutor);
-            menuTutor.show();
-            break;
-          case "Tutorado":
-            TutoradoJpaController controladorTutorado;
-            controladorTutorado = new TutoradoJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
-            Tutorado tutorado;
-            tutorado = controladorTutorado.findTutorado(usuario);
-            Contexto.getInstancia().setTutorado(tutorado);
-            Contexto.getInstancia().setNumActor(3);
-            //Se carga el menú de tutorado
-            FXMLLoader loaderTutorado = new FXMLLoader();
-            loaderTutorado.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
-            Parent rootTutorado = loaderTutorado.load();
-            Scene sceneTutorado = new Scene(rootTutorado);
-            Stage menuTutorado = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            menuTutorado.setScene(sceneTutorado);
-            menuTutorado.show();
-            break;
-          default:
-            Alert usuarioNoExiste = new Alert(AlertType.WARNING);
-            usuarioNoExiste.setTitle("No encontrado");
-            usuarioNoExiste.setHeaderText("Las credenciales que ingresó no coinciden con las registradas en el sistema");
-            usuarioNoExiste.setContentText("Ingrese las credenciales correctas");
-            usuarioNoExiste.showAndWait();
-            break;
+    if (!username.isEmpty() && !contrasena.isEmpty()) {
+      try {
+        Usuario usuario = servidor.iniciarSesion(username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+        Contexto.getInstancia().setCliente(cliente);
+        Contexto.getInstancia().setServidor(servidor);
+        if (usuario != null) {
+          switch (usuario.getTipoUsuario()) {
+            case "Administrador":
+              AdministradorJpaController controladorAdministrador;
+              controladorAdministrador = new AdministradorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              Administrador administrador;
+              administrador = controladorAdministrador.findAdministrador(usuario);
+              Contexto.getInstancia().setAdministrador(administrador);
+              Contexto.getInstancia().setNumActor(1);
+              //Se carga el menú de administrador
+              FXMLLoader loaderAdministrador = new FXMLLoader();
+              loaderAdministrador.setLocation(getClass().getResource("/fxml/MenuAdministrador.fxml"));
+              Parent rootAdministrador = loaderAdministrador.load();
+              Scene sceneAdministrador = new Scene(rootAdministrador);
+              Stage menuAdministrador = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+              menuAdministrador.setScene(sceneAdministrador);
+              menuAdministrador.show();
+              break;
+            case "Tutor":
+              TutorJpaController controladorTutor;
+              controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              Tutor tutor;
+              tutor = controladorTutor.findTutor(usuario);
+              Contexto.getInstancia().setTutor(tutor);
+              Contexto.getInstancia().setNumActor(2);
+              //Se carga el menú de tutor
+              FXMLLoader loaderTutor = new FXMLLoader();
+              loaderTutor.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+              Parent rootTutor = loaderTutor.load();
+              Scene sceneTutor = new Scene(rootTutor);
+              Stage menuTutor = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+              menuTutor.setScene(sceneTutor);
+              menuTutor.show();
+              break;
+            case "Tutorado":
+              TutoradoJpaController controladorTutorado;
+              controladorTutorado = new TutoradoJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              Tutorado tutorado;
+              tutorado = controladorTutorado.findTutorado(usuario);
+              Contexto.getInstancia().setTutorado(tutorado);
+              Contexto.getInstancia().setNumActor(3);
+              //Se carga el menú de tutorado
+              FXMLLoader loaderTutorado = new FXMLLoader();
+              loaderTutorado.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+              Parent rootTutorado = loaderTutorado.load();
+              Scene sceneTutorado = new Scene(rootTutorado);
+              Stage menuTutorado = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+              menuTutorado.setScene(sceneTutorado);
+              menuTutorado.show();
+              break;
+            default:
+              Alert usuarioNoExiste = new Alert(AlertType.WARNING);
+              usuarioNoExiste.setTitle("No encontrado");
+              usuarioNoExiste.setHeaderText("Las credenciales que ingresó no coinciden con las registradas en el sistema");
+              usuarioNoExiste.setContentText("Ingrese las credenciales correctas");
+              usuarioNoExiste.showAndWait();
+              break;
+          }
+        } else {
+          Alert usuarioNoExiste = new Alert(AlertType.WARNING);
+          usuarioNoExiste.setTitle("No encontrado");
+          usuarioNoExiste.setHeaderText("Las credenciales que ingresó no coinciden con las registradas en el sistema");
+          usuarioNoExiste.setContentText("Ingrese las credenciales correctas");
+          usuarioNoExiste.showAndWait();
         }
-      } else {
-        Alert usuarioNoExiste = new Alert(AlertType.WARNING);
-        usuarioNoExiste.setTitle("No encontrado");
-        usuarioNoExiste.setHeaderText("Las credenciales que ingresó no coinciden con las registradas en el sistema");
-        usuarioNoExiste.setContentText("Ingrese las credenciales correctas");
-        usuarioNoExiste.showAndWait();
+      } catch (RemoteException ex) {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("Error");
+        error.setHeaderText("Se produjo un error al iniciar sesión");
+        error.setContentText("Por favor, ingrese al sistema más tarde");
+        error.showAndWait();
+        System.err.println("RemoteException: " + ex.getMessage());
       }
-    } catch (RemoteException ex) {
-      Alert error = new Alert(AlertType.ERROR);
-      error.setTitle("Error");
-      error.setHeaderText("Se produjo un error al iniciar sesión");
-      error.setContentText("Por favor, ingrese al sistema más tarde");
-      error.showAndWait();
-      System.err.println("RemoteException: " + ex.getMessage());
+    } else {
+      Alert info = new Alert(AlertType.WARNING);
+      info.setTitle("Acceso inválido");
+      info.setHeaderText(null);
+      info.setContentText("Por favor, ingrese un usuario y una contraseña");
+      info.showAndWait();
     }
   }
 

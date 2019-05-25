@@ -139,21 +139,19 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException {
-    Usuario aux = null;
+  public Usuario iniciarSesion(String username, String contrasena) throws RemoteException {
+    Usuario aux = new Usuario();
     UsuarioJpaController controlador = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
     aux = controlador.findUsuario(username, contrasena);
-    if (!clientes.contains(cliente)) {
-      clientes.add(cliente);
+    if (aux != null) {
       return aux;
-      //hacerCallback();
     }
     return null;
   }
 
   @Override
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException {
-    clientes.remove(cliente);
+    unregisterForCallback(cliente);
   }
   
   @Override
@@ -175,6 +173,18 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
     List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutorado(tutorado);
     return tutorias;
+  }
+
+  @Override
+  public void registerForCallback(InterfazCliente cliente) throws RemoteException {
+    if (!clientes.contains(cliente)) {
+      clientes.add(cliente);
+    }
+  }
+
+  @Override
+  public void unregisterForCallback(InterfazCliente cliente) throws RemoteException {
+    clientes.remove(cliente);
   }
   
   private synchronized void hacerCallback() throws RemoteException {

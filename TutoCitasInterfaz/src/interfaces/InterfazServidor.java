@@ -24,10 +24,12 @@ public interface InterfazServidor extends Remote {
   public void reportarProximasTutorias() throws RemoteException;
   public void cancelarCita(Tutoria tutoria) throws RemoteException;
   public void generarReporte(Reporte reporte) throws RemoteException;
-  public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException;
+  public Usuario iniciarSesion(String username, String contrasena) throws RemoteException;
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException;
   public List<Tutor> consultarTutores() throws RemoteException;
   public List<Tutoria> consultarTutorias(Tutor tutor) throws RemoteException;
   public List<Tutoria> consultarTutorias(Tutorado tutorado) throws RemoteException;
+  public void registerForCallback(InterfazCliente cliente) throws RemoteException;
+  public void unregisterForCallback(InterfazCliente cliente) throws RemoteException;
   
 }
