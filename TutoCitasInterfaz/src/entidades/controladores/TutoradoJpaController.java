@@ -26,6 +26,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class TutoradoJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public TutoradoJpaController(EntityManagerFactory emf) {
     this.emf = emf;
@@ -245,7 +247,7 @@ public class TutoradoJpaController implements Serializable {
     }
   }
   
-  public Tutorado findTutorado(Usuario usuario) {
+  public Tutorado findTutoradoByUser(Usuario usuario) {
     EntityManager em = getEntityManager();
     Tutorado tutorado = (Tutorado) em.createQuery("SELECT c FROM Tutorado c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
         .setParameter("idUsuario", usuario.getIdUsuario())

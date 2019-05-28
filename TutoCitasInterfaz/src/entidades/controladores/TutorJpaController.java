@@ -27,6 +27,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class TutorJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public TutorJpaController(EntityManagerFactory emf) {
     this.emf = emf;
@@ -324,13 +326,49 @@ public class TutorJpaController implements Serializable {
     }
   }
   
-  public Tutor findTutor(Usuario usuario) {
-    EntityManager em = getEntityManager();
-    Tutor tutor = (Tutor) em.createQuery("SELECT c FROM Tutor c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
+  public Tutor findTutorByUser(Usuario usuario) {
+    Tutor tutor = null;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      tutor = (Tutor) em.createQuery("SELECT c FROM Tutor c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
         .setParameter("idUsuario", usuario.getIdUsuario())
         .getSingleResult();
-    em.close();
+    } catch (Exception ex) {
+      System.err.println("Excepción: " + ex.getMessage());
+    } finally {
+      if (em != null) {
+        try {
+          em.close();
+        } catch (Exception ex) {
+          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+        }
+      }
+    }
     return tutor;
+  }
+  
+  public int getIdByNoPersonal(Tutor tutor) {
+    Integer id = 0;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      id = (Integer) em.createQuery(
+          "SELECT c.idTutor FROM Tutor c WHERE c.noPersonal = :noPersonal")
+          .setParameter("noPersonal", tutor.getNoPersonal())
+          .getSingleResult();
+    } catch (Exception ex) {
+      System.out.println("Excepción: " + ex.getMessage());
+    } finally {
+      if(em != null) {
+        try {
+          em.close();
+        } catch(Exception ex) {
+          System.out.println("Error al cerrar EntityManager: " + ex.getMessage());
+        }
+      }
+    }
+    return id;
   }
 
   public int getTutorCount() {

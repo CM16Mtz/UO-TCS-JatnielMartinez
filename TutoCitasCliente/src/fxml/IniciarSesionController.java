@@ -59,8 +59,8 @@ public class IniciarSesionController implements Initializable {
         if (usuario != null) {
           switch (usuario.getTipoUsuario()) {
             case "Administrador":
-              AdministradorJpaController controladorAdministrador;
-              controladorAdministrador = new AdministradorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              AdministradorJpaController controladorAdministrador = new AdministradorJpaController(
+                  Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
               Administrador administrador;
               administrador = controladorAdministrador.findAdministrador(usuario);
               Contexto.getInstancia().setAdministrador(administrador);
@@ -76,9 +76,9 @@ public class IniciarSesionController implements Initializable {
               break;
             case "Tutor":
               TutorJpaController controladorTutor;
-              controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
               Tutor tutor;
-              tutor = controladorTutor.findTutor(usuario);
+              tutor = controladorTutor.findTutorByUser(usuario);
               Contexto.getInstancia().setTutor(tutor);
               Contexto.getInstancia().setNumActor(2);
               //Se carga el menú de tutor
@@ -92,9 +92,9 @@ public class IniciarSesionController implements Initializable {
               break;
             case "Tutorado":
               TutoradoJpaController controladorTutorado;
-              controladorTutorado = new TutoradoJpaController(Persistence.createEntityManagerFactory("TutoCitasPU"));
+              controladorTutorado = new TutoradoJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
               Tutorado tutorado;
-              tutorado = controladorTutorado.findTutorado(usuario);
+              tutorado = controladorTutorado.findTutoradoByUser(usuario);
               Contexto.getInstancia().setTutorado(tutorado);
               Contexto.getInstancia().setNumActor(3);
               //Se carga el menú de tutorado
@@ -128,6 +128,9 @@ public class IniciarSesionController implements Initializable {
         error.setContentText("Por favor, ingrese al sistema más tarde");
         error.showAndWait();
         System.err.println("RemoteException: " + ex.getMessage());
+      } catch(Exception ex) {
+        System.err.println("Exception: " + ex.getMessage());
+        ex.printStackTrace();
       }
     } else {
       Alert info = new Alert(AlertType.WARNING);
@@ -143,6 +146,7 @@ public class IniciarSesionController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    System.out.println("--------------------------");
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
   }

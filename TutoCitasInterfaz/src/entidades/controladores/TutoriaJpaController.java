@@ -26,6 +26,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class TutoriaJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public TutoriaJpaController(EntityManagerFactory emf) {
     this.emf = emf;
@@ -238,9 +240,9 @@ public class TutoriaJpaController implements Serializable {
   
   public List<Tutoria> findTutoriaEntitiesByTutor(Tutor tutor) {
     EntityManager em = getEntityManager();
-    List<Tutoria> tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
+    List<Tutoria> tutorias = em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
         .setParameter("tutoridTutor", tutor.getIdTutor())
-        .getSingleResult();
+        .getResultList();
     em.close();
     return tutorias;
   }
@@ -249,7 +251,7 @@ public class TutoriaJpaController implements Serializable {
     EntityManager em = getEntityManager();
     List<Tutoria> tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoradoidTutorado = :tutoradoidTutorado AND c.cancelada = FALSE")
         .setParameter("tutoradoidTutorado", tutorado.getIdTutorado())
-        .getSingleResult();
+        .getResultList();
     em.close();
     return tutorias;
   }

@@ -24,6 +24,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class TutorHasBloqueJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public TutorHasBloqueJpaController(EntityManagerFactory emf) {
     this.emf = emf;

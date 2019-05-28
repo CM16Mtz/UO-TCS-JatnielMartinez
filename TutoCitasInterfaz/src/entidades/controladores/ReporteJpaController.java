@@ -22,6 +22,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class ReporteJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public ReporteJpaController(EntityManagerFactory emf) {
     this.emf = emf;

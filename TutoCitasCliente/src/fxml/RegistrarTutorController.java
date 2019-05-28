@@ -4,6 +4,7 @@ import cliente.Cliente;
 import contexto.Contexto;
 import entidades.Tutor;
 import entidades.Usuario;
+import entidades.controladores.TutorJpaController;
 import interfaces.InterfazServidor;
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.persistence.Persistence;
 
 /**
  * FXML Controller class
@@ -82,6 +84,10 @@ public class RegistrarTutorController implements Initializable {
       tutor.setNoPersonal(noPersonal);
       //Se llama al método para registrar el tutor
       servidor.registrarTutor(usuario, tutor);
+      //Ahora se obtiene el id generado automáticamente del tutor
+      TutorJpaController controller = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+      Integer id = controller.getIdByNoPersonal(tutor);
+      tutor.setIdTutor(id);
       //Se guarda el tutor para utilizarlo en la asignación de sus horarios
       Contexto.getInstancia().setTutor(tutor);
       //Asimismo se conservan las instancias del cliente y el servidor

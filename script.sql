@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `tutocitas`.`Tutor` (
   `noPersonal` VARCHAR(5) NOT NULL,
   `Usuario_idUsuario` INT(11) NOT NULL,
   PRIMARY KEY (`idTutor`),
+  ADD UNIQUE INDEX `noPersonal_UNIQUE` (`noPersonal` ASC),
   INDEX `fk_tutor_Usuario1_idx` (`Usuario_idUsuario` ASC),
   CONSTRAINT `fk_tutor_Usuario1`
     FOREIGN KEY (`Usuario_idUsuario`)
@@ -62,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `tutocitas`.`Tutorado` (
   `Usuario_idUsuario` INT(11) NOT NULL,
   `tutor_idTutor` INT(11) NOT NULL,
   PRIMARY KEY (`idTutorado`),
+  ADD UNIQUE INDEX `matricula_UNIQUE` (`matricula` ASC),
   INDEX `fk_Tutorado_Usuario1_idx` (`Usuario_idUsuario` ASC),
   INDEX `fk_Tutorado_tutor1_idx` (`tutor_idTutor` ASC),
   CONSTRAINT `fk_Tutorado_Usuario1`

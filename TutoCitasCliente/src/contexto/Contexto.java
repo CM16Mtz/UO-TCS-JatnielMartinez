@@ -64,7 +64,7 @@ public class Contexto {
   }
   
   public void setServidor(InterfazServidor servidor) {
-    
+    this.servidor = servidor;
   }
 
   public Tutor getTutor() {

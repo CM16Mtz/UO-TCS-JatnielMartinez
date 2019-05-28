@@ -26,6 +26,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class UsuarioJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public UsuarioJpaController(EntityManagerFactory emf) {
     this.emf = emf;
@@ -294,15 +296,28 @@ public class UsuarioJpaController implements Serializable {
       em.close();
     }
   }
-  
+
   public Usuario findUsuario(String username, String contrasena) {
-    EntityManager em = getEntityManager();
-    Usuario usuario = (Usuario) em.createQuery(
-        "SELECT c FROM Usuario c WHERE c.username = :username AND c.contrasena = :contrasena")
-        .setParameter("username", username)
-        .setParameter("contrasena", contrasena)
-        .getSingleResult();
-    //em.close();
+    Usuario usuario = null;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      usuario = (Usuario) em.createQuery(
+          "SELECT c FROM Usuario c WHERE c.username = :username AND c.contrasena = :contrasena")
+          .setParameter("username", username)
+          .setParameter("contrasena", contrasena)
+          .getSingleResult();
+    } catch (Exception ex) {
+      System.out.println(ex.getMessage());
+    } finally {
+      if(em != null) {
+        try {
+          em.close();
+        } catch(Exception ex) {
+          System.out.println("Error al cerrar EntityManager. " + ex.getMessage());
+        }
+      }
+    }
     return usuario;
   }
 
@@ -318,5 +333,5 @@ public class UsuarioJpaController implements Serializable {
       em.close();
     }
   }
-  
+
 }

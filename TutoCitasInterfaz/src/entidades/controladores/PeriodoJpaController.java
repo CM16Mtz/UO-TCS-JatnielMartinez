@@ -24,6 +24,8 @@ import javax.persistence.EntityManagerFactory;
  * @author HP
  */
 public class PeriodoJpaController implements Serializable {
+  
+  private static final long serialVersionUID = 1L;
 
   public PeriodoJpaController(EntityManagerFactory emf) {
     this.emf = emf;
