@@ -53,7 +53,7 @@ public class IniciarSesionController implements Initializable {
     String contrasena = pwfContrasena.getText();
     if (!username.isEmpty() && !contrasena.isEmpty()) {
       try {
-        Usuario usuario = servidor.iniciarSesion(username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+        Usuario usuario = servidor.iniciarSesion(cliente, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
         Contexto.getInstancia().setCliente(cliente);
         Contexto.getInstancia().setServidor(servidor);
         if (usuario != null) {

@@ -1,7 +1,5 @@
 package servidor;
 
-
-
 import entidades.Reporte;
 import entidades.Tutor;
 import entidades.TutorHasBloque;
@@ -139,11 +137,12 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
 
   @Override
-  public Usuario iniciarSesion(String username, String contrasena) throws RemoteException {
+  public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException {
     Usuario aux = new Usuario();
     UsuarioJpaController controlador = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
     aux = controlador.findUsuario(username, contrasena);
     if (aux != null) {
+      registerForCallback(cliente);
       return aux;
     }
     return null;
