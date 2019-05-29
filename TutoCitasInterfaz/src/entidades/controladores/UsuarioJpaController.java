@@ -5,19 +5,19 @@
  */
 package entidades.controladores;
 
+import entidades.Administrador;
+import entidades.Tutor;
+import entidades.Tutorado;
+import entidades.Usuario;
+import entidades.exceptions.IllegalOrphanException;
+import entidades.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entidades.Administrador;
 import java.util.ArrayList;
 import java.util.List;
-import entidades.Tutorado;
-import entidades.Tutor;
-import entidades.Usuario;
-import entidades.controladores.exceptions.IllegalOrphanException;
-import entidades.controladores.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -333,5 +333,5 @@ public class UsuarioJpaController implements Serializable {
       em.close();
     }
   }
-
+  
 }

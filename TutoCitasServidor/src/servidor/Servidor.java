@@ -29,14 +29,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
+ * Establece los métodos para manipular la base de datos.
  * @author JatnielMartínez
  */
 public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   
   private static final int PUERTO = 5678;
   private static final long SERIAL_VERSION_UID = 1L;
-  private final List<InterfazCliente> clientes;
+  private final List<InterfazCliente> clientes;    //Guarda los clientes conectados
+  //Contiene el nombre de la persistencia
+  private final EntityManagerFactory emf
+      = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
   
   public Servidor() throws RemoteException {
     super();
@@ -47,6 +50,9 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     (new Servidor()).iniciarServidor();
   }
   
+  /**
+   * Establece la dirección a conectarse y crea el registro.
+   */
   public void iniciarServidor() {
     try {
       String direccion = (InetAddress.getLocalHost()).toString();
@@ -63,9 +69,17 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     }
   }
   
+  //Por cada método se pasa el EntityManagerFactory para conectarse a la base de datos
+  //Al final de cada método, se cierra el EntityManagerFactory
+  
+  /**
+   * Registra un tutorado en la base de datos.
+   * @param usuario El usuario que contiene el username y la contraseña
+   * @param tutorado El usuario que contiene la matrícula
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void registrarTutorado(Usuario usuario, Tutorado tutorado) throws RemoteException {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
     UsuarioJpaController controladorUsuario = new UsuarioJpaController(emf);
     controladorUsuario.create(usuario);
     tutorado.setUsuarioidUsuario(usuario);
@@ -74,9 +88,14 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     emf.close();
   }
 
+  /**
+   * Registra un tutor en la base de datos.
+   * @param usuario El usuario que contiene el username y la contraseña
+   * @param tutor El usuario que contiene el número de personal
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void registrarTutor(Usuario usuario, Tutor tutor) throws RemoteException {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
     UsuarioJpaController controladorUsuario = new UsuarioJpaController(emf);
     controladorUsuario.create(usuario);
     tutor.setUsuarioidUsuario(usuario);
@@ -85,21 +104,38 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     emf.close();
   }
 
+  /**
+   * Registra los horarios del tutor.
+   * @param horarios Los horarios que tendrá disponible el tutor para atender citas
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
-    TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(emf);
     controlador.create(horarios);
+    emf.close();
   }
 
+  /**
+   * Guarda una cita por parte del tutorado.
+   * @param tutoria La cita que reserva el tutorado
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void reservarCita(Tutoria tutoria) throws RemoteException {
-    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutoriaJpaController controlador = new TutoriaJpaController(emf);
     controlador.create(tutoria);
+    emf.close();
   }
   
+  /**
+   * El tutor confirma la cita, en el mismo día o en uno diferente al que solicitó el tutorado.
+   * @param tutoria La tutoria que editará el tutor
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void confirmarCita(Tutoria tutoria) throws RemoteException {
-    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutoriaJpaController controlador = new TutoriaJpaController(emf);
     try {
       controlador.edit(tutoria);
     } catch (Exception ex) {
@@ -108,6 +144,8 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setHeaderText(null);
       error.setContentText("Se produjo un error al confirmar la cita");
       error.showAndWait();
+    } finally {
+      emf.close();
     }
   }
 
@@ -116,9 +154,14 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     
   }
 
+  /**
+   * Se cancela una cita registrada en la base de datos.
+   * @param tutoria La tutoria que se desea cancelar.
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void cancelarCita(Tutoria tutoria) throws RemoteException {
-    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutoriaJpaController controlador = new TutoriaJpaController(emf);
     try {
       controlador.edit(tutoria);
     } catch (Exception ex) {
@@ -127,19 +170,35 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setHeaderText(null);
       error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
       error.showAndWait();
+    } finally {
+      emf.close();
     }
   }
 
+  /**
+   * El tutor genera un reporte.
+   * @param reporte El reporte de la tutoría
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void generarReporte(Reporte reporte) throws RemoteException {
-    ReporteJpaController controlador = new ReporteJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    ReporteJpaController controlador = new ReporteJpaController(emf);
     controlador.create(reporte);
+    emf.close();
   }
 
+  /**
+   * El sistema valida las credenciales ingresadas para darle acceso al usuario.
+   * @param cliente Instancia de InterfazCliente registrada
+   * @param username Nombre de usuario ingresado
+   * @param contrasena Contraseña ingresada
+   * @return El tipo de usuario que contiene las credenciales ingresadas
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException {
     Usuario aux = new Usuario();
-    UsuarioJpaController controlador = new UsuarioJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    UsuarioJpaController controlador = new UsuarioJpaController(emf);
     aux = controlador.findUsuario(username, contrasena);
     if (aux != null) {
       registerForCallback(cliente);
@@ -148,32 +207,62 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     return null;
   }
 
+  /**
+   * Se cierra la sesión en el sistema.
+   * @param cliente Instancia de InterfazCliente que finaliza
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void cerrarSesion(InterfazCliente cliente) throws RemoteException {
     unregisterForCallback(cliente);
   }
   
+  /**
+   * Se obtienen los tutores para llenar el combo box.
+   * @return Una lista con los tutores guardados en la base de datos
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public List<Tutor> consultarTutores() throws RemoteException {
-    TutorJpaController controlador = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutorJpaController controlador = new TutorJpaController(emf);
     List<Tutor> tutores = controlador.findTutorEntities();
+    emf.close();
     return tutores;
   }
 
+  /**
+   * Se obtienen las tutorías relacionadas con el tutor.
+   * @param tutor El tutor que está haciendo uso del sistema
+   * @return Una lista con las tutorías que tiene asignadas
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public List<Tutoria> consultarTutorias(Tutor tutor) throws RemoteException {
-    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutoriaJpaController controlador = new TutoriaJpaController(emf);
     List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutor(tutor);
+    emf.close();
     return tutorias;
   }
   
+  /**
+   * Se obtienen las tutorías que tiene reservadas el tutorado.
+   * @param tutorado El tutorado que está haciendo uso del sistema
+   * @return Una lista con las tutorías que ha reservado
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public List<Tutoria> consultarTutorias(Tutorado tutorado) throws RemoteException {
-    TutoriaJpaController controlador = new TutoriaJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+    TutoriaJpaController controlador = new TutoriaJpaController(emf);
     List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutorado(tutorado);
+    emf.close();
     return tutorias;
   }
 
+  /**
+   * Registra al cliente conectado.
+   * @param cliente Instancia de InterfazCliente que se conecta a este servidor
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void registerForCallback(InterfazCliente cliente) throws RemoteException {
     if (!clientes.contains(cliente)) {
@@ -181,6 +270,11 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     }
   }
 
+  /**
+   * Elimina al cliente conectado.
+   * @param cliente Instancia de InterfazCliente que se desconecta de este servidor
+   * @throws RemoteException Si se produce un error remoto
+   */
   @Override
   public void unregisterForCallback(InterfazCliente cliente) throws RemoteException {
     clientes.remove(cliente);

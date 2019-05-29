@@ -21,6 +21,10 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   private static String nombreServidor;
   private static int puertoServidor;
   
+  /**
+   * Se conecta a un servidor
+   * @throws RemoteException 
+   */
   public Cliente() throws RemoteException {
     super();
     nombre = "TutoCitas";

@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -180,13 +182,20 @@ public class RegistrarHorariosController implements Initializable {
   private Cliente cliente;
   private InterfazServidor servidor;
   private Tutor tutor;
-  
+
+  /**
+   * Guarda los horarios, y se regresa al menú de administrador.
+   * @param evt
+   * @throws RemoteException Si se produce un error remoto
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void registrarHorarios(ActionEvent evt) throws RemoteException, IOException {
     //Periodo con id 10 que representa el periodo FEB-JUL2019
     Periodo periodo = new Periodo(10);
     //Bloque que contendrá el id correspondiente al CheckBox seleccionado
     Bloque bloque;
+    //Evalúa cada uno de los checkbox para determinar si insertar una fila en la base de datos
     if (chk0700Lun.isSelected()) {
       bloque = new Bloque(1);
       servidor.registrarHorarios(new TutorHasBloque(bloque, periodo, tutor));
@@ -747,7 +756,15 @@ public class RegistrarHorariosController implements Initializable {
       bloque = new Bloque(140);
       servidor.registrarHorarios(new TutorHasBloque(bloque, periodo, tutor));
     }
+    //El sistema avisa al administrador del registro exitoso
+    Alert info = new Alert(AlertType.INFORMATION);
+    info.setTitle("Éxito");
+    info.setHeaderText(null);
+    info.setContentText("Tutor registrado con éxito");
+    info.showAndWait();
     //Se cierra la ventana
+    Contexto.getInstancia().setCliente(cliente);
+    Contexto.getInstancia().setServidor(servidor);
     Stage stageRegistrarHorarios;
     stageRegistrarHorarios = (Stage) btnRegistrar.getScene().getWindow();
     stageRegistrarHorarios.close();
@@ -763,6 +780,8 @@ public class RegistrarHorariosController implements Initializable {
   
   /**
    * Initializes the controller class.
+   * @param url
+   * @param rb
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

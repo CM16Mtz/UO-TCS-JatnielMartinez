@@ -48,14 +48,17 @@ public class RegistrarTutorController implements Initializable {
   
   private Cliente cliente;
   private InterfazServidor servidor;
-  
+
+  /**
+   * Se regresa al menú del administrador
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */  
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageRegistrarTutor;
     stageRegistrarTutor = (Stage) btnCancelar.getScene().getWindow();
     stageRegistrarTutor.close();
-    //Se regresa al menú del administrador
     Stage stageMenuAdministrador = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/MenuAdministrador.fxml"));
@@ -65,6 +68,11 @@ public class RegistrarTutorController implements Initializable {
     stageMenuAdministrador.show();
   }
   
+  /**
+   * Registra un usuario y un tutor, y procede a solicitar los horarios a registrar.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void registrarTutor(ActionEvent evt) throws IOException {
     String nombre = txfNombre.getText();
@@ -74,37 +82,47 @@ public class RegistrarTutorController implements Initializable {
     String noPersonal = txfNoPersonal.getText();
     String contrasena = pwfContrasena.getText();
     if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !noPersonal.isEmpty() && !contrasena.isEmpty()) {
-      //Se crea el usuario
-      Usuario usuario = new Usuario(noPersonal, contrasena, "Tutor", nombre, apPaterno, correo);
-      if (!apMaterno.isEmpty()) {
-        usuario.setApMaterno(apMaterno);
+      try {
+        //Se crea el usuario
+        Usuario usuario = new Usuario(noPersonal, contrasena, "Tutor", nombre, apPaterno, correo);
+        if (!apMaterno.isEmpty()) {
+          usuario.setApMaterno(apMaterno);
+        }
+        //Se crea el tutor
+        Tutor tutor = new Tutor();
+        tutor.setNoPersonal(noPersonal);
+        //Se llama al método para registrar el tutor
+        servidor.registrarTutor(usuario, tutor);
+        //Ahora se obtiene el id generado automáticamente del tutor
+        TutorJpaController controller
+            = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+        Integer id = controller.getIdByNoPersonal(tutor);
+        tutor.setIdTutor(id);
+        //Se guarda el tutor para utilizarlo en la asignación de sus horarios
+        Contexto.getInstancia().setTutor(tutor);
+        //Asimismo se conservan las instancias del cliente y el servidor
+        Contexto.getInstancia().setCliente(cliente);
+        Contexto.getInstancia().setServidor(servidor);
+        //Se cierra la ventana
+        Stage stageRegistrarTutor;
+        stageRegistrarTutor = (Stage) btnRegistrar.getScene().getWindow();
+        stageRegistrarTutor.close();
+        //Se redirige a RegistrarHorarios.fxml
+        Stage stageRegistrarHorarios = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/RegistrarHorarios.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stageRegistrarHorarios.setScene(scene);
+        stageRegistrarHorarios.show();
+      } catch (Exception ex) {
+        Alert error = new Alert(AlertType.ERROR);
+        error.setTitle("ERROR");
+        error.setHeaderText(null);
+        error.setContentText("Se produjo un error inesperado");
+        error.showAndWait();
+        System.err.println("Excepción: " + ex.getMessage());
       }
-      //Se crea el tutor
-      Tutor tutor = new Tutor();
-      tutor.setNoPersonal(noPersonal);
-      //Se llama al método para registrar el tutor
-      servidor.registrarTutor(usuario, tutor);
-      //Ahora se obtiene el id generado automáticamente del tutor
-      TutorJpaController controller = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
-      Integer id = controller.getIdByNoPersonal(tutor);
-      tutor.setIdTutor(id);
-      //Se guarda el tutor para utilizarlo en la asignación de sus horarios
-      Contexto.getInstancia().setTutor(tutor);
-      //Asimismo se conservan las instancias del cliente y el servidor
-      Contexto.getInstancia().setCliente(cliente);
-      Contexto.getInstancia().setServidor(servidor);
-      //Se cierra la ventana
-      Stage stageRegistrarTutor;
-      stageRegistrarTutor = (Stage) btnRegistrar.getScene().getWindow();
-      stageRegistrarTutor.close();
-      //Se redirige a RegistrarHorarios.fxml
-      Stage stageRegistrarHorarios = new Stage();
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("/fxml/RegistrarHorarios.fxml"));
-      Parent root = loader.load();
-      Scene scene = new Scene(root);
-      stageRegistrarHorarios.setScene(scene);
-      stageRegistrarHorarios.show();
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Datos inválidos");

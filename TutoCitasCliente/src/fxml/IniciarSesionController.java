@@ -28,7 +28,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.persistence.Persistence;
 import contexto.Contexto;
-import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
 
 /**
@@ -47,16 +46,23 @@ public class IniciarSesionController implements Initializable {
   private Cliente cliente;
   private InterfazServidor servidor;
   
+  /**
+   * Intenta acceder al sistema; dependiendo del tipo de usuario, carga el menú correspondiente.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void iniciarSesion(ActionEvent evt) throws IOException {
     String username = txfUsuario.getText();
     String contrasena = pwfContrasena.getText();
     if (!username.isEmpty() && !contrasena.isEmpty()) {
       try {
-        Usuario usuario = servidor.iniciarSesion(cliente, username, contrasena);    //Valida el usuario de acuerdo a los datos ingresador
+        //Valida el usuario de acuerdo a los datos ingresador
+        Usuario usuario = servidor.iniciarSesion(cliente, username, contrasena);
         Contexto.getInstancia().setCliente(cliente);
         Contexto.getInstancia().setServidor(servidor);
-        if (usuario != null) {
+        if (usuario != null) {    //Evalúa si el usuario existe en la base de datos
+          //Dependiendo del tipo de usuario, carga el menú correspondiente
           switch (usuario.getTipoUsuario()) {
             case "Administrador":
               AdministradorJpaController controladorAdministrador = new AdministradorJpaController(
@@ -128,7 +134,7 @@ public class IniciarSesionController implements Initializable {
         error.setContentText("Por favor, ingrese al sistema más tarde");
         error.showAndWait();
         System.err.println("RemoteException: " + ex.getMessage());
-      } catch(Exception ex) {
+      } catch (Exception ex) {
         System.err.println("Exception: " + ex.getMessage());
         ex.printStackTrace();
       }
@@ -142,11 +148,12 @@ public class IniciarSesionController implements Initializable {
   }
 
   /**
-   * Initializes the controller class.
+   * Se carga la GUI con la configuración establecida.
+   * @param url
+   * @param rb
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    System.out.println("--------------------------");
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
   }

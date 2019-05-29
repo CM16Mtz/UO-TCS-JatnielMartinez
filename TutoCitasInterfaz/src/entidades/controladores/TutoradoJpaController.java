@@ -5,17 +5,17 @@
  */
 package entidades.controladores;
 
+import entidades.Tutor;
+import entidades.Tutorado;
+import entidades.Tutoria;
+import entidades.Usuario;
+import entidades.exceptions.IllegalOrphanException;
+import entidades.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entidades.Usuario;
-import entidades.Tutor;
-import entidades.Tutorado;
-import entidades.Tutoria;
-import entidades.controladores.exceptions.IllegalOrphanException;
-import entidades.controladores.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -248,10 +248,24 @@ public class TutoradoJpaController implements Serializable {
   }
   
   public Tutorado findTutoradoByUser(Usuario usuario) {
-    EntityManager em = getEntityManager();
-    Tutorado tutorado = (Tutorado) em.createQuery("SELECT c FROM Tutorado c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
+    Tutorado tutorado = null;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      tutorado = (Tutorado) em.createQuery("SELECT c FROM Tutorado c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
         .setParameter("idUsuario", usuario.getIdUsuario())
         .getSingleResult();
+    } catch (Exception ex) {
+      System.err.println("Excepción: " + ex.getMessage());
+    } finally {
+      if (em != null) {
+        try {
+          em.close();
+        } catch (Exception ex) {
+          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+        }
+      }
+    }
     return tutorado;
   }
 

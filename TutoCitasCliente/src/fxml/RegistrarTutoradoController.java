@@ -58,6 +58,11 @@ public class RegistrarTutoradoController implements Initializable {
   private InterfazServidor servidor;
   private List<Tutor> tutores;
   
+  /**
+   * Se regresa al menú del administrador
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
     //Se cierra la ventana
@@ -74,6 +79,11 @@ public class RegistrarTutoradoController implements Initializable {
     stageMenuAdministrador.show();
   }
   
+  /**
+   * Guarda un usuario y un tutorado en la base de datos, y se regresa al menú del administrador
+   * @param evt
+   * @throws IOException 
+   */
   @FXML
   void registrar(ActionEvent evt) throws IOException {
     String nombre = txfNombre.getText();
@@ -96,9 +106,18 @@ public class RegistrarTutoradoController implements Initializable {
       tutorado.setCarrera(carrera);
       tutorado.setMatricula(matricula);
       tutorado.setTutoridTutor(tutor);
-      //Se llama al método para registrar el tutor
+      //Se llama al método para registrar el tutorado
       servidor.registrarTutorado(usuario, tutorado);
       //Se cierra la ventana
+      //El sistema avisa al administrador del registro exitoso
+      Alert info = new Alert(AlertType.INFORMATION);
+      info.setTitle("Éxito");
+      info.setHeaderText(null);
+      info.setContentText("Tutor registrado con éxito");
+      info.showAndWait();
+      //Se cierra la ventana
+      Contexto.getInstancia().setCliente(cliente);
+      Contexto.getInstancia().setServidor(servidor);
       Stage stageRegistrarTutorado;
       stageRegistrarTutorado = (Stage) btnRegistrar.getScene().getWindow();
       stageRegistrarTutorado.close();
@@ -120,7 +139,7 @@ public class RegistrarTutoradoController implements Initializable {
   }
 
   /**
-   * Initializes the controller class.
+   * Carga el combo box con los tutores guardados en la base de datos
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

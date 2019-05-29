@@ -6,19 +6,19 @@
 package entidades.controladores;
 
 import entidades.Tutor;
+import entidades.TutorHasBloque;
+import entidades.Tutorado;
+import entidades.Tutoria;
+import entidades.Usuario;
+import entidades.exceptions.IllegalOrphanException;
+import entidades.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entidades.Usuario;
-import entidades.Tutorado;
 import java.util.ArrayList;
 import java.util.List;
-import entidades.Tutoria;
-import entidades.TutorHasBloque;
-import entidades.controladores.exceptions.IllegalOrphanException;
-import entidades.controladores.exceptions.NonexistentEntityException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
