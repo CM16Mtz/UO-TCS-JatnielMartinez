@@ -58,13 +58,16 @@ public class GenerarReporteController implements Initializable {
   private InterfazServidor servidor;
   private Tutor tutor;
   
+  /**
+   * Se regresa al menú del tutor.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageGenerarReporte;
     stageGenerarReporte = (Stage) btnCancelar.getScene().getWindow();
     stageGenerarReporte.close();
-    //Se regresa al menú del tutor
     Stage stageMenuTutor = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
@@ -74,6 +77,11 @@ public class GenerarReporteController implements Initializable {
     stageMenuTutor.show();
   }
   
+  /**
+   * Guarda los datos del reporte.
+   * @param evt
+   * @throws IOException 
+   */
   @FXML
   void generar(ActionEvent evt) throws IOException {
     String numTutoria = txfNumero.getText();
@@ -90,18 +98,27 @@ public class GenerarReporteController implements Initializable {
         reporte.setCausa(causa);
       }
       servidor.generarReporte(reporte);
+      //El sistema avisa al tutorado de la generación exitosa
+      Alert info = new Alert(AlertType.INFORMATION);
+      info.setTitle("Éxito");
+      info.setHeaderText(null);
+      info.setContentText("Reporte generado con éxito");
+      info.showAndWait();
       //Se cierra la ventana
+      Contexto.getInstancia().setCliente(cliente);
+      Contexto.getInstancia().setServidor(servidor);
+      Contexto.getInstancia().setTutor(tutor);
       Stage stageGenerarReporte;
       stageGenerarReporte = (Stage) btnGenerar.getScene().getWindow();
       stageGenerarReporte.close();
       //Se regresa al menú del tutor
-      Stage stageMenuAdministrador = new Stage();
+      Stage stageMenuTutor = new Stage();
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
-      stageMenuAdministrador.setScene(scene);
-      stageMenuAdministrador.show();
+      stageMenuTutor.setScene(scene);
+      stageMenuTutor.show();
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Datos inválidos");
@@ -120,7 +137,7 @@ public class GenerarReporteController implements Initializable {
     servidor = Contexto.getInstancia().getServidor();
     tutor = Contexto.getInstancia().getTutor();
     try {
-      List<Tutoria> tutorias = servidor.consultarTutorias(tutor);
+      List<Tutoria> tutorias = servidor.consultarTutoriasByTutor(tutor);
       ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
       cmbTutorias.setItems(lista);
     } catch (RemoteException ex) {

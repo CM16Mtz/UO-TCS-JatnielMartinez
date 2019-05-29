@@ -46,6 +46,11 @@ public class AgendarCitaController implements Initializable {
   private InterfazServidor servidor;
   private Tutor tutor;
   
+  /**
+   * Se va a la ventana para confirmar la cita seleccionada.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void confirmarCita(ActionEvent evt) throws IOException {
     Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
@@ -66,16 +71,25 @@ public class AgendarCitaController implements Initializable {
       Scene scene = new Scene(root);
       stageConfirmarCita.setScene(scene);
       stageConfirmarCita.show();
+    } else {
+      Alert advertencia = new Alert(AlertType.WARNING);
+      advertencia.setTitle("Advertencia");
+      advertencia.setHeaderText(null);
+      advertencia.setContentText("Por favor, seleccione una cita de la tabla");
+      advertencia.showAndWait();
     }
   }
   
+  /**
+   * Se regresa al menú del tutor.
+   * @param evt
+   * @throws IOException 
+   */
   @FXML
   void regresar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageAgendarCita;
     stageAgendarCita = (Stage) btnRegresar.getScene().getWindow();
     stageAgendarCita.close();
-    //Se regresa al menú del tutor
     Stage stageMenuTutor = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
@@ -86,7 +100,7 @@ public class AgendarCitaController implements Initializable {
   }
 
   /**
-   * Initializes the controller class.
+   * Llena la tabla con las citas que tiene asignadas.
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -95,9 +109,9 @@ public class AgendarCitaController implements Initializable {
     tutor = Contexto.getInstancia().getTutor();
     colDia.setCellValueFactory(new PropertyValueFactory<>("fecha"));
     colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
-    colTutorado.setCellValueFactory(new PropertyValueFactory<>("Tutorado_idTutorado"));
+    colTutorado.setCellValueFactory(new PropertyValueFactory<>("username"));
     try {
-      List<Tutoria> tutorias = servidor.consultarTutorias(tutor);
+      List<Tutoria> tutorias = servidor.consultarTutoriasByTutor(tutor);
       ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
       if (lista.size() > 0) {
         tblCitas.setItems(lista);

@@ -70,7 +70,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   }
   
   //Por cada método se pasa el EntityManagerFactory para conectarse a la base de datos
-  //Al final de cada método, se cierra el EntityManagerFactory
   
   /**
    * Registra un tutorado en la base de datos.
@@ -85,7 +84,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutorado.setUsuarioidUsuario(usuario);
     TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
     controladorTutorado.create(tutorado);
-    emf.close();
+    //emf.close();
   }
 
   /**
@@ -101,7 +100,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutor.setUsuarioidUsuario(usuario);
     TutorJpaController controladorTutor = new TutorJpaController(emf);
     controladorTutor.create(tutor);
-    emf.close();
+    //emf.close();
   }
 
   /**
@@ -113,7 +112,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
     TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(emf);
     controlador.create(horarios);
-    emf.close();
+    //emf.close();
   }
 
   /**
@@ -125,7 +124,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void reservarCita(Tutoria tutoria) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     controlador.create(tutoria);
-    emf.close();
+    //emf.close();
   }
   
   /**
@@ -145,7 +144,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setContentText("Se produjo un error al confirmar la cita");
       error.showAndWait();
     } finally {
-      emf.close();
+      //emf.close();
     }
   }
 
@@ -171,7 +170,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
       error.showAndWait();
     } finally {
-      emf.close();
+      //emf.close();
     }
   }
 
@@ -184,7 +183,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void generarReporte(Reporte reporte) throws RemoteException {
     ReporteJpaController controlador = new ReporteJpaController(emf);
     controlador.create(reporte);
-    emf.close();
+    //emf.close();
   }
 
   /**
@@ -226,7 +225,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public List<Tutor> consultarTutores() throws RemoteException {
     TutorJpaController controlador = new TutorJpaController(emf);
     List<Tutor> tutores = controlador.findTutorEntities();
-    emf.close();
+    //emf.close();
     return tutores;
   }
 
@@ -237,10 +236,10 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
    * @throws RemoteException Si se produce un error remoto
    */
   @Override
-  public List<Tutoria> consultarTutorias(Tutor tutor) throws RemoteException {
+  public List<Tutoria> consultarTutoriasByTutor(Tutor tutor) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutor(tutor);
-    emf.close();
+    //emf.close();
     return tutorias;
   }
   
@@ -251,10 +250,10 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
    * @throws RemoteException Si se produce un error remoto
    */
   @Override
-  public List<Tutoria> consultarTutorias(Tutorado tutorado) throws RemoteException {
+  public List<Tutoria> consultarTutoriasByTutorado(Tutorado tutorado) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutorado(tutorado);
-    emf.close();
+    //emf.close();
     return tutorias;
   }
 

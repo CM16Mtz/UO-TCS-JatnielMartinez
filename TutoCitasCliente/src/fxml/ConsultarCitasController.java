@@ -46,9 +46,13 @@ public class ConsultarCitasController implements Initializable {
   private Tutor tutor;
   private Tutorado tutorado;
   
+  /**
+   * Se regresa al menú correspondiente.
+   * @param evt
+   * @throws IOException 
+   */
   @FXML
   void regresar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageConsultarCitas;
     stageConsultarCitas = (Stage) btnRegresar.getScene().getWindow();
     stageConsultarCitas.close();
@@ -68,7 +72,7 @@ public class ConsultarCitasController implements Initializable {
   }
 
   /**
-   * Initializes the controller class.
+   * Llena la tabla con las tutorías correspondientes.
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -78,13 +82,13 @@ public class ConsultarCitasController implements Initializable {
     tutorado = Contexto.getInstancia().getTutorado();
     colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
     colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
-    colTutorado.setCellValueFactory(new PropertyValueFactory<>("Tutorado_idTutorado"));
+    colTutorado.setCellValueFactory(new PropertyValueFactory<>("username"));
     List<Tutoria> tutorias = null;
     try {
       if (tutor != null && tutorado == null) {
-        tutorias = servidor.consultarTutorias(tutor);
+        tutorias = servidor.consultarTutoriasByTutor(tutor);
       } else if (tutor == null && tutorado != null) {
-        tutorias = servidor.consultarTutorias(tutorado.getTutoridTutor());
+        tutorias = servidor.consultarTutoriasByTutor(tutorado.getTutoridTutor());
       }
       ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
       if (lista.size() > 0) {

@@ -332,8 +332,8 @@ public class TutorJpaController implements Serializable {
     try {
       em = getEntityManager();
       tutor = (Tutor) em.createQuery("SELECT c FROM Tutor c WHERE c.usuarioidUsuario.idUsuario = :idUsuario")
-        .setParameter("idUsuario", usuario.getIdUsuario())
-        .getSingleResult();
+          .setParameter("idUsuario", usuario.getIdUsuario())
+          .getSingleResult();
     } catch (Exception ex) {
       System.err.println("Excepción: " + ex.getMessage());
     } finally {

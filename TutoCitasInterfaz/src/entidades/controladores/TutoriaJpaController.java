@@ -239,20 +239,52 @@ public class TutoriaJpaController implements Serializable {
   }
   
   public List<Tutoria> findTutoriaEntitiesByTutor(Tutor tutor) {
-    EntityManager em = getEntityManager();
-    List<Tutoria> tutorias = em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
-        .setParameter("tutoridTutor", tutor.getIdTutor())
-        .getResultList();
-    em.close();
+    List<Tutoria> tutorias = null;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      tutorias = em.createQuery("SELECT c.fecha, c.hora, u.username FROM Tutoria c "
+          + "INNER JOIN Tutorado t ON (c.Tutorado_idTutorado = t.idTutorado)"
+          + "INNER JOIN Usuario u ON (t.Usuario_idUsuario = u.idUsuario)"
+          + "WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
+          .setParameter("tutoridTutor", tutor)
+          .getResultList();
+    } catch (Exception ex) {
+      System.err.println("Excepción: " + ex.getMessage());
+      ex.printStackTrace();
+    } finally {
+      if (em != null) {
+        try {
+          em.close();
+        } catch (Exception ex) {
+          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+        }
+      }
+    }
     return tutorias;
   }
   
   public List<Tutoria> findTutoriaEntitiesByTutorado(Tutorado tutorado) {
-    EntityManager em = getEntityManager();
-    List<Tutoria> tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c WHERE c.tutoradoidTutorado = :tutoradoidTutorado AND c.cancelada = FALSE")
-        .setParameter("tutoradoidTutorado", tutorado.getIdTutorado())
-        .getResultList();
-    em.close();
+    List<Tutoria> tutorias = null;
+    EntityManager em = null;
+    try {
+      em = getEntityManager();
+      tutorias = (List<Tutoria>) em.createQuery("SELECT c FROM Tutoria c "
+          + "WHERE c.tutoradoidTutorado = :tutoradoidTutorado AND c.cancelada = FALSE")
+          .setParameter("tutoradoidTutorado", tutorado)
+          .getResultList();
+    } catch (Exception ex) {
+      System.err.println("Excepción: " + ex.getMessage());
+      ex.printStackTrace();
+    } finally {
+      if (em != null) {
+        try {
+          em.close();
+        } catch (Exception ex) {
+          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+        }
+      }
+    }
     return tutorias;
   }
 

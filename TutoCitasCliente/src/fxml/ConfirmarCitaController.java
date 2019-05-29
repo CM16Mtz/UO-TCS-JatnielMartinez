@@ -45,13 +45,16 @@ public class ConfirmarCitaController implements Initializable {
   private Tutor tutor;
   private Tutoria tutoria;
   
+  /**
+   * Se regresa a la GUI AgendarCita.fxml
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageConfirmarCita;
     stageConfirmarCita = (Stage) btnCancelar.getScene().getWindow();
     stageConfirmarCita.close();
-    //Se regresa a CancelarCitaTutor.fxml
     Stage stageAgendarCita = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/AgendarCita.fxml"));
@@ -61,8 +64,12 @@ public class ConfirmarCitaController implements Initializable {
     stageAgendarCita.show();
   }
   
+  /**
+   * Guarda la cita con los cambios realizados, si es que se hicieron.
+   * @param evt 
+   */
   @FXML
-  void confirmar(ActionEvent evt) {
+  void confirmar(ActionEvent evt) throws IOException {
     Date fecha = Date.valueOf(dtpDia.getValue());
     String hora = txfHora.getText();
     tutoria.setFecha(fecha);
@@ -70,6 +77,26 @@ public class ConfirmarCitaController implements Initializable {
     if (fecha != null && !hora.isEmpty()) {
       try {
         servidor.confirmarCita(tutoria);
+        //El sistema avisa al tutor de la confirmación exitosa
+        Alert info = new Alert(AlertType.INFORMATION);
+        info.setTitle("Éxito");
+        info.setHeaderText(null);
+        info.setContentText("Cita confirmada con éxito");
+        info.showAndWait();
+        //Se cierra la ventana
+        Contexto.getInstancia().setCliente(cliente);
+        Contexto.getInstancia().setServidor(servidor);
+        Contexto.getInstancia().setTutor(tutor);
+        Stage stageConfirmarCita = (Stage) btnConfirmar.getScene().getWindow();
+        stageConfirmarCita.close();
+        //Se regresa al menú del tutor
+        Stage stageMenuTutor = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stageMenuTutor.setScene(scene);
+        stageMenuTutor.show();
       } catch (RemoteException ex) {
         Alert error = new Alert(AlertType.ERROR);
         error.setTitle("Error al guardar la cita");
@@ -87,7 +114,7 @@ public class ConfirmarCitaController implements Initializable {
   }
 
   /**
-   * Initializes the controller class.
+   * TOma los datos de la tutoría seleccionada.
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {

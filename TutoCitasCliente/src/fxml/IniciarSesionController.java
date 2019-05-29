@@ -105,7 +105,7 @@ public class IniciarSesionController implements Initializable {
               Contexto.getInstancia().setNumActor(3);
               //Se carga el menú de tutorado
               FXMLLoader loaderTutorado = new FXMLLoader();
-              loaderTutorado.setLocation(getClass().getResource("/fxml/MenuTutor.fxml"));
+              loaderTutorado.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
               Parent rootTutorado = loaderTutorado.load();
               Scene sceneTutorado = new Scene(rootTutorado);
               Stage menuTutorado = (Stage) ((Node) evt.getSource()).getScene().getWindow();

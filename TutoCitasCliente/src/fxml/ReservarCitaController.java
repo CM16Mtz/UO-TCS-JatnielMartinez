@@ -43,13 +43,16 @@ public class ReservarCitaController implements Initializable {
   private InterfazServidor servidor;
   private Tutorado tutorado;
   
+  /**
+   * Se regresa al menú del tutorado
+   * @param evt
+   * @throws IOException 
+   */
   @FXML
   void cancelar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana y, por ende, la sesión actuales
     Stage stageReservarCita;
     stageReservarCita = (Stage) btnCancelar.getScene().getWindow();
     stageReservarCita.close();
-    //Se regresa al menú de tutorado
     Stage stageMenuTutorado = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
@@ -59,20 +62,47 @@ public class ReservarCitaController implements Initializable {
     stageMenuTutorado.show();
   }
   
+  /**
+   * Guarda una reservación en la base de datos.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
-  void reservar(ActionEvent evt) {
+  void reservar(ActionEvent evt) throws IOException {
     Date fecha = Date.valueOf(dtpDia.getValue());
     String hora = txfHora.getText();
     if (fecha != null && !hora.isEmpty()) {
       Tutoria tutoria = new Tutoria(fecha, hora, false, tutorado, tutorado.getTutoridTutor());
       try {
         servidor.reservarCita(tutoria);
+        //El sistema avisa al tutorado de la reservación exitosa
+        Alert info = new Alert(AlertType.INFORMATION);
+        info.setTitle("Éxito");
+        info.setHeaderText(null);
+        info.setContentText("Cita reservada con éxito");
+        info.showAndWait();
+        //Se cierra la ventana
+        Contexto.getInstancia().setCliente(cliente);
+        Contexto.getInstancia().setServidor(servidor);
+        Contexto.getInstancia().setTutorado(tutorado);
+        Stage stageReservarCita = (Stage) btnReservar.getScene().getWindow();
+        stageReservarCita.close();
+        //Se regresa al menú del tutorado
+        Stage stageMenuTutorado = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stageMenuTutorado.setScene(scene);
+        stageMenuTutorado.show();
       } catch (RemoteException ex) {
         Alert error = new Alert(AlertType.ERROR);
         error.setTitle("Error al guardar la cita");
         error.setHeaderText("No se pudo contactar con el servidor para guardar la cita");
         error.setContentText("Por favor, realice la reservación más tarde");
         error.showAndWait();
+      } catch (Exception ex) {
+        System.err.println("Excepción: " + ex.getMessage());
       }
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);

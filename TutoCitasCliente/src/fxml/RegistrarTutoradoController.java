@@ -108,7 +108,6 @@ public class RegistrarTutoradoController implements Initializable {
       tutorado.setTutoridTutor(tutor);
       //Se llama al método para registrar el tutorado
       servidor.registrarTutorado(usuario, tutorado);
-      //Se cierra la ventana
       //El sistema avisa al administrador del registro exitoso
       Alert info = new Alert(AlertType.INFORMATION);
       info.setTitle("Éxito");

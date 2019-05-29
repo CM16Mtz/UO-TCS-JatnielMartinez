@@ -46,9 +46,15 @@ public class CancelarCitaTutoradoController implements Initializable {
   private InterfazServidor servidor;
   private Tutorado tutorado;
   
+  /**
+   * Marca la cita seleccionada como cancelada.
+   * @param evt 
+   */
   @FXML
   void clicCancelar(ActionEvent evt) {
     Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
+    System.out.println(tutoria.getFecha());
+    System.out.println(tutoria.getHora());
     if (tutoria != null) {
       Alert confirmacion = new Alert(
           AlertType.CONFIRMATION,
@@ -68,18 +74,28 @@ public class CancelarCitaTutoradoController implements Initializable {
           error.setHeaderText("No se pudo contactar con el servidor para cancelar la cita");
           error.setContentText("Por favor, realice la cancelación más tarde");
           error.showAndWait();
+          ex.printStackTrace();
         }
       }
+    } else {
+      Alert advertencia = new Alert(AlertType.WARNING);
+      advertencia.setTitle("Advertencia");
+      advertencia.setHeaderText(null);
+      advertencia.setContentText("Por favor, seleccione una cita de la tabla");
+      advertencia.showAndWait();
     }
   }
   
+  /**
+   * Se regresa al menú del tutorado.
+   * @param evt
+   * @throws IOException Si se produce un error de entrada/salida
+   */
   @FXML
   void clicRegresar(ActionEvent evt) throws IOException {
-    //Se cierra la ventana
     Stage stageCancelarCita;
     stageCancelarCita = (Stage) btnRegresar.getScene().getWindow();
     stageCancelarCita.close();
-    //Se regresa al menú de tutorado
     Stage stageMenuTutorado = new Stage();
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
@@ -90,7 +106,7 @@ public class CancelarCitaTutoradoController implements Initializable {
   }
   
   /**
-   * Initializes the controller class.
+   * Llena la tabla con las citas que solicitó.
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -104,9 +120,9 @@ public class CancelarCitaTutoradoController implements Initializable {
     colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
     colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
     try {
-      List<Tutoria> tutorias = servidor.consultarTutorias(tutorado);
-      ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
-      if (lista.size() > 0) {
+      List<Tutoria> tutorias = servidor.consultarTutoriasByTutorado(tutorado);
+      if (tutorias.size() > 0) {
+        ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
         tblCitas.setItems(lista);
       } else {
         Alert advertencia = new Alert(AlertType.WARNING);
