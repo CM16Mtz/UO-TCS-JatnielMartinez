@@ -73,7 +73,7 @@ public class ReservarCitaController implements Initializable {
   void reservar(ActionEvent evt) throws IOException {
     Date fecha = Date.valueOf(dtpDia.getValue());
     String hora = txfHora.getText();
-    if (fecha != null && !hora.isEmpty()) {
+    if (fecha != null && !hora.isEmpty() && hora.length() == 5) {
       Tutoria tutoria = new Tutoria(fecha, hora, false, tutorado, tutorado.getTutoridTutor());
       try {
         servidor.reservarCita(tutoria);

@@ -76,7 +76,7 @@ public class ConfirmarCitaController implements Initializable {
     String hora = txfHora.getText();
     tutoria.setFecha(fecha);
     tutoria.setHora(hora);
-    if (fecha != null && !hora.isEmpty()) {
+    if (fecha != null && !hora.isEmpty() && hora.length() == 5) {
       try {
         servidor.confirmarCita(tutoria);
         //El sistema avisa al tutor de la confirmación exitosa
