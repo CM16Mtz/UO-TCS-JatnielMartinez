@@ -43,7 +43,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   //Contiene el nombre de la persistencia
    //Guarda los clientes conectados
   private final transient EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
-  private static final long serialVersionUID = 1;
+  private static final long serialVersionUID = 1L;
   
   public Servidor() throws RemoteException {
     super();
@@ -87,7 +87,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutorado.setUsuarioidUsuario(usuario);
     TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
     controladorTutorado.create(tutorado);
-    emf.close();
   }
 
   /**
@@ -103,7 +102,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutor.setUsuarioidUsuario(usuario);
     TutorJpaController controladorTutor = new TutorJpaController(emf);
     controladorTutor.create(tutor);
-    emf.close();
   }
 
   /**
@@ -115,7 +113,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
     TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(emf);
     controlador.create(horarios);
-    emf.close();
   }
 
   /**
@@ -127,7 +124,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void reservarCita(Tutoria tutoria) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     controlador.create(tutoria);
-    emf.close();
   }
   
   /**
@@ -146,8 +142,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setHeaderText(null);
       error.setContentText("Se produjo un error al confirmar la cita");
       error.showAndWait();
-    } finally {
-      emf.close();
     }
   }
 
@@ -173,8 +167,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
       error.showAndWait();
       Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, "Error al cancelar cita", ex);
-    } finally {
-      emf.close();
     }
   }
 
@@ -187,7 +179,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void generarReporte(Reporte reporte) throws RemoteException {
     ReporteJpaController controlador = new ReporteJpaController(emf);
     controlador.create(reporte);
-    emf.close();
   }
 
   /**

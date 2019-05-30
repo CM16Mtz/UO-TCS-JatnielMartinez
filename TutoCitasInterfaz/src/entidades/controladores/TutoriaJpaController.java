@@ -146,7 +146,7 @@ public class TutoriaJpaController implements Serializable {
         tutoridTutorNew.getTutoriaList().add(tutoria);
         tutoridTutorNew = em.merge(tutoridTutorNew);
       }
-      for (Reporte reporteListNewReporte : reporteListNew) {
+/*      for (Reporte reporteListNewReporte : reporteListNew) {
         if (!reporteListOld.contains(reporteListNewReporte)) {
           Tutoria oldTutoriaidTutoriaOfReporteListNewReporte = reporteListNewReporte.getTutoriaidTutoria();
           reporteListNewReporte.setTutoriaidTutoria(tutoria);
@@ -156,7 +156,7 @@ public class TutoriaJpaController implements Serializable {
             oldTutoriaidTutoriaOfReporteListNewReporte = em.merge(oldTutoriaidTutoriaOfReporteListNewReporte);
           }
         }
-      }
+      }*/
       em.getTransaction().commit();
     } catch (Exception ex) {
       String msg = ex.getLocalizedMessage();

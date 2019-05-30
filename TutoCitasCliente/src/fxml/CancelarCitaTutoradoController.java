@@ -51,13 +51,27 @@ public class CancelarCitaTutoradoController implements Initializable {
    * @param evt 
    */
   @FXML
-  void clicCancelar(ActionEvent evt) {
+  void clicCancelar(ActionEvent evt) throws IOException {
     Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
     try {
       tutoria.setCancelada(true);
       tutoria.setCausa("Cita cancelada por el tutorado");
       servidor.cancelarCita(tutoria);
-      llenarTabla();
+      Alert info = new Alert(AlertType.INFORMATION);
+      info.setTitle("Éxito");
+      info.setHeaderText(null);
+      info.setContentText("Cita cancelada con éxito");
+      info.showAndWait();
+      Stage stageCancelarCita;
+      stageCancelarCita = (Stage) btnCancelar.getScene().getWindow();
+      stageCancelarCita.close();
+      Stage stageMenuTutorado = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("/fxml/MenuTutorado.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      stageMenuTutorado.setScene(scene);
+      stageMenuTutorado.show();
     } catch (RemoteException ex) {
       Alert error = new Alert(AlertType.ERROR);
       error.setTitle("Error al cancelar");
