@@ -20,7 +20,7 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   
   private transient InterfazServidor servidor;
   private static final String NOMBRE = "TutoCitas";
-  private static final String NOMBRE_SERVIDOR = "localhost";
+  private static final String NOMBRE_SERVIDOR = "10.30.5.42";
   private static final int PUERTO_SERVIDOR = 5678;
   
   /**
