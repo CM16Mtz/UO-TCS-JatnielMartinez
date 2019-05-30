@@ -28,7 +28,7 @@ public class ReporteJpaController implements Serializable {
   public ReporteJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -57,7 +57,7 @@ public class ReporteJpaController implements Serializable {
     }
   }
 
-  public void edit(Reporte reporte) throws NonexistentEntityException, Exception {
+  public void edit(Reporte reporte) throws NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();

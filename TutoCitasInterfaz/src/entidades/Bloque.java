@@ -110,15 +110,13 @@ public class Bloque implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Bloque)) {
       return false;
     }
     Bloque other = (Bloque) object;
-    if ((this.idBloque == null && other.idBloque != null) || (this.idBloque != null && !this.idBloque.equals(other.idBloque))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idBloque == null && other.idBloque != null) ||
+        (this.idBloque != null && !this.idBloque.equals(other.idBloque));
   }
 
   @Override

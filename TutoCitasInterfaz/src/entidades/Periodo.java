@@ -84,15 +84,13 @@ public class Periodo implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Periodo)) {
       return false;
     }
     Periodo other = (Periodo) object;
-    if ((this.idPeriodo == null && other.idPeriodo != null) || (this.idPeriodo != null && !this.idPeriodo.equals(other.idPeriodo))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idPeriodo == null && other.idPeriodo != null) ||
+        (this.idPeriodo != null && !this.idPeriodo.equals(other.idPeriodo));
   }
 
   @Override

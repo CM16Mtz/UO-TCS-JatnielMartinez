@@ -73,15 +73,13 @@ public class Administrador implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Administrador)) {
       return false;
     }
     Administrador other = (Administrador) object;
-    if ((this.idAdministrador == null && other.idAdministrador != null) || (this.idAdministrador != null && !this.idAdministrador.equals(other.idAdministrador))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idAdministrador == null && other.idAdministrador != null) ||
+        (this.idAdministrador != null && !this.idAdministrador.equals(other.idAdministrador));
   }
 
   @Override

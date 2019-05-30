@@ -30,7 +30,7 @@ public class TutorHasBloqueJpaController implements Serializable {
   public TutorHasBloqueJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -77,7 +77,7 @@ public class TutorHasBloqueJpaController implements Serializable {
     }
   }
 
-  public void edit(TutorHasBloque tutorHasBloque) throws NonexistentEntityException, Exception {
+  public void edit(TutorHasBloque tutorHasBloque) throws NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();

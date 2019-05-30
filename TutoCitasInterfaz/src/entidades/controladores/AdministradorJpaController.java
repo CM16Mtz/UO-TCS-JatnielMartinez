@@ -14,6 +14,8 @@ import javax.persistence.criteria.Root;
 import entidades.Usuario;
 import entidades.controladores.exceptions.NonexistentEntityException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -28,7 +30,7 @@ public class AdministradorJpaController implements Serializable {
   public AdministradorJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -57,7 +59,7 @@ public class AdministradorJpaController implements Serializable {
     }
   }
 
-  public void edit(Administrador administrador) throws NonexistentEntityException, Exception {
+  public void edit(Administrador administrador) throws NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -164,13 +166,13 @@ public class AdministradorJpaController implements Serializable {
           .setParameter("idUsuario", usuario.getIdUsuario())
           .getSingleResult();
     } catch (Exception ex) {
-      System.err.println("Excepción: " + ex.getMessage());
+      Logger.getLogger(AdministradorJpaController.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       if (em != null) {
         try {
           em.close();
         } catch (Exception ex) {
-          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+          Logger.getLogger(AdministradorJpaController.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
     }

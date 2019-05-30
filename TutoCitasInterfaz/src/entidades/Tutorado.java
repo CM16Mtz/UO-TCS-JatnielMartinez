@@ -127,20 +127,17 @@ public class Tutorado implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Tutorado)) {
       return false;
     }
     Tutorado other = (Tutorado) object;
-    if ((this.idTutorado == null && other.idTutorado != null) || (this.idTutorado != null && !this.idTutorado.equals(other.idTutorado))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idTutorado == null && other.idTutorado != null) ||
+        (this.idTutorado != null && !this.idTutorado.equals(other.idTutorado));
   }
 
   @Override
   public String toString() {
-    //return "entidades.Tutorado[ idTutorado=" + idTutorado + " ]";
     return usuarioidUsuario.getNombre() + " " + usuarioidUsuario.getApPaterno() + " " + usuarioidUsuario.getApMaterno();
   }
   

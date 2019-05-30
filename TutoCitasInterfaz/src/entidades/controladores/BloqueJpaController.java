@@ -30,7 +30,7 @@ public class BloqueJpaController implements Serializable {
   public BloqueJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -44,7 +44,7 @@ public class BloqueJpaController implements Serializable {
     try {
       em = getEntityManager();
       em.getTransaction().begin();
-      List<TutorHasBloque> attachedTutorHasBloqueList = new ArrayList<TutorHasBloque>();
+      List<TutorHasBloque> attachedTutorHasBloqueList = new ArrayList<>();
       for (TutorHasBloque tutorHasBloqueListTutorHasBloqueToAttach : bloque.getTutorHasBloqueList()) {
         tutorHasBloqueListTutorHasBloqueToAttach = em.getReference(tutorHasBloqueListTutorHasBloqueToAttach.getClass(), tutorHasBloqueListTutorHasBloqueToAttach.getId());
         attachedTutorHasBloqueList.add(tutorHasBloqueListTutorHasBloqueToAttach);
@@ -68,7 +68,7 @@ public class BloqueJpaController implements Serializable {
     }
   }
 
-  public void edit(Bloque bloque) throws IllegalOrphanException, NonexistentEntityException, Exception {
+  public void edit(Bloque bloque) throws IllegalOrphanException, NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -80,7 +80,7 @@ public class BloqueJpaController implements Serializable {
       for (TutorHasBloque tutorHasBloqueListOldTutorHasBloque : tutorHasBloqueListOld) {
         if (!tutorHasBloqueListNew.contains(tutorHasBloqueListOldTutorHasBloque)) {
           if (illegalOrphanMessages == null) {
-            illegalOrphanMessages = new ArrayList<String>();
+            illegalOrphanMessages = new ArrayList<>();
           }
           illegalOrphanMessages.add("You must retain TutorHasBloque " + tutorHasBloqueListOldTutorHasBloque + " since its bloqueidBloque field is not nullable.");
         }
@@ -88,7 +88,7 @@ public class BloqueJpaController implements Serializable {
       if (illegalOrphanMessages != null) {
         throw new IllegalOrphanException(illegalOrphanMessages);
       }
-      List<TutorHasBloque> attachedTutorHasBloqueListNew = new ArrayList<TutorHasBloque>();
+      List<TutorHasBloque> attachedTutorHasBloqueListNew = new ArrayList<>();
       for (TutorHasBloque tutorHasBloqueListNewTutorHasBloqueToAttach : tutorHasBloqueListNew) {
         tutorHasBloqueListNewTutorHasBloqueToAttach = em.getReference(tutorHasBloqueListNewTutorHasBloqueToAttach.getClass(), tutorHasBloqueListNewTutorHasBloqueToAttach.getId());
         attachedTutorHasBloqueListNew.add(tutorHasBloqueListNewTutorHasBloqueToAttach);
@@ -140,7 +140,7 @@ public class BloqueJpaController implements Serializable {
       List<TutorHasBloque> tutorHasBloqueListOrphanCheck = bloque.getTutorHasBloqueList();
       for (TutorHasBloque tutorHasBloqueListOrphanCheckTutorHasBloque : tutorHasBloqueListOrphanCheck) {
         if (illegalOrphanMessages == null) {
-          illegalOrphanMessages = new ArrayList<String>();
+          illegalOrphanMessages = new ArrayList<>();
         }
         illegalOrphanMessages.add("This Bloque (" + bloque + ") cannot be destroyed since the TutorHasBloque " + tutorHasBloqueListOrphanCheckTutorHasBloque + " in its tutorHasBloqueList field has a non-nullable bloqueidBloque field.");
       }

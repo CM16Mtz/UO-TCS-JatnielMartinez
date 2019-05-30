@@ -166,15 +166,13 @@ public class Tutoria implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Tutoria)) {
       return false;
     }
     Tutoria other = (Tutoria) object;
-    if ((this.idTutoria == null && other.idTutoria != null) || (this.idTutoria != null && !this.idTutoria.equals(other.idTutoria))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idTutoria == null && other.idTutoria != null) ||
+        (this.idTutoria != null && !this.idTutoria.equals(other.idTutoria));
   }
 
   @Override

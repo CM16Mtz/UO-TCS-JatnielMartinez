@@ -18,6 +18,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -32,7 +34,7 @@ public class TutoradoJpaController implements Serializable {
   public TutoradoJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -56,7 +58,7 @@ public class TutoradoJpaController implements Serializable {
         tutoridTutor = em.getReference(tutoridTutor.getClass(), tutoridTutor.getIdTutor());
         tutorado.setTutoridTutor(tutoridTutor);
       }
-      List<Tutoria> attachedTutoriaList = new ArrayList<Tutoria>();
+      List<Tutoria> attachedTutoriaList = new ArrayList<>();
       for (Tutoria tutoriaListTutoriaToAttach : tutorado.getTutoriaList()) {
         tutoriaListTutoriaToAttach = em.getReference(tutoriaListTutoriaToAttach.getClass(), tutoriaListTutoriaToAttach.getIdTutoria());
         attachedTutoriaList.add(tutoriaListTutoriaToAttach);
@@ -88,7 +90,7 @@ public class TutoradoJpaController implements Serializable {
     }
   }
 
-  public void edit(Tutorado tutorado) throws IllegalOrphanException, NonexistentEntityException, Exception {
+  public void edit(Tutorado tutorado) throws IllegalOrphanException, NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -104,7 +106,7 @@ public class TutoradoJpaController implements Serializable {
       for (Tutoria tutoriaListOldTutoria : tutoriaListOld) {
         if (!tutoriaListNew.contains(tutoriaListOldTutoria)) {
           if (illegalOrphanMessages == null) {
-            illegalOrphanMessages = new ArrayList<String>();
+            illegalOrphanMessages = new ArrayList<>();
           }
           illegalOrphanMessages.add("You must retain Tutoria " + tutoriaListOldTutoria + " since its tutoradoidTutorado field is not nullable.");
         }
@@ -120,7 +122,7 @@ public class TutoradoJpaController implements Serializable {
         tutoridTutorNew = em.getReference(tutoridTutorNew.getClass(), tutoridTutorNew.getIdTutor());
         tutorado.setTutoridTutor(tutoridTutorNew);
       }
-      List<Tutoria> attachedTutoriaListNew = new ArrayList<Tutoria>();
+      List<Tutoria> attachedTutoriaListNew = new ArrayList<>();
       for (Tutoria tutoriaListNewTutoriaToAttach : tutoriaListNew) {
         tutoriaListNewTutoriaToAttach = em.getReference(tutoriaListNewTutoriaToAttach.getClass(), tutoriaListNewTutoriaToAttach.getIdTutoria());
         attachedTutoriaListNew.add(tutoriaListNewTutoriaToAttach);
@@ -188,7 +190,7 @@ public class TutoradoJpaController implements Serializable {
       List<Tutoria> tutoriaListOrphanCheck = tutorado.getTutoriaList();
       for (Tutoria tutoriaListOrphanCheckTutoria : tutoriaListOrphanCheck) {
         if (illegalOrphanMessages == null) {
-          illegalOrphanMessages = new ArrayList<String>();
+          illegalOrphanMessages = new ArrayList<>();
         }
         illegalOrphanMessages.add("This Tutorado (" + tutorado + ") cannot be destroyed since the Tutoria " + tutoriaListOrphanCheckTutoria + " in its tutoriaList field has a non-nullable tutoradoidTutorado field.");
       }
@@ -256,13 +258,13 @@ public class TutoradoJpaController implements Serializable {
           .setParameter("idUsuario", usuario.getIdUsuario())
           .getSingleResult();
     } catch (Exception ex) {
-      System.err.println("Excepción: " + ex.getMessage());
+      Logger.getLogger(TutoradoJpaController.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       if (em != null) {
         try {
           em.close();
         } catch (Exception ex) {
-          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+          Logger.getLogger(TutoradoJpaController.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
     }

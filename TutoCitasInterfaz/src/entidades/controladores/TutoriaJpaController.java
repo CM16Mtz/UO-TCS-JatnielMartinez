@@ -18,6 +18,8 @@ import entidades.controladores.exceptions.IllegalOrphanException;
 import entidades.controladores.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -32,7 +34,7 @@ public class TutoriaJpaController implements Serializable {
   public TutoriaJpaController(EntityManagerFactory emf) {
     this.emf = emf;
   }
-  private EntityManagerFactory emf = null;
+  private transient EntityManagerFactory emf = null;
 
   public EntityManager getEntityManager() {
     return emf.createEntityManager();
@@ -56,7 +58,7 @@ public class TutoriaJpaController implements Serializable {
         tutoridTutor = em.getReference(tutoridTutor.getClass(), tutoridTutor.getIdTutor());
         tutoria.setTutoridTutor(tutoridTutor);
       }
-      List<Reporte> attachedReporteList = new ArrayList<Reporte>();
+      List<Reporte> attachedReporteList = new ArrayList<>();
       for (Reporte reporteListReporteToAttach : tutoria.getReporteList()) {
         reporteListReporteToAttach = em.getReference(reporteListReporteToAttach.getClass(), reporteListReporteToAttach.getIdReporte());
         attachedReporteList.add(reporteListReporteToAttach);
@@ -88,7 +90,7 @@ public class TutoriaJpaController implements Serializable {
     }
   }
 
-  public void edit(Tutoria tutoria) throws IllegalOrphanException, NonexistentEntityException, Exception {
+  public void edit(Tutoria tutoria) throws IllegalOrphanException, NonexistentEntityException {
     EntityManager em = null;
     try {
       em = getEntityManager();
@@ -104,7 +106,7 @@ public class TutoriaJpaController implements Serializable {
       for (Reporte reporteListOldReporte : reporteListOld) {
         if (!reporteListNew.contains(reporteListOldReporte)) {
           if (illegalOrphanMessages == null) {
-            illegalOrphanMessages = new ArrayList<String>();
+            illegalOrphanMessages = new ArrayList<>();
           }
           illegalOrphanMessages.add("You must retain Reporte " + reporteListOldReporte + " since its tutoriaidTutoria field is not nullable.");
         }
@@ -120,7 +122,7 @@ public class TutoriaJpaController implements Serializable {
         tutoridTutorNew = em.getReference(tutoridTutorNew.getClass(), tutoridTutorNew.getIdTutor());
         tutoria.setTutoridTutor(tutoridTutorNew);
       }
-      List<Reporte> attachedReporteListNew = new ArrayList<Reporte>();
+      List<Reporte> attachedReporteListNew = new ArrayList<>();
       for (Reporte reporteListNewReporteToAttach : reporteListNew) {
         reporteListNewReporteToAttach = em.getReference(reporteListNewReporteToAttach.getClass(), reporteListNewReporteToAttach.getIdReporte());
         attachedReporteListNew.add(reporteListNewReporteToAttach);
@@ -188,7 +190,7 @@ public class TutoriaJpaController implements Serializable {
       List<Reporte> reporteListOrphanCheck = tutoria.getReporteList();
       for (Reporte reporteListOrphanCheckReporte : reporteListOrphanCheck) {
         if (illegalOrphanMessages == null) {
-          illegalOrphanMessages = new ArrayList<String>();
+          illegalOrphanMessages = new ArrayList<>();
         }
         illegalOrphanMessages.add("This Tutoria (" + tutoria + ") cannot be destroyed since the Reporte " + reporteListOrphanCheckReporte + " in its reporteList field has a non-nullable tutoriaidTutoria field.");
       }
@@ -250,14 +252,13 @@ public class TutoriaJpaController implements Serializable {
           .setParameter("tutoridTutor", tutor)
           .getResultList();
     } catch (Exception ex) {
-      System.err.println("Excepción: " + ex.getMessage());
-      ex.printStackTrace();
+      Logger.getLogger(TutoriaJpaController.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       if (em != null) {
         try {
           em.close();
         } catch (Exception ex) {
-          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+          Logger.getLogger(TutoriaJpaController.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
     }
@@ -274,14 +275,13 @@ public class TutoriaJpaController implements Serializable {
           .setParameter("tutoradoidTutorado", tutorado)
           .getResultList();
     } catch (Exception ex) {
-      System.err.println("Excepción: " + ex.getMessage());
-      ex.printStackTrace();
+      Logger.getLogger(TutoriaJpaController.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       if (em != null) {
         try {
           em.close();
         } catch (Exception ex) {
-          System.err.println("Error al cerrar EntityManager: " + ex.getMessage());
+          Logger.getLogger(TutoriaJpaController.class.getName()).log(Level.SEVERE, null, ex);
         }
       }
     }

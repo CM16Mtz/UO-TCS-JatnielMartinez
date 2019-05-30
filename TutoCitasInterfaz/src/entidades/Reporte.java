@@ -134,15 +134,13 @@ public class Reporte implements Serializable {
 
   @Override
   public boolean equals(Object object) {
-    // TODO: Warning - this method won't work in the case the id fields are not set
     if (!(object instanceof Reporte)) {
       return false;
     }
     Reporte other = (Reporte) object;
-    if ((this.idReporte == null && other.idReporte != null) || (this.idReporte != null && !this.idReporte.equals(other.idReporte))) {
-      return false;
-    }
-    return true;
+    return
+        (this.idReporte == null && other.idReporte != null) ||
+        (this.idReporte != null && !this.idReporte.equals(other.idReporte));
   }
 
   @Override
