@@ -83,7 +83,8 @@ public class RegistrarTutorController implements Initializable {
     String correo = txfCorreo.getText();
     String noPersonal = txfNoPersonal.getText();
     String contrasena = pwfContrasena.getText();
-    if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !noPersonal.isEmpty() && !contrasena.isEmpty()) {
+    if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !noPersonal.isEmpty()
+        && !contrasena.isEmpty() && noPersonal.length() == 5) {
       try {
         //Se crea el usuario
         Usuario usuario = new Usuario(noPersonal, contrasena, "Tutor", nombre, apPaterno, correo);

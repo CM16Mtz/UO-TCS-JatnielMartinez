@@ -94,7 +94,8 @@ public class RegistrarTutoradoController implements Initializable {
     String contrasena = pwfContrasena.getText();
     Tutor tutor = (Tutor) cmbTutor.getValue();
     if (!nombre.isEmpty() && !apPaterno.isEmpty() && !correo.isEmpty() && !carrera.isEmpty()
-        && !matricula.isEmpty() && !contrasena.isEmpty() && tutor != null && contrasena.startsWith("s")) {
+        && !matricula.isEmpty() && !contrasena.isEmpty() && tutor != null
+        && matricula.startsWith("s") && matricula.length() == 9) {
       //Se crea el usuario
       Usuario usuario = new Usuario(matricula, contrasena, "Tutorado", nombre, apPaterno, correo);
       if (!apMaterno.isEmpty()) {
