@@ -43,7 +43,6 @@ public class CancelarCitaTutorController implements Initializable {
   @FXML private TableColumn colTutorado;
   @FXML private TableView tblCitas;
   
-  private Cliente cliente;
   private InterfazServidor servidor;
   private Tutor tutor;
   
@@ -108,7 +107,7 @@ public class CancelarCitaTutorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    cliente = Contexto.getInstancia().getCliente();
+    //Cliente cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
     tutor = Contexto.getInstancia().getTutor();
     llenarTabla();

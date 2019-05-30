@@ -56,7 +56,6 @@ public class RegistrarTutoradoController implements Initializable {
   
   private Cliente cliente;
   private InterfazServidor servidor;
-  private List<Tutor> tutores;
   
   /**
    * Se regresa al menú del administrador
@@ -145,7 +144,7 @@ public class RegistrarTutoradoController implements Initializable {
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
     try {
-      tutores = servidor.consultarTutores();
+      List<Tutor> tutores = servidor.consultarTutores();
       ObservableList<Tutor> lista = FXCollections.observableArrayList(tutores);
       cmbTutor.setItems(lista);
     } catch (RemoteException ex) {

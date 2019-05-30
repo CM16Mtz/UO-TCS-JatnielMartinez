@@ -9,6 +9,8 @@ import interfaces.InterfazServidor;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,7 +123,7 @@ public class RegistrarTutorController implements Initializable {
         error.setHeaderText(null);
         error.setContentText("Se produjo un error inesperado");
         error.showAndWait();
-        System.err.println("Excepción: " + ex.getMessage());
+        Logger.getLogger(RegistrarTutorController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
       }
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);

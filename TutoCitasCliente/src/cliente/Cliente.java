@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -16,10 +18,10 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   
-  private InterfazServidor servidor;
-  private static String nombre = "TutoCitas";
-  private static String nombreServidor = "localhost";
-  private static int puertoServidor = 5678;
+  private transient InterfazServidor servidor;
+  private static final String NOMBRE = "TutoCitas";
+  private static final String NOMBRE_SERVIDOR = "localhost";
+  private static final int PUERTO_SERVIDOR = 5678;
   
   /**
    * Se conecta a un servidor
@@ -28,8 +30,8 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   public Cliente() throws RemoteException {
     super();
     try {
-      Registry registro = LocateRegistry.getRegistry(nombreServidor, puertoServidor);
-      servidor = (InterfazServidor) registro.lookup(nombre);
+      Registry registro = LocateRegistry.getRegistry(NOMBRE_SERVIDOR, PUERTO_SERVIDOR);
+      servidor = (InterfazServidor) registro.lookup(NOMBRE);
       servidor.registerForCallback(this);
     } catch (NotBoundException ex) {
       Alert error = new Alert(AlertType.ERROR);
@@ -58,12 +60,12 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
 
   @Override
   public void notificarCancelacionCita() throws RemoteException {
-    System.out.println("Método no utilizado");
+    Logger.getLogger(Cliente.class.getName()).log(Level.INFO, "Método no utilizado");
   }
 
   @Override
   public void notificar(String mensaje) throws RemoteException {
-    System.out.println("Método no utilizado");
+    Logger.getLogger(Cliente.class.getName()).log(Level.INFO, "Método no utilizado");
   }
   
 }

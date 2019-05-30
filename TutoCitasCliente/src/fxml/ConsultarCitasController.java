@@ -41,8 +41,6 @@ public class ConsultarCitasController implements Initializable {
   @FXML private TableColumn colTutorado;
   @FXML private TableView tblCitas;
   
-  private Cliente cliente;
-  private InterfazServidor servidor;
   private Tutor tutor;
   private Tutorado tutorado;
   
@@ -76,8 +74,8 @@ public class ConsultarCitasController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    cliente = Contexto.getInstancia().getCliente();
-    servidor = Contexto.getInstancia().getServidor();
+    //Cliente cliente = Contexto.getInstancia().getCliente();
+    InterfazServidor servidor = Contexto.getInstancia().getServidor();
     tutor = Contexto.getInstancia().getTutor();
     tutorado = Contexto.getInstancia().getTutorado();
     colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));

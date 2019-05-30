@@ -29,6 +29,8 @@ import javafx.stage.Stage;
 import javax.persistence.Persistence;
 import contexto.Contexto;
 import interfaces.InterfazServidor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -133,10 +135,7 @@ public class IniciarSesionController implements Initializable {
         error.setHeaderText("Se produjo un error al iniciar sesión");
         error.setContentText("Por favor, ingrese al sistema más tarde");
         error.showAndWait();
-        System.err.println("RemoteException: " + ex.getMessage());
-      } catch (Exception ex) {
-        System.err.println("Exception: " + ex.getMessage());
-        ex.printStackTrace();
+        Logger.getLogger(IniciarSesionController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
       }
     } else {
       Alert info = new Alert(AlertType.WARNING);

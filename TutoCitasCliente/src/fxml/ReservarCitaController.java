@@ -10,6 +10,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -102,7 +104,7 @@ public class ReservarCitaController implements Initializable {
         error.setContentText("Por favor, realice la reservación más tarde");
         error.showAndWait();
       } catch (Exception ex) {
-        System.err.println("Excepción: " + ex.getMessage());
+        Logger.getLogger(ReservarCitaController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
       }
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);

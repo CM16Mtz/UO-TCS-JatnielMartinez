@@ -12,6 +12,8 @@ import entidades.controladores.TutorJpaController;
 import entidades.controladores.TutoradoJpaController;
 import entidades.controladores.TutoriaJpaController;
 import entidades.controladores.UsuarioJpaController;
+import entidades.controladores.exceptions.IllegalOrphanException;
+import entidades.controladores.exceptions.NonexistentEntityException;
 import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
 import java.net.InetAddress;
@@ -164,12 +166,13 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     try {
       controlador.edit(tutoria);
-    } catch (Exception ex) {
+    } catch (IllegalOrphanException | NonexistentEntityException ex) {
       Alert error = new Alert(AlertType.ERROR);
       error.setTitle("Error de cancelación");
       error.setHeaderText(null);
       error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
       error.showAndWait();
+      Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, "Error al cancelar cita", ex);
     } finally {
       emf.close();
     }

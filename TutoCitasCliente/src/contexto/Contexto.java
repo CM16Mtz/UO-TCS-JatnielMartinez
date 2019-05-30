@@ -6,6 +6,8 @@ import entidades.Tutor;
 import entidades.Tutorado;
 import entidades.Tutoria;
 import interfaces.InterfazServidor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase auxiliar que establece la instancia de un administrador, tutor o tutorado.
@@ -24,7 +26,7 @@ public class Contexto {
   private Tutoria tutoria;
   
   public Contexto() {
-    System.out.println("Se instanció contexto");
+    Logger.getLogger(Contexto.class.getName()).log(Level.INFO, "Contexto inicializado");
   }
   
   /**

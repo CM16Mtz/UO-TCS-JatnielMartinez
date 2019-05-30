@@ -1,7 +1,6 @@
 package fxml;
 
 import cliente.Cliente;
-import entidades.Administrador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +28,6 @@ public class MenuAdministradorController implements Initializable {
   @FXML private Button btnRegistrarTutorado;
   @FXML private Label lblBienvenido;
   
-  //private Administrador administrador;
   private Cliente cliente;
   private InterfazServidor servidor;
   
@@ -93,7 +91,6 @@ public class MenuAdministradorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    //administrador = Contexto.getInstancia().getAdministrador();
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
   }

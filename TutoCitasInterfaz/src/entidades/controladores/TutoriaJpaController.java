@@ -122,13 +122,13 @@ public class TutoriaJpaController implements Serializable {
         tutoridTutorNew = em.getReference(tutoridTutorNew.getClass(), tutoridTutorNew.getIdTutor());
         tutoria.setTutoridTutor(tutoridTutorNew);
       }
-      List<Reporte> attachedReporteListNew = new ArrayList<>();
+/*      List<Reporte> attachedReporteListNew = new ArrayList<>();
       for (Reporte reporteListNewReporteToAttach : reporteListNew) {
         reporteListNewReporteToAttach = em.getReference(reporteListNewReporteToAttach.getClass(), reporteListNewReporteToAttach.getIdReporte());
         attachedReporteListNew.add(reporteListNewReporteToAttach);
       }
       reporteListNew = attachedReporteListNew;
-      tutoria.setReporteList(reporteListNew);
+      tutoria.setReporteList(reporteListNew);*/
       tutoria = em.merge(tutoria);
       if (tutoradoidTutoradoOld != null && !tutoradoidTutoradoOld.equals(tutoradoidTutoradoNew)) {
         tutoradoidTutoradoOld.getTutoriaList().remove(tutoria);

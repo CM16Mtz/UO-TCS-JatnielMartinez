@@ -19,11 +19,12 @@ import entidades.Tutoria;
 import interfaces.InterfazServidor;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,7 +43,6 @@ public class CancelarCitaTutoradoController implements Initializable {
   @FXML private TableColumn colHora;
   @FXML private TableView tblCitas;
   
-  private Cliente cliente;
   private InterfazServidor servidor;
   private Tutorado tutorado;
   
@@ -53,37 +53,19 @@ public class CancelarCitaTutoradoController implements Initializable {
   @FXML
   void clicCancelar(ActionEvent evt) {
     Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
-    //System.out.println(tutoria.getFecha());
-    //System.out.println(tutoria.getHora());
-    //if (tutoria != null) {
-      /*Alert confirmacion = new Alert(
-          AlertType.CONFIRMATION,
-          "¿Está seguro que desea cancelar la cita seleccionada?",
-          ButtonType.YES,
-          ButtonType.NO);
-      confirmacion.showAndWait();
-      if (confirmacion.getResult() == ButtonType.YES) {*/
-        try {
-          tutoria.setCancelada(true);
-          tutoria.setCausa("Cita cancelada por el tutorado");
-          servidor.cancelarCita(tutoria);
-          llenarTabla();
-        } catch (RemoteException ex) {
-          Alert error = new Alert(AlertType.ERROR);
-          error.setTitle("Error al cancelar");
-          error.setHeaderText("No se pudo contactar con el servidor para cancelar la cita");
-          error.setContentText("Por favor, realice la cancelación más tarde");
-          error.showAndWait();
-          ex.printStackTrace();
-        }
-      //}
-    /*} else {
-      Alert advertencia = new Alert(AlertType.WARNING);
-      advertencia.setTitle("Advertencia");
-      advertencia.setHeaderText(null);
-      advertencia.setContentText("Por favor, seleccione una cita de la tabla");
-      advertencia.showAndWait();
-    }*/
+    try {
+      tutoria.setCancelada(true);
+      tutoria.setCausa("Cita cancelada por el tutorado");
+      servidor.cancelarCita(tutoria);
+      llenarTabla();
+    } catch (RemoteException ex) {
+      Alert error = new Alert(AlertType.ERROR);
+      error.setTitle("Error al cancelar");
+      error.setHeaderText("No se pudo contactar con el servidor para cancelar la cita");
+      error.setContentText("Por favor, realice la cancelación más tarde");
+      error.showAndWait();
+      Logger.getLogger(CancelarCitaTutoradoController.class.getName()).log(Level.SEVERE, "Error al cancelar", ex);
+    }
   }
   
   /**
@@ -110,7 +92,7 @@ public class CancelarCitaTutoradoController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    cliente = Contexto.getInstancia().getCliente();
+    //Cliente cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
     tutorado = Contexto.getInstancia().getTutorado();
     llenarTabla();
