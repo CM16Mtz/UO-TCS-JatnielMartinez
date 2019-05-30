@@ -90,7 +90,7 @@ public class GenerarReporteController implements Initializable {
       atendida = true;
     }
     String causa = txaCausa.getText();
-    Tutoria tutoria = (Tutoria) cmbTutorias.getValue();
+    Tutoria tutoria = (Tutoria) cmbTutorias.getSelectionModel().getSelectedItem();
     if (!numTutoria.isEmpty() && !duracion.isEmpty() && tutoria != null) {
       Reporte reporte = new Reporte(Integer.parseInt(numTutoria), Integer.parseInt(duracion), atendida, tutoria);
       if (!causa.isEmpty()) {

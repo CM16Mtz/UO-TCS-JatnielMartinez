@@ -245,10 +245,10 @@ public class TutoriaJpaController implements Serializable {
     EntityManager em = null;
     try {
       em = getEntityManager();
-      tutorias = em.createQuery("SELECT c.fecha, c.hora, u.username FROM Tutoria c "
-          + "INNER JOIN Tutorado t ON (c.Tutorado_idTutorado = t.idTutorado)"
-          + "INNER JOIN Usuario u ON (t.Usuario_idUsuario = u.idUsuario)"
-          + "WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
+      tutorias = em.createQuery("SELECT c FROM Tutoria c"
+          + " INNER JOIN c.tutoradoidTutorado t"
+          + " INNER JOIN t.usuarioidUsuario u"
+          + " WHERE c.tutoridTutor = :tutoridTutor AND c.cancelada = FALSE")
           .setParameter("tutoridTutor", tutor)
           .getResultList();
     } catch (Exception ex) {
