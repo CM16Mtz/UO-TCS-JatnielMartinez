@@ -23,6 +23,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javax.persistence.EntityManagerFactory;
@@ -35,11 +37,11 @@ import javax.persistence.Persistence;
 public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   
   private static final int PUERTO = 5678;
-  private static final long SERIAL_VERSION_UID = 1L;
-  private final List<InterfazCliente> clientes;    //Guarda los clientes conectados
+  private final transient List<InterfazCliente> clientes;
   //Contiene el nombre de la persistencia
-  private final EntityManagerFactory emf
-      = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
+   //Guarda los clientes conectados
+  private final transient EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
+  private static final long serialVersionUID = 1;
   
   public Servidor() throws RemoteException {
     super();
@@ -56,16 +58,15 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void iniciarServidor() {
     try {
       String direccion = (InetAddress.getLocalHost()).toString();
-      System.out.println("Iniciando servidor en " + direccion + ":" + PUERTO);
+      String mensaje = "Iniciando servidor en " + direccion + ":" + PUERTO;
+      Logger.getLogger(Servidor.class.getName())
+          .log(Level.INFO, mensaje);
       Registry registro = LocateRegistry.createRegistry(PUERTO);
       registro.bind("TutoCitas", (InterfazServidor) this);
-      System.out.println("Servidor iniciado");
-    } catch (UnknownHostException ex) {
-      System.err.println("Se produjo un error al iniciar el servidor");
-      System.err.println("UnknownHostException: " + ex.getMessage());
-    } catch (RemoteException | AlreadyBoundException ex) {
-      System.err.println("Se produjo un error al iniciar el servidor");
-      System.err.println("RemoteException | AlreadyBoundException: " + ex.getMessage());
+      Logger.getLogger(Servidor.class.getName()).log(Level.INFO, "Servidor iniciado");
+    } catch (UnknownHostException | RemoteException | AlreadyBoundException ex) {
+      Logger.getLogger(Servidor.class.getName())
+          .log(Level.SEVERE, "Se produjo un error al ejecutar el servidor", ex);
     }
   }
   
@@ -84,7 +85,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutorado.setUsuarioidUsuario(usuario);
     TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
     controladorTutorado.create(tutorado);
-    //emf.close();
+    emf.close();
   }
 
   /**
@@ -100,7 +101,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
     tutor.setUsuarioidUsuario(usuario);
     TutorJpaController controladorTutor = new TutorJpaController(emf);
     controladorTutor.create(tutor);
-    //emf.close();
+    emf.close();
   }
 
   /**
@@ -112,7 +113,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void registrarHorarios(TutorHasBloque horarios) throws RemoteException {
     TutorHasBloqueJpaController controlador = new TutorHasBloqueJpaController(emf);
     controlador.create(horarios);
-    //emf.close();
+    emf.close();
   }
 
   /**
@@ -124,7 +125,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void reservarCita(Tutoria tutoria) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
     controlador.create(tutoria);
-    //emf.close();
+    emf.close();
   }
   
   /**
@@ -144,13 +145,13 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setContentText("Se produjo un error al confirmar la cita");
       error.showAndWait();
     } finally {
-      //emf.close();
+      emf.close();
     }
   }
 
   @Override
   public void reportarProximasTutorias() throws RemoteException {
-    
+    Logger.getLogger(Servidor.class.getName()).log(Level.INFO, "Método aún no utilizado");
   }
 
   /**
@@ -170,7 +171,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
       error.setContentText("La cita que usted quiere cancelar no se encuentra en nuestra base de datos");
       error.showAndWait();
     } finally {
-      //emf.close();
+      emf.close();
     }
   }
 
@@ -183,7 +184,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   public void generarReporte(Reporte reporte) throws RemoteException {
     ReporteJpaController controlador = new ReporteJpaController(emf);
     controlador.create(reporte);
-    //emf.close();
+    emf.close();
   }
 
   /**
@@ -196,9 +197,8 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
    */
   @Override
   public Usuario iniciarSesion(InterfazCliente cliente, String username, String contrasena) throws RemoteException {
-    Usuario aux = new Usuario();
     UsuarioJpaController controlador = new UsuarioJpaController(emf);
-    aux = controlador.findUsuario(username, contrasena);
+    Usuario aux = controlador.findUsuario(username, contrasena);
     if (aux != null) {
       registerForCallback(cliente);
       return aux;
@@ -224,9 +224,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   @Override
   public List<Tutor> consultarTutores() throws RemoteException {
     TutorJpaController controlador = new TutorJpaController(emf);
-    List<Tutor> tutores = controlador.findTutorEntities();
-    //emf.close();
-    return tutores;
+    return controlador.findTutorEntities();
   }
 
   /**
@@ -238,9 +236,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   @Override
   public List<Tutoria> consultarTutoriasByTutor(Tutor tutor) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
-    List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutor(tutor);
-    //emf.close();
-    return tutorias;
+    return controlador.findTutoriaEntitiesByTutor(tutor);
   }
   
   /**
@@ -252,9 +248,7 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   @Override
   public List<Tutoria> consultarTutoriasByTutorado(Tutorado tutorado) throws RemoteException {
     TutoriaJpaController controlador = new TutoriaJpaController(emf);
-    List<Tutoria> tutorias = controlador.findTutoriaEntitiesByTutorado(tutorado);
-    //emf.close();
-    return tutorias;
+    return controlador.findTutoriaEntitiesByTutorado(tutorado);
   }
 
   /**
@@ -277,10 +271,6 @@ public class Servidor extends UnicastRemoteObject implements InterfazServidor {
   @Override
   public void unregisterForCallback(InterfazCliente cliente) throws RemoteException {
     clientes.remove(cliente);
-  }
-  
-  private synchronized void hacerCallback() throws RemoteException {
-    
   }
 
 }
