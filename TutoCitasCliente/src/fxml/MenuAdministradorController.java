@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import contexto.Contexto;
-import interfaces.InterfazCliente;
 import interfaces.InterfazServidor;
 
 /**
@@ -30,7 +29,7 @@ public class MenuAdministradorController implements Initializable {
   @FXML private Button btnRegistrarTutorado;
   @FXML private Label lblBienvenido;
   
-  private Administrador administrador;
+  //private Administrador administrador;
   private Cliente cliente;
   private InterfazServidor servidor;
   
@@ -94,7 +93,7 @@ public class MenuAdministradorController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    administrador = Contexto.getInstancia().getAdministrador();
+    //administrador = Contexto.getInstancia().getAdministrador();
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
   }

@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import javax.persistence.Persistence;
 import contexto.Contexto;
 import interfaces.InterfazServidor;
+import javax.persistence.EntityManagerFactory;
 
 /**
  * FXML Controller class
@@ -45,6 +46,7 @@ public class IniciarSesionController implements Initializable {
   
   private Cliente cliente;
   private InterfazServidor servidor;
+  private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TutoCitasInterfazPU");
   
   /**
    * Intenta acceder al sistema; dependiendo del tipo de usuario, carga el menú correspondiente.
@@ -65,8 +67,8 @@ public class IniciarSesionController implements Initializable {
           //Dependiendo del tipo de usuario, carga el menú correspondiente
           switch (usuario.getTipoUsuario()) {
             case "Administrador":
-              AdministradorJpaController controladorAdministrador = new AdministradorJpaController(
-                  Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+              AdministradorJpaController controladorAdministrador =
+                  new AdministradorJpaController(emf);
               Administrador administrador;
               administrador = controladorAdministrador.findAdministrador(usuario);
               Contexto.getInstancia().setAdministrador(administrador);
@@ -81,8 +83,7 @@ public class IniciarSesionController implements Initializable {
               menuAdministrador.show();
               break;
             case "Tutor":
-              TutorJpaController controladorTutor;
-              controladorTutor = new TutorJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+              TutorJpaController controladorTutor = new TutorJpaController(emf);
               Tutor tutor;
               tutor = controladorTutor.findTutorByUser(usuario);
               Contexto.getInstancia().setTutor(tutor);
@@ -97,8 +98,7 @@ public class IniciarSesionController implements Initializable {
               menuTutor.show();
               break;
             case "Tutorado":
-              TutoradoJpaController controladorTutorado;
-              controladorTutorado = new TutoradoJpaController(Persistence.createEntityManagerFactory("TutoCitasInterfazPU"));
+              TutoradoJpaController controladorTutorado = new TutoradoJpaController(emf);
               Tutorado tutorado;
               tutorado = controladorTutorado.findTutoradoByUser(usuario);
               Contexto.getInstancia().setTutorado(tutorado);

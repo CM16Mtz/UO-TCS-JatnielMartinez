@@ -53,16 +53,16 @@ public class CancelarCitaTutoradoController implements Initializable {
   @FXML
   void clicCancelar(ActionEvent evt) {
     Tutoria tutoria = (Tutoria) tblCitas.getSelectionModel().getSelectedItem();
-    System.out.println(tutoria.getFecha());
-    System.out.println(tutoria.getHora());
-    if (tutoria != null) {
-      Alert confirmacion = new Alert(
+    //System.out.println(tutoria.getFecha());
+    //System.out.println(tutoria.getHora());
+    //if (tutoria != null) {
+      /*Alert confirmacion = new Alert(
           AlertType.CONFIRMATION,
           "¿Está seguro que desea cancelar la cita seleccionada?",
           ButtonType.YES,
           ButtonType.NO);
       confirmacion.showAndWait();
-      if (confirmacion.getResult() == ButtonType.YES) {
+      if (confirmacion.getResult() == ButtonType.YES) {*/
         try {
           tutoria.setCancelada(true);
           tutoria.setCausa("Cita cancelada por el tutorado");
@@ -76,14 +76,14 @@ public class CancelarCitaTutoradoController implements Initializable {
           error.showAndWait();
           ex.printStackTrace();
         }
-      }
-    } else {
+      //}
+    /*} else {
       Alert advertencia = new Alert(AlertType.WARNING);
       advertencia.setTitle("Advertencia");
       advertencia.setHeaderText(null);
       advertencia.setContentText("Por favor, seleccione una cita de la tabla");
       advertencia.showAndWait();
-    }
+    }*/
   }
   
   /**
@@ -121,7 +121,7 @@ public class CancelarCitaTutoradoController implements Initializable {
     colHora.setCellValueFactory(new PropertyValueFactory<>("hora"));
     try {
       List<Tutoria> tutorias = servidor.consultarTutoriasByTutorado(tutorado);
-      if (tutorias.size() > 0) {
+      if (!tutorias.isEmpty()) {
         ObservableList<Tutoria> lista = FXCollections.observableArrayList(tutorias);
         tblCitas.setItems(lista);
       } else {

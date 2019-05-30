@@ -16,10 +16,10 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   
-  private static InterfazServidor servidor;
-  private static String nombre;
-  private static String nombreServidor;
-  private static int puertoServidor;
+  private InterfazServidor servidor;
+  private static String nombre = "TutoCitas";
+  private static String nombreServidor = "localhost";
+  private static int puertoServidor = 5678;
   
   /**
    * Se conecta a un servidor
@@ -27,9 +27,6 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
    */
   public Cliente() throws RemoteException {
     super();
-    nombre = "TutoCitas";
-    nombreServidor = "localhost";
-    puertoServidor = 5678;
     try {
       Registry registro = LocateRegistry.getRegistry(nombreServidor, puertoServidor);
       servidor = (InterfazServidor) registro.lookup(nombre);
@@ -46,11 +43,6 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
   public static void main(String[] args) {
     try {
       new Cliente();
-    /*  Cliente cliente;
-      cliente = new Cliente();
-      Registry registro = LocateRegistry.getRegistry(nombreServidor, puertoServidor);
-      servidor = (InterfazServidor) registro.lookup(nombre);
-      servidor.registerForCallback(this);*/
     } catch (RemoteException ex) {
       Alert error = new Alert(AlertType.ERROR);
       error.setTitle("Error");
@@ -66,12 +58,12 @@ public class Cliente extends UnicastRemoteObject implements InterfazCliente {
 
   @Override
   public void notificarCancelacionCita() throws RemoteException {
-    
+    System.out.println("Método no utilizado");
   }
 
   @Override
   public void notificar(String mensaje) throws RemoteException {
-    
+    System.out.println("Método no utilizado");
   }
   
 }

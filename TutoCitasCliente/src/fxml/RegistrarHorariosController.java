@@ -190,7 +190,7 @@ public class RegistrarHorariosController implements Initializable {
    * @throws IOException Si se produce un error de entrada/salida
    */
   @FXML
-  void registrarHorarios(ActionEvent evt) throws RemoteException, IOException {
+  void registrarHorarios(ActionEvent evt) throws IOException {
     //Periodo con id 10 que representa el periodo FEB-JUL2019
     Periodo periodo = new Periodo(10);
     //Bloque que contendrá el id correspondiente al CheckBox seleccionado

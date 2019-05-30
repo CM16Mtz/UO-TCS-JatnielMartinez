@@ -24,7 +24,7 @@ public class Contexto {
   private Tutoria tutoria;
   
   public Contexto() {
-    
+    System.out.println("Se instanció contexto");
   }
   
   /**
