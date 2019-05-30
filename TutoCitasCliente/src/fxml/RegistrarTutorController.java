@@ -141,6 +141,7 @@ public class RegistrarTutorController implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     cliente = Contexto.getInstancia().getCliente();
     servidor = Contexto.getInstancia().getServidor();
+    txfNoPersonal.setPrefColumnCount(5);
   }  
   
 }

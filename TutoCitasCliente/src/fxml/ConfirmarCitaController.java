@@ -20,7 +20,9 @@ import contexto.Contexto;
 import entidades.Tutor;
 import interfaces.InterfazServidor;
 import java.rmi.RemoteException;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -70,7 +72,7 @@ public class ConfirmarCitaController implements Initializable {
    */
   @FXML
   void confirmar(ActionEvent evt) throws IOException {
-    Date fecha = Date.valueOf(dtpDia.getValue());
+    Date fecha = Date.from(dtpDia.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
     String hora = txfHora.getText();
     tutoria.setFecha(fecha);
     tutoria.setHora(hora);
@@ -103,6 +105,7 @@ public class ConfirmarCitaController implements Initializable {
         error.setHeaderText("No se pudo contactar con el servidor para guardar la cita");
         error.setContentText("Por favor, realice la confirmación más tarde");
         error.showAndWait();
+        ex.printStackTrace();
       }
     } else {
       Alert advertencia = new Alert(AlertType.WARNING);
@@ -127,6 +130,8 @@ public class ConfirmarCitaController implements Initializable {
     String apMaternoTutorado = tutoria.getTutoradoidTutorado().getUsuarioidUsuario().getApMaterno();
     String nombreCompletoTutorado = nombreTutorado + " " + apPaternoTutorado + " " + apMaternoTutorado;
     lblTutorado.setText(nombreCompletoTutorado);
+    dtpDia.setValue(tutoria.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    txfHora.setText(tutoria.getHora());
   }  
   
 }
